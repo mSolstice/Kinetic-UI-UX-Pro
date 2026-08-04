@@ -6,13 +6,26 @@ Tiers are definitional, not a judgment call. Do not self-classify downward to sk
 - **Standard — required.** Any structural layout change, or any component with **even one** state transition, click handler, or conditional render.
 - **Full — complete.** Async state plus motion, or custom color systems, or forms.
 
-Report only what exists. An incomplete honest receipt is correct; a complete invented one is a failure.
+Report only what exists; omit empty sections. An incomplete honest receipt is correct; a complete invented one is a failure.
 
 ---
 
-### Kinetic UX Verification Receipt
+### Kinetic UI UX Pro Verification Receipt
 
+Use the compact receipt first. Expand only when the task is Full tier or the user asks for detail.
+
+- **Using:** Kinetic UI UX Pro
+- **References loaded:** [exact paths, or none]
+- **Scripts run:** [exact commands, or not run + why]
+- **Design-system conformance:** [`ds_search.py`/`ast_audit.py --ds-index` result; new values marked UNMATCHED and justified]
+
+Full receipt fields, when needed:
+
+- **Using:** Kinetic UI UX Pro
+- **References loaded:** [exact reference paths used]
+- **Scripts run:** [exact commands, or "not run" with why]
 - **Job & primary action:** [what this solves; the single primary action]
+- **Design-system conformance:** [`ds_search.py`/`ast_audit.py --ds-index` result; new values marked UNMATCHED and justified]
 - **States implemented:** [which of the nine; note deliberate omissions and why]
 - **Programmatic signalling:** [aria-busy timing, live region type + pre-mount, focus return target]
 - **Motion degradation:** [reduced-motion fallback behavior, JS-side handling, forced-colors survival]

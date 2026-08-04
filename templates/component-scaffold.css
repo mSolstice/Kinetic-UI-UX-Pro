@@ -1,29 +1,74 @@
 /* Companion to component-scaffold.tsx */
 
 .btn {
+  position: relative;
+  display: inline-grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   padding-block: 0.625rem;
   padding-inline: 1.25rem;              /* logical, not left/right */
   min-block-size: 44px;                 /* touch target */
+  min-inline-size: 7rem;                /* label swaps do not resize the control */
   background: var(--brand-500);
   color: var(--surface-raised);
-  border: 1px solid transparent;        /* survives forced-colors */
+  border: 1px solid color-mix(in oklch, var(--brand-700), transparent 35%);
   border-radius: 0.5rem;
+  box-shadow: 0 1px 0 color-mix(in oklch, var(--surface-raised), transparent 70%) inset,
+              0 0.5rem 1rem color-mix(in oklch, var(--brand-900), transparent 82%);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 650;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
   transition: transform var(--dur-micro) var(--ease-out),
+              box-shadow var(--dur-micro) var(--ease-out),
+              filter    var(--dur-micro) var(--ease-out),
               opacity   var(--dur-micro) var(--ease-out);
 }
 
+.btn__label {
+  min-inline-size: 0;
+}
+
 @media (hover: hover) {                 /* hover gated — never sole affordance */
-  .btn:hover { transform: translateY(-1px); }
+  .btn:hover {
+    filter: brightness(1.04) saturate(1.04);
+    transform: translateY(-1px);
+    box-shadow: 0 1px 0 color-mix(in oklch, var(--surface-raised), transparent 65%) inset,
+                0 0.75rem 1.25rem color-mix(in oklch, var(--brand-900), transparent 78%);
+  }
 }
 
 .btn:focus-visible {
-  outline: 2px solid var(--border-focus);
-  outline-offset: 2px;
+  outline: 3px solid var(--border-focus);
+  outline-offset: 3px;
 }
 
-.btn:active { transform: translateY(0) scale(0.98); }
+.btn:active {
+  transform: translateY(0) scale(0.985);
+  box-shadow: 0 1px 0 color-mix(in oklch, var(--brand-900), transparent 80%) inset,
+              0 0.25rem 0.75rem color-mix(in oklch, var(--brand-900), transparent 86%);
+}
 
-.btn[aria-disabled='true'] { opacity: 0.55; cursor: not-allowed; }
+.btn[aria-disabled='true'] {
+  cursor: wait;
+  opacity: 0.72;
+  transform: none;
+}
+
+.btn[data-state='loading']::before {
+  inline-size: 0.875rem;
+  block-size: 0.875rem;
+  border: 2px solid currentColor;
+  border-block-start-color: transparent;
+  border-radius: 50%;
+  content: "";
+  animation: btn-spin 700ms linear infinite;
+}
+
+@keyframes btn-spin { to { transform: rotate(1turn); } }
 
 .card {
   container-type: inline-size;
@@ -48,8 +93,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   /* degradation path, not removal — signal preserved, travel dropped */
-  .btn { transition: opacity var(--dur-reduced) linear; }
+  .btn { transition: opacity var(--dur-reduced) linear, filter var(--dur-reduced) linear; }
   .btn:hover, .btn:active { transform: none; }
+  .btn[data-state='loading']::before { animation: none; border-block-start-color: currentColor; opacity: 0.65; }
   .skeleton { animation: none; background: var(--border-subtle); }
 }
 

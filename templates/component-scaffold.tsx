@@ -51,8 +51,16 @@ export function DataPanel() {
         {state.status === 'error' ? state.message : ''}
       </div>
 
-      <button ref={triggerRef} onClick={load} className="btn">
-        {state.status === 'loading' ? 'Loading…' : 'Load items'}
+      <button
+        ref={triggerRef}
+        onClick={load}
+        className="btn"
+        aria-disabled={state.status === 'loading'}
+        data-state={state.status}
+      >
+        <span className="btn__label">
+          {state.status === 'loading' ? 'Loading…' : 'Load items'}
+        </span>
       </button>
 
       {state.status === 'loading' && showSpinner && (

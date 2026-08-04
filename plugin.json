@@ -1,0 +1,58 @@
+{
+  "name": "kinetic-ui-ux-pro",
+  "version": "2.0.0",
+  "description": "Kinetic UI UX Pro is an installable UI/UX engineering skill for framing, building, auditing, and verifying accessible, state-complete, token-conformant product interfaces.",
+  "minimum_python": "3.9",
+  "license": "MIT",
+  "skill": {
+    "name": "kinetic-ui-ux-pro",
+    "entry_point": "SKILL.md"
+  },
+  "scripts": [
+    {
+      "path": "scripts/ast_audit.py",
+      "description": "Tree-sitter structural UI audit with SARIF/JUnit output, design-token drift, project graph checks, breakpoint analysis, and static geometry heuristics.",
+      "optional_dependencies": ["tree-sitter", "tree-sitter-language-pack"]
+    },
+    {
+      "path": "scripts/color_tools.py",
+      "description": "OKLCH/sRGB conversion, gamut mapping, WCAG contrast, APCA Lc, and ramp utilities.",
+      "optional_dependencies": []
+    },
+    {
+      "path": "scripts/ds_index.py",
+      "description": "Builds a searchable design-system corpus from tokens, Tailwind/theme CSS, CSS custom properties, and TSX component manifests.",
+      "optional_dependencies": []
+    },
+    {
+      "path": "scripts/ds_search.py",
+      "description": "BM25 design-token search, hardcoded value matching, OKLab color comparison, and drift reports.",
+      "optional_dependencies": []
+    },
+    {
+      "path": "scripts/emit_files.py",
+      "description": "Safely writes or emits shell commands from a JSON file manifest for CLI-agent environments.",
+      "optional_dependencies": []
+    },
+    {
+      "path": "scripts/font_metrics.py",
+      "description": "Computes real font metric override values such as size-adjust and ascent-override.",
+      "optional_dependencies": ["fonttools", "brotli"]
+    },
+    {
+      "path": "scripts/license_check.py",
+      "description": "Conservative license gate for dependencies, vendored source, and third-party attribution notices.",
+      "optional_dependencies": []
+    },
+    {
+      "path": "scripts/token_gen.py",
+      "description": "Deterministic token generation, Style Dictionary and Radix Colors interop, and dual WCAG/APCA contrast verification.",
+      "optional_dependencies": []
+    },
+    {
+      "path": "scripts/ui_audit.py",
+      "description": "Regex fallback UI audit when tree-sitter dependencies are unavailable.",
+      "optional_dependencies": []
+    }
+  ]
+}

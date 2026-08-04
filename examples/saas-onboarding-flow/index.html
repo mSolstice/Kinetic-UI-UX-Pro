@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SaaS Onboarding Flow</title>
+    <link rel="stylesheet" href="./tokens.css">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="shell" aria-labelledby="page-title">
+      <section class="product-panel" aria-label="Workspace readiness">
+        <div class="brand-lockup">
+          <span class="brand-mark" aria-hidden="true">K</span>
+          <span>Kinetic Ops</span>
+        </div>
+
+        <div class="readiness-meter" aria-labelledby="readiness-title">
+          <p class="eyebrow">First run setup</p>
+          <h1 id="page-title">Bring your workspace online</h1>
+          <p class="lede">Invite the people who need access, then connect one source so the first dashboard has real activity.</p>
+
+          <div class="meter-frame">
+            <div class="meter-copy">
+              <span id="readiness-title">Workspace readiness</span>
+              <strong data-readiness>0%</strong>
+            </div>
+            <progress class="meter" value="0" max="100" aria-describedby="readiness-note" data-progress></progress>
+            <p id="readiness-note" class="hint">You can skip setup and resume it from workspace settings.</p>
+          </div>
+        </div>
+
+        <ol class="step-list" aria-label="Onboarding steps">
+          <li class="step-item is-active" data-nav-step="0">
+            <span class="step-dot" aria-hidden="true"></span>
+            <span>
+              <strong>Welcome</strong>
+              <small>Confirm what happens next</small>
+            </span>
+          </li>
+          <li class="step-item" data-nav-step="1">
+            <span class="step-dot" aria-hidden="true"></span>
+            <span>
+              <strong>Invite teammates</strong>
+              <small>Send role-based access</small>
+            </span>
+          </li>
+          <li class="step-item" data-nav-step="2">
+            <span class="step-dot" aria-hidden="true"></span>
+            <span>
+              <strong>Connect data</strong>
+              <small>Choose one source</small>
+            </span>
+          </li>
+          <li class="step-item" data-nav-step="3">
+            <span class="step-dot" aria-hidden="true"></span>
+            <span>
+              <strong>Review</strong>
+              <small>Start with confidence</small>
+            </span>
+          </li>
+        </ol>
+      </section>
+
+      <section class="flow-panel" aria-live="off">
+        <div class="sr-only" role="status" aria-live="polite" data-live-region></div>
+
+        <form class="onboarding-form" novalidate data-onboarding-form>
+          <section class="flow-step is-current" data-step="0" aria-labelledby="welcome-title">
+            <p class="eyebrow">Step 1 of 4</p>
+            <h2 id="welcome-title">Set up the two things your team needs first.</h2>
+            <p class="step-copy">This setup keeps access and reporting tied together. Nothing is permanent: invites can be resent, roles can change, and connectors can be swapped later.</p>
+
+            <div class="value-strip" aria-label="Setup outcomes">
+              <div>
+                <span class="mini-label">Access</span>
+                <strong>Teammates get the right role</strong>
+                <p>Admins can manage billing. Analysts can explore reports.</p>
+              </div>
+              <div>
+                <span class="mini-label">Data</span>
+                <strong>Your first dashboard fills automatically</strong>
+                <p>Start with one source now and add more when ready.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="flow-step" data-step="1" aria-labelledby="invite-title" aria-busy="false">
+            <p class="eyebrow">Step 2 of 4</p>
+            <h2 id="invite-title">Invite teammates</h2>
+            <p class="step-copy">Add the people who should see this workspace. We will send a clear invite with their role and a secure sign-in link.</p>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="invite-email">Work email</label>
+                <input id="invite-email" name="invite-email" type="email" autocomplete="email" inputmode="email" data-email>
+                <p class="field-hint">Use a company email address.</p>
+              </div>
+              <div class="field">
+                <label for="invite-role">Role</label>
+                <select id="invite-role" name="invite-role" data-role>
+                  <option value="Analyst">Analyst</option>
+                  <option value="Admin">Admin</option>
+                  <option value="Viewer">Viewer</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="inline-actions">
+              <button class="button button-secondary" type="button" data-add-invite>Add teammate</button>
+              <button class="button button-ghost" type="button" data-load-sample>Use sample team</button>
+            </div>
+
+            <div class="error-box" role="alert" hidden data-invite-error></div>
+
+            <div class="invite-list-wrap" data-empty-invites>
+              <p class="empty-title">No teammates added yet.</p>
+              <p class="hint">Add at least one teammate, use the sample team, or skip this step for now.</p>
+            </div>
+
+            <ul class="invite-list" aria-label="Pending invites" data-invite-list></ul>
+          </section>
+
+          <section class="flow-step" data-step="2" aria-labelledby="data-title" aria-busy="false">
+            <p class="eyebrow">Step 3 of 4</p>
+            <h2 id="data-title">Connect a data source</h2>
+            <p class="step-copy">Choose the source that gives this workspace the fastest useful signal. You can add warehouse, CRM, and billing data later.</p>
+
+            <fieldset class="connector-grid">
+              <legend class="sr-only">Data source options</legend>
+              <label class="connector-card">
+                <input type="radio" name="connector" value="Warehouse" data-connector>
+                <span class="connector-icon" aria-hidden="true">SQL</span>
+                <span>
+                  <strong>Warehouse</strong>
+                  <small>Snowflake, BigQuery, Redshift</small>
+                </span>
+              </label>
+              <label class="connector-card">
+                <input type="radio" name="connector" value="CRM" data-connector>
+                <span class="connector-icon" aria-hidden="true">CRM</span>
+                <span>
+                  <strong>CRM</strong>
+                  <small>Salesforce or HubSpot</small>
+                </span>
+              </label>
+              <label class="connector-card">
+                <input type="radio" name="connector" value="Billing" data-connector>
+                <span class="connector-icon" aria-hidden="true">PAY</span>
+                <span>
+                  <strong>Billing</strong>
+                  <small>Stripe or Chargebee</small>
+                </span>
+              </label>
+            </fieldset>
+
+            <details class="disclosure">
+              <summary>What access is required?</summary>
+              <p>We request read-only metadata first. Write access is never requested during onboarding.</p>
+            </details>
+
+            <div class="error-box" role="alert" hidden data-connector-error></div>
+            <div class="connector-status" hidden data-connector-status></div>
+          </section>
+
+          <section class="flow-step" data-step="3" aria-labelledby="review-title">
+            <p class="eyebrow">Step 4 of 4</p>
+            <h2 id="review-title">Review setup</h2>
+            <p class="step-copy">Your workspace can start with partial setup. The dashboard will show what is ready and keep the rest in a setup checklist.</p>
+
+            <dl class="review-list">
+              <div>
+                <dt>Invites</dt>
+                <dd data-review-invites>No teammates invited yet</dd>
+              </div>
+              <div>
+                <dt>Data source</dt>
+                <dd data-review-connector>No source connected yet</dd>
+              </div>
+              <div>
+                <dt>Next destination</dt>
+                <dd>Workspace dashboard</dd>
+              </div>
+            </dl>
+          </section>
+
+          <footer class="flow-actions">
+            <button class="button button-ghost" type="button" data-back>Back</button>
+            <button class="button button-secondary" type="button" data-skip>Skip for now</button>
+            <button class="button button-primary" type="button" data-next>Start setup</button>
+          </footer>
+        </form>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

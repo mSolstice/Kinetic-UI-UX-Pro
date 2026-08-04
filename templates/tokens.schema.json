@@ -1,5 +1,5 @@
 {
-  "$schema": "kinetic-ux/token-schema/1",
+  "$schema": "kinetic-ui-ux-pro/token-schema/1",
   "name": "acme",
   "palettes": {
     "brand": {

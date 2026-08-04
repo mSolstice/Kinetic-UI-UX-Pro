@@ -43,26 +43,26 @@ git add -A && git commit -m "v1 baseline"
 🤖 **Codex Desktop**, folder `<ROOT>`
 
 > **Prompt:**
-> Create `evals/` in this repo. Inside, add `cases.yaml` containing 12 test cases. Each case has: an `id`, a `prompt` a user would realistically type, a list of `must_load` reference files, a list of `must_run` scripts, and a list of `must_contain` strings that should appear in correct output.
+> Create `codex/evals/` in this repo. Inside, add `cases.yaml` containing 12 test cases. Each case has: an `id`, a `prompt` a user would realistically type, a list of `must_load` reference files, a list of `must_run` scripts, and a list of `must_contain` strings that should appear in correct output.
 >
 > Cover these 12 cases: a modal dialog, a combobox with async search, a filterable data table, a multi-step checkout form, a dark-mode toggle, a dashboard card grid, a toast notification system, a settings page, an onboarding flow, a pricing page, "make this button feel better" (deliberately vague), and "build a login screen" (deliberately underspecified).
 >
-> Then write `evals/run_evals.py` that reads `cases.yaml`, prints each case as a formatted prompt block I can paste into a fresh session, and accepts a pasted response file to score against the `must_*` criteria. Output a markdown scorecard with per-case pass/fail and an aggregate trigger rate.
+> Then write `codex/evals/run_evals.py` that reads `cases.yaml`, prints each case as a formatted prompt block I can paste into a fresh session, and accepts a pasted response file to score against the `must_*` criteria. Output a markdown scorecard with per-case pass/fail and an aggregate trigger rate.
 >
 > Do not use any network or LLM API — this is a manual-paste harness. Keep it under 200 lines.
 
-✅ **Done when** `python evals/run_evals.py --list` prints 12 formatted prompts.
+✅ **Done when** `python codex/evals/run_evals.py --list` prints 12 formatted prompts.
 
 ### Step 0.3 — Run the baseline eval
 
 🤖 **Codex Desktop** (or Claude with the skill installed), fresh session per case
 
-Paste each of the 12 prompts into a *new* session with the skill installed. Save each response to `evals/results/baseline/<id>.md`.
+Paste each of the 12 prompts into a *new* session with the skill installed. Save each response to `codex/evals/results/baseline/<id>.md`.
 
 🖥 **Terminal**, in `<ROOT>`
 
 ```bash
-python evals/run_evals.py --score evals/results/baseline --out evals/baseline-scorecard.md
+python codex/evals/run_evals.py --score codex/evals/results/baseline --out codex/evals/baseline-scorecard.md
 ```
 
 ✅ **Done when** you have a scorecard with a number on it. **Record the trigger rate.** Everything after this is measured against it.
@@ -349,10 +349,10 @@ python evals/run_evals.py --score evals/results/baseline --out evals/baseline-sc
 
 🖥 **Terminal**, in `<ROOT>`
 
-Repeat Step 0.3 with the same 12 cases into `evals/results/v2/`, then:
+Repeat Step 0.3 with the same 12 cases into `codex/evals/results/v2/`, then:
 
 ```bash
-python evals/run_evals.py --score evals/results/v2 --compare evals/baseline-scorecard.md
+python codex/evals/run_evals.py --score codex/evals/results/v2 --compare codex/evals/baseline-scorecard.md
 ```
 
 ✅ **Done when** you have a delta. **If the trigger rate dropped, the skill got worse.** More content can hurt — that's what the comparison is for.

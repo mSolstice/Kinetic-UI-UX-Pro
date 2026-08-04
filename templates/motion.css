@@ -1,0 +1,61 @@
+/* Motion token layer.
+   Components consume the public aliases:
+   --duration-instant, --duration-micro, --duration-local, --duration-view,
+   --duration-slow, --duration-deliberate, and named --ease-* curves.
+   The reduced-motion media query remaps durations automatically. */
+
+:root {
+  /* duration primitives */
+  --motion-duration-instant: 0ms;
+  --motion-duration-micro: 120ms;
+  --motion-duration-local: 240ms;
+  --motion-duration-view: 400ms;
+  --motion-duration-slow: 520ms;
+  --motion-duration-deliberate: 700ms;
+
+  /* paired reduced-motion primitives */
+  --motion-duration-instant-reduced: 0ms;
+  --motion-duration-micro-reduced: 60ms;
+  --motion-duration-local-reduced: 90ms;
+  --motion-duration-view-reduced: 90ms;
+  --motion-duration-slow-reduced: 90ms;
+  --motion-duration-deliberate-reduced: 90ms;
+
+  /* public duration aliases */
+  --duration-instant: var(--motion-duration-instant);
+  --duration-micro: var(--motion-duration-micro);
+  --duration-local: var(--motion-duration-local);
+  --duration-view: var(--motion-duration-view);
+  --duration-slow: var(--motion-duration-slow);
+  --duration-deliberate: var(--motion-duration-deliberate);
+
+  /* easing curves */
+  --ease-linear: linear;
+  --ease-out: cubic-bezier(.2, .8, .2, 1);
+  --ease-in: cubic-bezier(.4, 0, 1, 1);
+  --ease-in-out: cubic-bezier(.4, 0, .2, 1);
+  --ease-emphasized: cubic-bezier(.2, 0, 0, 1);
+  --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+  --ease-drag: cubic-bezier(.18, .67, .28, 1);
+  --ease-discrete: steps(1, end);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    /* automatic public-token remap */
+    --duration-instant: var(--motion-duration-instant-reduced);
+    --duration-micro: var(--motion-duration-micro-reduced);
+    --duration-local: var(--motion-duration-local-reduced);
+    --duration-view: var(--motion-duration-view-reduced);
+    --duration-slow: var(--motion-duration-slow-reduced);
+    --duration-deliberate: var(--motion-duration-deliberate-reduced);
+
+    /* reduced path preserves state change, drops spatial character */
+    --ease-out: var(--ease-linear);
+    --ease-in: var(--ease-linear);
+    --ease-in-out: var(--ease-linear);
+    --ease-emphasized: var(--ease-linear);
+    --ease-spring: var(--ease-linear);
+    --ease-drag: var(--ease-linear);
+  }
+}

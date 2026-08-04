@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Checkout Flow</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="checkout" aria-labelledby="checkout-title">
+      <section class="intro" aria-label="Checkout summary">
+        <p class="kicker">Secure checkout</p>
+        <h1 id="checkout-title">Complete your order</h1>
+        <p class="lede">Three focused steps, clear validation, and your details stay in place when you go back.</p>
+
+        <div class="order-strip" aria-label="Order total">
+          <span>Studio carry kit</span>
+          <strong data-order-total>$184.00</strong>
+        </div>
+      </section>
+
+      <section class="workspace" aria-label="Checkout form">
+        <ol class="stepper" aria-label="Checkout progress">
+          <li>
+            <button class="step-tab is-active" type="button" data-step-target="0" aria-current="step">
+              <span>1</span>
+              Shipping
+            </button>
+          </li>
+          <li>
+            <button class="step-tab" type="button" data-step-target="1" aria-disabled="true">
+              <span>2</span>
+              Payment
+            </button>
+          </li>
+          <li>
+            <button class="step-tab" type="button" data-step-target="2" aria-disabled="true">
+              <span>3</span>
+              Review
+            </button>
+          </li>
+        </ol>
+
+        <form id="checkout-form" novalidate>
+          <div id="error-summary" class="error-summary" tabindex="-1" hidden></div>
+          <p id="status-message" class="sr-only" aria-live="polite"></p>
+
+          <section class="form-step is-active" data-step="0" aria-labelledby="shipping-title">
+            <div class="section-heading">
+              <p class="eyebrow">Step 1 of 3</p>
+              <h2 id="shipping-title">Where should we send it?</h2>
+            </div>
+
+            <div class="field-grid">
+              <div class="field span-2">
+                <label for="fullName">Full name</label>
+                <input id="fullName" name="fullName" autocomplete="name" required>
+                <p class="field-error" id="fullName-error"></p>
+              </div>
+
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" required>
+                <p class="field-error" id="email-error"></p>
+              </div>
+
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" required>
+                <p class="field-error" id="phone-error"></p>
+              </div>
+
+              <div class="field span-2">
+                <label for="address">Street address</label>
+                <input id="address" name="address" autocomplete="shipping street-address" required>
+                <p class="field-error" id="address-error"></p>
+              </div>
+
+              <div class="field">
+                <label for="city">City</label>
+                <input id="city" name="city" autocomplete="shipping address-level2" required>
+                <p class="field-error" id="city-error"></p>
+              </div>
+
+              <div class="field">
+                <label for="region">State</label>
+                <input id="region" name="region" autocomplete="shipping address-level1" required maxlength="40">
+                <p class="field-error" id="region-error"></p>
+              </div>
+
+              <div class="field">
+                <label for="postalCode">ZIP code</label>
+                <input id="postalCode" name="postalCode" inputmode="numeric" autocomplete="shipping postal-code" required pattern="^[0-9]{5}(-[0-9]{4})?$">
+                <p class="field-error" id="postalCode-error"></p>
+              </div>
+
+              <div class="field">
+                <label for="delivery">Delivery speed</label>
+                <select id="delivery" name="delivery" required>
+                  <option value="standard">Standard, 3 to 5 business days</option>
+                  <option value="express">Express, 1 to 2 business days</option>
+                </select>
+                <p class="field-error" id="delivery-error"></p>
+              </div>
+            </div>
+          </section>
+
+          <section class="form-step" data-step="1" aria-labelledby="payment-title" hidden>
+            <div class="section-heading">
+              <p class="eyebrow">Step 2 of 3</p>
+              <h2 id="payment-title">Add payment details</h2>
+            </div>
+
+            <div class="field-grid">
+              <div class="field span-2">
+                <label for="cardName">Name on card</label>
+                <input id="cardName" name="cardName" autocomplete="cc-name" required>
+                <p class="field-error" id="cardName-error"></p>
+              </div>
+
+              <div class="field span-2">
+                <label for="cardNumber">Card number</label>
+                <input id="cardNumber" name="cardNumber" inputmode="numeric" autocomplete="cc-number" required maxlength="19">
+                <p class="field-error" id="cardNumber-error"></p>
+              </div>
+
+              <div class="field">
+                <label for="expiry">Expiration</label>
+                <input id="expiry" name="expiry" inputmode="numeric" autocomplete="cc-exp" required maxlength="5">
+                <p class="field-error" id="expiry-error"></p>
+              </div>
+
+              <div class="field">
+                <label for="cvc">Security code</label>
+                <input id="cvc" name="cvc" inputmode="numeric" autocomplete="cc-csc" required maxlength="4">
+                <p class="field-error" id="cvc-error"></p>
+              </div>
+
+              <label class="check-row span-2" for="billingSame">
+                <input id="billingSame" name="billingSame" type="checkbox" checked>
+                <span>Billing address is the same as shipping</span>
+              </label>
+            </div>
+          </section>
+
+          <section class="form-step" data-step="2" aria-labelledby="review-title" hidden>
+            <div class="section-heading">
+              <p class="eyebrow">Step 3 of 3</p>
+              <h2 id="review-title">Review and place order</h2>
+            </div>
+
+            <div class="review-grid">
+              <article class="review-block">
+                <h3>Shipping</h3>
+                <dl id="shipping-review"></dl>
+              </article>
+              <article class="review-block">
+                <h3>Payment</h3>
+                <dl id="payment-review"></dl>
+              </article>
+              <article class="review-block order-block">
+                <h3>Order</h3>
+                <ul class="line-items" id="line-items"></ul>
+                <dl class="totals" id="totals"></dl>
+              </article>
+            </div>
+          </section>
+
+          <section class="success-panel" id="success-panel" tabindex="-1" hidden>
+            <p class="eyebrow">Order placed</p>
+            <h2>Thanks. Your receipt is ready.</h2>
+            <p>We sent the confirmation to <span id="success-email"></span>. You can still go back to review the information on this page.</p>
+          </section>
+
+          <div class="actions">
+            <button class="secondary-button" id="back-button" type="button">Back</button>
+            <button class="primary-button" id="next-button" type="submit">Continue to payment</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

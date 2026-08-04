@@ -1,0 +1,406 @@
+.orders-shell {
+  --orders-danger: oklch(0.46 0.16 24);
+  --orders-danger-soft: oklch(0.96 0.035 24);
+  --orders-success: oklch(0.43 0.12 155);
+  --orders-success-soft: oklch(0.95 0.045 155);
+  --orders-warning: oklch(0.48 0.12 82);
+  --orders-warning-soft: oklch(0.96 0.055 82);
+  --orders-info: oklch(0.43 0.13 245);
+  --orders-info-soft: oklch(0.95 0.035 245);
+  --orders-neutral-soft: oklch(0.95 0.006 265);
+
+  display: grid;
+  gap: 1rem;
+  color: var(--text-primary);
+  background: var(--surface-base);
+  font: 400 1rem/1.5 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.orders-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.orders-header h2,
+.orders-empty h3,
+.orders-error h3 {
+  margin-block: 0;
+  font-size: 1.25rem;
+  line-height: 1.25;
+}
+
+.orders-kicker,
+.orders-summary,
+.orders-table span,
+.orders-empty p,
+.orders-error p {
+  color: var(--text-muted);
+}
+
+.orders-kicker {
+  margin-block: 0 0.125rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.orders-toolbar {
+  display: grid;
+  grid-template-columns: minmax(13rem, 1.4fr) minmax(10rem, 0.8fr) minmax(10rem, 0.8fr) auto;
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.orders-field {
+  display: grid;
+  gap: 0.25rem;
+  min-inline-size: 0;
+}
+
+.orders-field label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.orders-field input,
+.orders-field select {
+  inline-size: 100%;
+  min-block-size: 44px;
+  padding-block: 0.625rem;
+  padding-inline: 0.75rem;
+  color: var(--text-primary);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.5rem;
+}
+
+.orders-button,
+.orders-sort {
+  min-block-size: 44px;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform var(--dur-micro) var(--ease-out),
+    background-color var(--dur-micro) var(--ease-out),
+    border-color var(--dur-micro) var(--ease-out);
+}
+
+.orders-button {
+  padding-block: 0.625rem;
+  padding-inline: 0.9rem;
+  color: var(--surface-raised);
+  background: var(--brand-700);
+  white-space: nowrap;
+}
+
+.orders-button--secondary {
+  color: var(--text-primary);
+  background: var(--surface-raised);
+  border-color: var(--border-subtle);
+}
+
+.orders-button[aria-disabled='true'] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.orders-summary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.orders-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.5rem;
+  background: var(--surface-raised);
+}
+
+.orders-table {
+  inline-size: 100%;
+  min-inline-size: 48rem;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.orders-table caption {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.orders-table th,
+.orders-table td {
+  padding-block: 0.875rem;
+  padding-inline: 1rem;
+  text-align: start;
+  border-block-end: 1px solid var(--border-subtle);
+  vertical-align: middle;
+  overflow-wrap: anywhere;
+}
+
+.orders-table th {
+  padding-block: 0;
+  background: var(--surface-base);
+}
+
+.orders-table tr:last-child td {
+  border-block-end: 0;
+}
+
+.orders-table td {
+  block-size: 4.5rem;
+}
+
+.orders-table strong,
+.orders-table span {
+  display: block;
+}
+
+.orders-total {
+  text-align: end;
+}
+
+.orders-sort {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  inline-size: 100%;
+  padding-block: 0.625rem;
+  padding-inline: 0;
+  color: var(--text-muted);
+  background: transparent;
+  text-align: start;
+}
+
+.orders-sort[data-active='true'] {
+  color: var(--text-primary);
+}
+
+.orders-sort[data-align='end'] {
+  text-align: end;
+}
+
+.orders-sort-indicator {
+  min-inline-size: 3.25rem;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  text-align: end;
+}
+
+.orders-pill {
+  display: inline-flex;
+  min-block-size: 1.875rem;
+  align-items: center;
+  justify-content: center;
+  padding-block: 0.25rem;
+  padding-inline: 0.625rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.orders-pill[data-tone='success'] {
+  color: var(--orders-success);
+  background: var(--orders-success-soft);
+}
+
+.orders-pill[data-tone='danger'] {
+  color: var(--orders-danger);
+  background: var(--orders-danger-soft);
+}
+
+.orders-pill[data-tone='warning'] {
+  color: var(--orders-warning);
+  background: var(--orders-warning-soft);
+}
+
+.orders-pill[data-tone='info'] {
+  color: var(--orders-info);
+  background: var(--orders-info-soft);
+}
+
+.orders-pill[data-tone='neutral'] {
+  color: var(--text-muted);
+  background: var(--orders-neutral-soft);
+}
+
+.orders-error,
+.orders-empty {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-block-size: 7.5rem;
+  padding: 1rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.5rem;
+  background: var(--surface-raised);
+}
+
+.orders-error {
+  border-color: var(--orders-danger);
+}
+
+.orders-empty {
+  flex-wrap: wrap;
+}
+
+.orders-skeleton-bar {
+  block-size: 4.5rem;
+  border-block-end: 1px solid var(--border-subtle);
+  background: linear-gradient(
+    90deg,
+    var(--border-subtle) 25%,
+    var(--surface-base) 50%,
+    var(--border-subtle) 75%
+  );
+  background-size: 200% 100%;
+  animation: orders-shimmer 1.4s linear infinite;
+}
+
+.orders-table--skeleton td {
+  background: linear-gradient(
+    90deg,
+    var(--border-subtle) 25%,
+    var(--surface-base) 50%,
+    var(--border-subtle) 75%
+  );
+  background-size: 200% 100%;
+  animation: orders-shimmer 1.4s linear infinite;
+}
+
+.orders-sr {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@keyframes orders-shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (hover: hover) {
+  .orders-button:hover,
+  .orders-sort:hover {
+    transform: translateY(-1px);
+  }
+
+  .orders-button--secondary:hover,
+  .orders-sort:hover {
+    border-color: var(--brand-500);
+  }
+}
+
+.orders-button:focus-visible,
+.orders-sort:focus-visible,
+.orders-field input:focus-visible,
+.orders-field select:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.orders-button:active,
+.orders-sort:active {
+  transform: translateY(0) scale(0.98);
+}
+
+@media (max-width: 56rem) {
+  .orders-toolbar {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .orders-field--search {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 38rem) {
+  .orders-header,
+  .orders-error {
+    display: grid;
+  }
+
+  .orders-toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .orders-button {
+    inline-size: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orders-button,
+  .orders-sort {
+    transition: background-color var(--dur-reduced) linear,
+      border-color var(--dur-reduced) linear;
+  }
+
+  .orders-button:hover,
+  .orders-sort:hover,
+  .orders-button:active,
+  .orders-sort:active {
+    transform: none;
+  }
+
+  .orders-skeleton-bar,
+  .orders-table--skeleton td {
+    animation: none;
+    background: var(--border-subtle);
+  }
+}
+
+@media (prefers-contrast: more) {
+  .orders-table-wrap,
+  .orders-error,
+  .orders-empty,
+  .orders-field input,
+  .orders-field select,
+  .orders-button--secondary {
+    border-color: var(--text-primary);
+  }
+}
+
+@media (forced-colors: active) {
+  .orders-table-wrap,
+  .orders-error,
+  .orders-empty,
+  .orders-field input,
+  .orders-field select,
+  .orders-button,
+  .orders-sort,
+  .orders-pill {
+    border: 1px solid CanvasText;
+  }
+
+  .orders-button:focus-visible,
+  .orders-sort:focus-visible,
+  .orders-field input:focus-visible,
+  .orders-field select:focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+}

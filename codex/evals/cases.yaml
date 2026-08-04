@@ -1,0 +1,184 @@
+cases:
+  - id: modal-dialog
+    prompt: |
+      Build a reusable confirmation modal for deleting a saved project. It should feel polished but must be accessible and safe.
+    must_load:
+      - references/ux-foundations.md
+      - references/interaction-states.md
+      - references/motion.md
+    must_run:
+      - scripts/ast_audit.py
+    must_contain:
+      - "<dialog>"
+      - "focus return"
+      - "Escape"
+      - "Verification Receipt"
+
+  - id: async-combobox
+    prompt: |
+      Create an async search combobox for finding customers by name or email, including loading, no results, and network failure states.
+    must_load:
+      - references/interaction-states.md
+      - references/i18n-and-input.md
+      - references/frameworks.md
+    must_run:
+      - scripts/ast_audit.py
+    must_contain:
+      - "aria-activedescendant"
+      - "AbortController"
+      - "aria-busy"
+      - "empty"
+
+  - id: filterable-data-table
+    prompt: |
+      Design and build a filterable orders table where users can search, sort, reset filters, and recover from failed loading.
+    must_load:
+      - references/ux-foundations.md
+      - references/interaction-states.md
+      - references/i18n-and-input.md
+    must_run:
+      - scripts/ast_audit.py
+    must_contain:
+      - "cleared-by-filter"
+      - "sort"
+      - "reset filters"
+      - "overflow"
+
+  - id: multi-step-checkout
+    prompt: |
+      Build a multi-step checkout form for shipping, payment, and review. Keep entered data when moving backward and handle validation errors.
+    must_load:
+      - references/ux-foundations.md
+      - references/interaction-states.md
+      - references/i18n-and-input.md
+    must_run:
+      - scripts/ast_audit.py
+    must_contain:
+      - "novalidate"
+      - "autocomplete"
+      - "error summary"
+      - "reverse path"
+
+  - id: dark-mode-toggle
+    prompt: |
+      Add a dark-mode toggle to an existing web app. It should avoid theme flash and respect system preferences.
+    must_load:
+      - references/color-and-type.md
+      - references/i18n-and-input.md
+      - references/frameworks.md
+    must_run:
+      - scripts/token_gen.py
+      - scripts/color_tools.py
+      - scripts/ast_audit.py
+    must_contain:
+      - "color-scheme"
+      - "before first paint"
+      - "forced-colors"
+      - "WCAG"
+
+  - id: dashboard-card-grid
+    prompt: |
+      Make a responsive dashboard card grid for product metrics with loading skeletons, empty metrics, and long localized labels.
+    must_load:
+      - references/ux-foundations.md
+      - references/color-and-type.md
+      - references/i18n-and-input.md
+    must_run:
+      - scripts/token_gen.py
+      - scripts/ast_audit.py
+    must_contain:
+      - "skeleton"
+      - "CLS"
+      - "40% text expansion"
+      - "container"
+
+  - id: toast-notifications
+    prompt: |
+      Build a toast notification system for save success, sync failure, and undo after archive. Keep it calm and accessible.
+    must_load:
+      - references/interaction-states.md
+      - references/motion.md
+      - references/ux-foundations.md
+    must_run:
+      - scripts/ast_audit.py
+    must_contain:
+      - "aria-live=\"polite\""
+      - "undo"
+      - "queue"
+      - "reduced-motion"
+
+  - id: settings-page
+    prompt: |
+      Redesign a settings page for profile, notifications, billing, and danger-zone actions so frequent users can scan it quickly.
+    must_load:
+      - references/ux-foundations.md
+      - references/interaction-states.md
+      - references/i18n-and-input.md
+    must_run:
+      - scripts/ast_audit.py
+    must_contain:
+      - "one primary action"
+      - "danger"
+      - "labels"
+      - "success signal"
+
+  - id: onboarding-flow
+    prompt: |
+      Create an onboarding flow for a first-time SaaS user who needs to invite teammates and connect a data source.
+    must_load:
+      - references/ux-foundations.md
+      - references/interaction-states.md
+      - references/i18n-and-input.md
+    must_run:
+      - scripts/ast_audit.py
+    must_contain:
+      - "show value before asking"
+      - "skippable"
+      - "permission"
+      - "empty state"
+
+  - id: pricing-page
+    prompt: |
+      Build a pricing page with three plans, monthly/yearly switching, FAQs, and clear upgrade and downgrade paths.
+    must_load:
+      - references/ux-foundations.md
+      - references/color-and-type.md
+      - references/interaction-states.md
+    must_run:
+      - scripts/color_tools.py
+      - scripts/ast_audit.py
+    must_contain:
+      - "no dark patterns"
+      - "downgrade"
+      - "primary action"
+      - "contrast"
+
+  - id: vague-button-polish
+    prompt: |
+      Make this button feel better.
+    must_load:
+      - references/ux-foundations.md
+      - references/interaction-states.md
+      - references/motion.md
+    must_run:
+      - scripts/ast_audit.py
+    must_contain:
+      - "Job"
+      - "hover"
+      - "focus-visible"
+      - "active"
+
+  - id: underspecified-login
+    prompt: |
+      Build a login screen.
+    must_load:
+      - references/ux-foundations.md
+      - references/interaction-states.md
+      - references/i18n-and-input.md
+    must_run:
+      - scripts/ast_audit.py
+    must_contain:
+      - "assumptions"
+      - "autocomplete"
+      - "labels"
+      - "error"

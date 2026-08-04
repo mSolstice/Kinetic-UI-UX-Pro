@@ -1,0 +1,99 @@
+{
+  "$schema": "kinetic-ui-ux-pro/token-schema/1",
+  "name": "saas-onboarding",
+  "palettes": {
+    "brand": {
+      "hue": 215,
+      "chroma": 0.16
+    },
+    "neutral": {
+      "hue": 230,
+      "chroma": 0.018
+    },
+    "danger": {
+      "hue": 28,
+      "chroma": 0.19
+    },
+    "success": {
+      "hue": 155,
+      "chroma": 0.15
+    }
+  },
+  "semantic": {
+    "light": {
+      "surface-base": "neutral-50",
+      "surface-raised": "neutral-50",
+      "text-primary": "neutral-950",
+      "text-muted": "neutral-800",
+      "border-subtle": "neutral-500",
+      "action-bg": "brand-700",
+      "action-text": "neutral-50"
+    },
+    "dark": {
+      "surface-base": "neutral-950",
+      "surface-raised": "neutral-900",
+      "text-primary": "neutral-50",
+      "text-muted": "neutral-100",
+      "border-subtle": "neutral-500",
+      "action-bg": "brand-200",
+      "action-text": "neutral-950"
+    }
+  },
+  "contrastPairs": [
+    {
+      "text": "text-primary",
+      "bg": "surface-base",
+      "size": "body"
+    },
+    {
+      "text": "text-muted",
+      "bg": "surface-base",
+      "size": "body"
+    },
+    {
+      "text": "action-text",
+      "bg": "action-bg",
+      "size": "large"
+    },
+    {
+      "text": "border-subtle",
+      "bg": "surface-base",
+      "size": "nontext"
+    }
+  ],
+  "motion": {
+    "durations": {
+      "micro": 120,
+      "local": 220,
+      "view": 360,
+      "reduced": 90
+    },
+    "easings": {
+      "out": "cubic-bezier(.2,.8,.2,1)",
+      "in": "cubic-bezier(.4,0,1,1)",
+      "spring": "cubic-bezier(.34,1.56,.64,1)"
+    }
+  },
+  "space": {
+    "base": 4,
+    "steps": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      6,
+      8,
+      12,
+      16,
+      24,
+      32
+    ]
+  },
+  "radius": {
+    "sm": 4,
+    "md": 8,
+    "lg": 8,
+    "full": 9999
+  }
+}
