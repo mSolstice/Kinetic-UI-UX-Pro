@@ -1,0 +1,68 @@
+/* Companion to component-scaffold.tsx */
+
+.btn {
+  padding-block: 0.625rem;
+  padding-inline: 1.25rem;              /* logical, not left/right */
+  min-block-size: 44px;                 /* touch target */
+  background: var(--brand-500);
+  color: var(--surface-raised);
+  border: 1px solid transparent;        /* survives forced-colors */
+  border-radius: 0.5rem;
+  transition: transform var(--dur-micro) var(--ease-out),
+              opacity   var(--dur-micro) var(--ease-out);
+}
+
+@media (hover: hover) {                 /* hover gated — never sole affordance */
+  .btn:hover { transform: translateY(-1px); }
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.btn:active { transform: translateY(0) scale(0.98); }
+
+.btn[aria-disabled='true'] { opacity: 0.55; cursor: not-allowed; }
+
+.card {
+  container-type: inline-size;
+  padding: 1rem;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.75rem;
+  /* text wraps and grows — no destructive truncation */
+  overflow-wrap: anywhere;
+}
+
+.card h3 { max-inline-size: 65ch; line-height: 1.25; }
+
+.skeleton {
+  background: linear-gradient(90deg,
+    var(--border-subtle) 25%, var(--surface-base) 50%, var(--border-subtle) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+@keyframes shimmer { to { background-position: -200% 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  /* degradation path, not removal — signal preserved, travel dropped */
+  .btn { transition: opacity var(--dur-reduced) linear; }
+  .btn:hover, .btn:active { transform: none; }
+  .skeleton { animation: none; background: var(--border-subtle); }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  gap: 1rem;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 7.5rem;
+}
+
+.sr-only {
+  position: absolute; inline-size: 1px; block-size: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
