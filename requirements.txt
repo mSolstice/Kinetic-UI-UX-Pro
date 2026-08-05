@@ -1,5 +1,5 @@
 # Optional. Scripts degrade gracefully without these.
-tree-sitter>=0.21          # ast_audit.py — real parsing instead of regex
+tree-sitter>=0.26.0          # ast_audit.py — real parsing instead of regex
 tree-sitter-language-pack  # tsx/ts/js/css grammars
 fonttools>=4.40            # font_metrics.py — real size-adjust values
 brotli                     # woff2 support for fonttools
