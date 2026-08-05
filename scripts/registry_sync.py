@@ -22,7 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_REGISTRY_DIR = ROOT / ".registry"
-DEFAULT_ADAPTER_FILE = ROOT / "references" / "library-adapters.md"
+DEFAULT_ADAPTER_FILE = ROOT / "references" / "kinetic-ui-ux-pro.md"
 COMPONENTS_FILE = "components.jsonl"
 STALE_DAYS = 30
 
@@ -180,10 +180,46 @@ def parse_adapter_table(path):
         warn(f"adapter file not found: {path}")
         return adapters
     section = ""
+    current = None
     for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
         if line.startswith("## "):
             section = line.strip().lower()
+            heading = line.strip("# ").strip()
+            if heading and heading.lower() not in {
+                "agent routing & enforcement protocol",
+                "approved library architecture",
+                "deliberately excluded",
+                "free but not mit",
+            }:
+                current = {
+                    "key": canonical_id(heading),
+                    "name": heading,
+                    "license": "",
+                    "vendorable": True,
+                    "referenceable": True,
+                }
+            else:
+                current = None
             continue
+        if current and "**License Compliance:**" in line:
+            license_match = re.search(r"SPDX:\s*([A-Za-z0-9.+-]+)", line)
+            if license_match:
+                current["license"] = license_match.group(1)
+            elif "url-only" in line.lower():
+                current["license"] = "URL-only"
+            elif "prohibited" in line.lower():
+                current["license"] = "PROHIBITED"
+        if current and "**Vendor Policy:**" in line:
+            policy = line.lower()
+            current["vendorable"] = "may be vendored" in policy
+            current["referenceable"] = "must never be vendored" not in policy or "url" in policy
+            if current.get("license"):
+                adapters[current["key"]] = {
+                    "name": current["name"],
+                    "license": current["license"],
+                    "vendorable": current["vendorable"],
+                    "referenceable": current["referenceable"],
+                }
         if not line.startswith("|") or "---" in line:
             continue
         cells = [cell.strip() for cell in line.strip().strip("|").split("|")]

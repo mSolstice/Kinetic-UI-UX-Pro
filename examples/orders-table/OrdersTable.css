@@ -327,7 +327,7 @@
   transform: translateY(0) scale(0.98);
 }
 
-@media (max-width: 56rem) {
+@media (38rem < width <= 56rem) {
   .orders-toolbar {
     grid-template-columns: 1fr 1fr;
   }

@@ -33,10 +33,10 @@ Work through these phases. Do not skip framing for implementation requests — t
 - `references/motion-recipes.md` — load only for FLIP, shared elements, stagger, gesture, scroll, or skeleton motion
 - `references/anti-slop.md` — load for visual polish, redesign, or when output risks generic generated UI defaults
 - `references/iteration-vocabulary.md` — map fuzzy feedback like less corporate, more premium, or snappier to bounded deltas
+- `references/kinetic-ui-ux-pro.md` — master approved-library contract; load when library, component registry, adapter, or vendoring policy matters
 - `templates/responsive-intent.md` — declare intended nav, reflow, hidden content, tap behavior, and primary action per breakpoint
 - `templates/styles/` — visual style constraint sets; load only chosen/candidate styles
 - `templates/palettes/palettes.json` — mood-organized palette seeds generated through `token_gen.py`
-- `references/library-adapters.md` — load only when a third-party UI, animation, token, icon, or chart library is named; each adapter stays to good for / still enforce / token map / license / vendoring
 - `references/industries/` — load the matching industry pack when domain risk, trust signals, compliance orientation, or domain-specific states matter
 - `references/industries/rules/` — structured industry rules for `scripts/industry_check.py`
 

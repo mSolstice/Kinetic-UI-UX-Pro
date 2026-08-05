@@ -4,6 +4,7 @@
  */
 import { useState, useRef, useId, useEffect } from 'react';
 import { useReducedMotion, motion } from 'framer-motion';
+import './component-scaffold.css';
 
 type State =
   | { status: 'idle' }

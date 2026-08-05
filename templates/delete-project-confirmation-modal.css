@@ -123,9 +123,14 @@
   cursor: progress;
 }
 
-.delete-project-modal__button[aria-disabled='true']:active,
-.delete-project-modal__button[aria-disabled='true']:hover {
+.delete-project-modal__button[aria-disabled='true']:active {
   transform: none;
+}
+
+@media (hover: hover) {
+  .delete-project-modal__button[aria-disabled='true']:hover {
+    transform: none;
+  }
 }
 
 @keyframes delete-project-backdrop-in {

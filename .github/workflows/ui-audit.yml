@@ -26,6 +26,39 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Check Python dependency integrity
+        run: |
+          python -m pip check
+
+      - name: Compile Python scripts
+        run: |
+          PYTHONPYCACHEPREFIX=/tmp/kinetic-pycache python -m py_compile scripts/*.py codex/evals/run_evals.py
+
+      - name: Check plugin script manifest sync
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          manifest = json.loads(Path("plugin.json").read_text())
+          listed = {entry["path"] for entry in manifest["scripts"]}
+          actual = {str(path) for path in Path("scripts").glob("*.py")}
+          missing = sorted(actual - listed)
+          stale = sorted(listed - actual)
+          if missing or stale:
+              print("missing_in_plugin", missing)
+              print("listed_missing_file", stale)
+              raise SystemExit(1)
+          PY
+
+      - name: Check dependency licenses
+        run: |
+          python scripts/license_check.py
+
+      - name: Audit Python vulnerabilities
+        run: |
+          python -m pip install pip-audit
+          pip-audit -r requirements.txt
+
       - name: Run AST audit SARIF
         run: |
           python scripts/ast_audit.py ./templates --format sarif --fail-on NONE > ui-audit.sarif
@@ -42,6 +75,14 @@ jobs:
           while IFS= read -r schema; do
             python scripts/token_gen.py "$schema" --verify
           done <<< "$schemas"
+
+      - name: Verify palette seeds
+        run: |
+          python scripts/palette_search.py verify-all
+
+      - name: Verify industry rule count
+        run: |
+          python scripts/industry_check.py --count
 
       - name: Build design-system index
         continue-on-error: true

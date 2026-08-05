@@ -21,6 +21,7 @@ import sys
 import json
 import argparse
 import re
+from collections import defaultdict
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
@@ -1393,33 +1394,37 @@ def audit_breakpoints(rows):
             "Use a systematic responsive scale with six or fewer breakpoints.",
             ", ".join(fmt_px(v) for v in distinct)))
     bounded = [r for r in rows if r['min_px'] is not None or r['max_px'] is not None]
-    for i, left in enumerate(bounded):
-        a0, a1 = breakpoint_interval(left)
-        if a1 == float('inf'):
-            continue
-        for right in bounded[i + 1:]:
-            b0, b1 = breakpoint_interval(right)
-            if b1 == float('inf'):
+    by_file = defaultdict(list)
+    for row in bounded:
+        by_file[row['file']].append(row)
+    for file_rows in by_file.values():
+        for i, left in enumerate(file_rows):
+            a0, a1 = breakpoint_interval(left)
+            if a1 == float('inf'):
                 continue
-            if max(a0, b0) < min(a1, b1):
+            for right in file_rows[i + 1:]:
+                b0, b1 = breakpoint_interval(right)
+                if b1 == float('inf'):
+                    continue
+                if max(a0, b0) < min(a1, b1):
+                    out.append(Finding(
+                        "responsive/overlapping-breakpoints", "WARN", right['file'], right['line'],
+                        "Breakpoint range overlaps another query and both can match",
+                        f"Clarify the range or cascade order. Overlaps {left['file']}:{left['line']}.",
+                        f"{left['query']} <> {right['query']}"))
+        finite = [(breakpoint_interval(r)[0], breakpoint_interval(r)[1], r) for r in file_rows]
+        finite.sort(key=lambda item: (item[0], item[1], str(item[2]['file']), item[2]['line'], item[2]['query']))
+        coverage_end = 320
+        for lower, upper, row in finite:
+            if lower > coverage_end:
                 out.append(Finding(
-                    "responsive/overlapping-breakpoints", "WARN", right['file'], right['line'],
-                    "Breakpoint range overlaps another query and both can match",
-                    f"Clarify the range or cascade order. Overlaps {left['file']}:{left['line']}.",
-                    f"{left['query']} <> {right['query']}"))
-    finite = [(breakpoint_interval(r)[0], breakpoint_interval(r)[1], r) for r in bounded]
-    finite.sort(key=lambda item: (item[0], item[1], str(item[2]['file']), item[2]['line'], item[2]['query']))
-    coverage_end = 320
-    for lower, upper, row in finite:
-        if lower > coverage_end:
-            out.append(Finding(
-                "responsive/breakpoint-gap", "WARN", row['file'], row['line'],
-                f"No breakpoint rule covers {fmt_px(coverage_end)}px to {fmt_px(lower)}px",
-                "Make the responsive bands contiguous or rely on explicit base styles.",
-                row['query']))
-        coverage_end = max(coverage_end, upper)
-        if coverage_end == float('inf'):
-            break
+                    "responsive/breakpoint-gap", "WARN", row['file'], row['line'],
+                    f"No breakpoint rule covers {fmt_px(coverage_end)}px to {fmt_px(lower)}px",
+                    "Make the responsive bands contiguous or rely on explicit base styles.",
+                    row['query']))
+            coverage_end = max(coverage_end, upper)
+            if coverage_end == float('inf'):
+                break
     return out
 
 
@@ -2092,6 +2097,10 @@ def audit_project_graph(graph):
         imported_classes = set()
         for css in node['css_imports']:
             imported_classes.update(css_classes.get(css.resolve(), set()))
+        if path.suffix == '.js' and not node['css_imports']:
+            for css_path, classes in css_classes.items():
+                if css_path.parent == path.parent:
+                    imported_classes.update(classes)
         for cls, line in node['class_uses']:
             if cls not in imported_classes:
                 out.append(Finding(

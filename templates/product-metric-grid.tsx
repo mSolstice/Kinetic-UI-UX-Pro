@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import './product-metric-grid.css';
 
 type TrendDirection = 'up' | 'down' | 'flat';
 

@@ -4,6 +4,8 @@ __pycache__/
 node_modules/
 .DS_Store
 out/
+design-system/contract.json
+codex/evals/results/
 .ds-index/
 .variants/
 .registry/cache/

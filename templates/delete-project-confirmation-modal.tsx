@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState } from 'react';
+import './delete-project-confirmation-modal.css';
 
 type DeleteState =
   | { status: 'idle' }

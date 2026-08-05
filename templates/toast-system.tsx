@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useMemo, useReducer, useRef } from 'react';
+import './toast-system.css';
 
 type ToastTone = 'success' | 'error' | 'undo';
 

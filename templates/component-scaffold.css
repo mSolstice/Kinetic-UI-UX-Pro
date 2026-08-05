@@ -80,6 +80,14 @@
   overflow-wrap: anywhere;
 }
 
+.card--error {
+  border-color: var(--danger-700);
+}
+
+.card--empty {
+  border-style: dashed;
+}
+
 .card h3 { max-inline-size: 65ch; line-height: 1.25; }
 
 .skeleton {

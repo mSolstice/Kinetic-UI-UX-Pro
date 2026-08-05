@@ -1,4 +1,4 @@
-# Kinetic UX — Production Build Blueprint
+# Kinetic UI UX Pro — Production Build Blueprint
 
 **What this is:** a step-by-step build plan taking the current v1 package to a production-grade UI/UX system. Each step tells you *where to run it* (Terminal or Codex Desktop) and *which folder to be in*.
 
@@ -16,7 +16,7 @@
 | 🤖 **Codex Desktop** | An agent session with the repo open. Open the folder stated. |
 | ✅ **Done when** | Objective acceptance criteria. Don't move on without it. |
 
-**Root folder for everything:** `~/kinetic-ux/` — referred to below as `<ROOT>`. Adjust to wherever you unzipped the package.
+**Root folder for everything:** `~/Kinetic UI UX Pro/` — referred to below as `<ROOT>`. Adjust to wherever you cloned or unzipped the package.
 
 ---
 
@@ -366,7 +366,7 @@ python scripts/ast_audit.py . --fail-on ERROR
 python scripts/token_gen.py templates/tokens.schema.json --verify
 git add -A && git commit -m "v2: BM25, enhanced AST, environments, patterns"
 git tag v2.0.0
-cd .. && zip -r kinetic-ux-v2.zip kinetic-ux -x '*/.venv/*' '*/__pycache__/*' '*/.git/*'
+cd .. && zip -r Kinetic-UI-UX-Pro-v2.zip "Kinetic UI UX Pro" -x '*/.venv/*' '*/__pycache__/*' '*/.git/*' '*/codex/evals/results/*' '*/design-system/contract.json'
 ```
 
 ✅ **Done when** both checks exit 0 and the zip excludes the venv.
