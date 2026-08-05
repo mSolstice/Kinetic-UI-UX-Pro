@@ -19,8 +19,10 @@ Use the compact receipt first. Expand only when the task is Full tier or the use
 - **Scripts run:** [exact commands, or not run + why]
 - **Style & palette:** [chosen style, palette, and tradeoff accepted]
 - **Domain considerations:** [industry pack and top forgotten states, or none]
+- **Iteration:** [taste-language deltas applied, or none]
 - **Provenance:** [adapted source library + license + tokens remapped + states patched, or authored]
 - **Design-system conformance:** [`ds_search.py`/`ast_audit.py --ds-index` result; new values marked UNMATCHED and justified]
+- **Self-critique:** [`self_critique.py` findings; visual verification available/unavailable]
 
 Full receipt fields, when needed:
 
@@ -30,8 +32,10 @@ Full receipt fields, when needed:
 - **Job & primary action:** [what this solves; the single primary action]
 - **Style & palette:** [chosen style, palette, and tradeoff accepted]
 - **Domain considerations:** [industry pack and top forgotten states, if applicable]
+- **Iteration:** [taste-language deltas applied, before/after summary, or none]
 - **Provenance:** [source library, license, component id/docs URL, tokens remapped, states patched; or authored]
 - **Design-system conformance:** [`ds_search.py`/`ast_audit.py --ds-index` result; new values marked UNMATCHED and justified]
+- **Self-critique:** [structural findings; rendered visual findings or exact visual-unavailable note]
 - **States implemented:** [which of the nine; note deliberate omissions and why]
 - **Programmatic signalling:** [aria-busy timing, live region type + pre-mount, focus return target]
 - **Motion degradation:** [reduced-motion fallback behavior, JS-side handling, forced-colors survival]

@@ -38,6 +38,7 @@ python scripts/ast_audit.py templates/patterns --json --fail-on ERROR
 python scripts/ast_audit.py src --format sarif --fail-on NONE > ui-audit.sarif
 python scripts/ast_audit.py src --breakpoints
 python scripts/ast_audit.py src --ds-index .ds-index/corpus.jsonl
+python scripts/ast_audit.py src --intent templates/responsive-intent.md
 ```
 
 ### `scripts/color_tools.py`
@@ -77,6 +78,17 @@ python scripts/ds_search.py component "async combobox" --style swiss-grid --surf
 python scripts/ds_search.py component "async combobox" --why shadcn-ui:combobox
 ```
 
+### `scripts/ds_contract.py`
+
+Persists settled design decisions in a per-project `design-system/contract.json`.
+
+```bash
+python scripts/ds_contract.py init
+python scripts/ds_contract.py read
+python scripts/ds_contract.py record style data-forward --rationale "Dense dashboard scanning"
+python scripts/ds_contract.py validate
+```
+
 ### `scripts/design_select.py`
 
 Recommends a style, palette, and industry pack from a brief, then states the tradeoff.
@@ -84,6 +96,53 @@ Recommends a style, palette, and industry pack from a brief, then states the tra
 ```bash
 python scripts/design_select.py recommend "banking dashboard with reconciled balances" --surface dashboard
 python scripts/design_select.py recommend "public benefits form for shared phones" --surface form --apply --out ./out/benefits
+```
+
+### `scripts/iterate.py`
+
+Turns fuzzy design feedback into bounded token-schema deltas and verifies the result.
+
+```bash
+python scripts/iterate.py apply "less corporate" --contract design-system/contract.json
+python scripts/iterate.py apply "more breathing room" --out design-system/tokens.next.schema.json
+```
+
+### `scripts/variants.py`
+
+Generates divergent verified design directions, merges chosen traits, and records accepted/rejected options in a project contract.
+
+```bash
+python scripts/variants.py explore --count 3 --brief "finance analytics dashboard" --surface dashboard
+python scripts/variants.py merge --take v1:density --take v2:hierarchy --take v3:depth
+python scripts/variants.py record v1 --contract design-system/contract.json
+```
+
+### `scripts/taste_memory.py`
+
+Records revealed and stated taste preferences across projects at `~/.kinetic-ux/taste.json`; use `--no-memory` on profile/apply commands to disable it for a run.
+
+Stored data: preference text, project evidence, accepted/rejected thing, reason, observation count, confidence, kind (`revealed` or `stated`), and `lastSeen`. You can inspect, edit, or delete `~/.kinetic-ux/taste.json` directly.
+
+```bash
+python scripts/taste_memory.py observe --rejected glassmorphism --reason "Too decorative for dashboards"
+python scripts/taste_memory.py observe --accepted "dense layouts" --project "Ops console"
+python scripts/taste_memory.py profile
+python scripts/taste_memory.py apply --to design-system/tokens.schema.json --out design-system/tokens.memory.schema.json
+python scripts/taste_memory.py apply --to design-system/tokens.schema.json --explicit-request "make it purple"
+python scripts/taste_memory.py apply --to design-system/tokens.schema.json --no-memory
+python scripts/taste_memory.py explain glass
+python scripts/taste_memory.py forget glass
+```
+
+### `scripts/content_fixtures.py`
+
+Generates realistic hostile content fixtures for text expansion, truncation, empty states, RTL strings, missing optional values, and locale-specific formatting.
+
+```bash
+python scripts/content_fixtures.py generate --shape prices --count 12 --locale de-DE
+python scripts/content_fixtures.py generate --shape person-names --edge-cases-only --locale ar-SA
+python scripts/content_fixtures.py generate --shape product-titles --empty-states --locale en-US
+python scripts/ast_audit.py Component.tsx --fixtures --fail-on NONE
 ```
 
 ### `scripts/emit_files.py`
@@ -112,6 +171,24 @@ Prints structured industry rules grouped by category and runs conservative heuri
 ```bash
 python scripts/industry_check.py --count
 python scripts/industry_check.py fintech templates/patterns/data-table.tsx
+```
+
+### `scripts/self_critique.py`
+
+Runs structural design-quality critique and, when Playwright is available, rendered visual checks at 320, 768, and 1280px.
+
+```bash
+python scripts/self_critique.py templates/patterns --tier structural
+python scripts/self_critique.py preview.html --against brutalist
+```
+
+### `scripts/handoff.py`
+
+Creates a designer- and stakeholder-facing handoff as a single printable HTML file, or Markdown for a wiki.
+
+```bash
+python scripts/handoff.py generate --contract design-system/contract.json --out handoff/
+python scripts/handoff.py generate --contract design-system/contract.json --out handoff/ --format markdown
 ```
 
 ### `scripts/license_check.py`
@@ -189,7 +266,7 @@ python scripts/ui_audit.py templates/component-scaffold.tsx
 
 ## Limitations
 
-- No headless browser, so no visual regression or runtime DOM verification.
+- No bundled headless browser; visual regression or runtime DOM verification runs only when the host provides Playwright and a browser binary.
 - Static geometry heuristics cannot confirm rendered layout.
 - Automated checks do not replace manual keyboard and screen-reader testing.
 - Contrast scripts verify declared token pairs, not every computed runtime color combination.

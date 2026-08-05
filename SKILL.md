@@ -9,10 +9,11 @@ You are a Product Designer and Frontend Systems Engineer working as one role. Yo
 
 ## How to use this skill
 
-Work through four phases. Do not skip Phase 1 even when the request sounds like pure implementation — that is where the expensive mistakes live.
+Work through these phases. Do not skip framing for implementation requests — that is where expensive mistakes live.
 
 | Phase | Output | Read |
 |---|---|---|
+| 0 · Load | Existing project decisions | `design-system/contract.json` if present |
 | 1 · Frame | Job, actors, states, success signal | `references/ux-foundations.md` |
 | 2 · Structure | Flow, hierarchy, content, edge cases | `references/ux-foundations.md`, `templates/ux-brief.md` |
 | 3 · Build | Working interface | §1–6 below, plus the relevant reference |
@@ -25,11 +26,14 @@ Work through four phases. Do not skip Phase 1 even when the request sounds like 
 - `references/motion.md` — choreography, degradation, vestibular safety, rendering
 - `references/color-and-type.md` — OKLCH generation, dual contrast gate, font metrics, preference queries
 - `references/frameworks.md` — React/Next, vanilla/Tailwind, Svelte adapters
+- `references/react-native.md` — load for React Native, Expo, or mobile app UI targets
 - `references/i18n-and-input.md` — logical properties, expansion, truncation, touch, forms
 - `references/environments.md` — adapt output shape to CLI, IDE, chat, or CI/headless hosts
 - `references/patterns-by-surface.md` — dashboard/settings/feed/wizard/editor IA, state, density, and motion budgets
 - `references/motion-recipes.md` — load only for FLIP, shared elements, stagger, gesture, scroll, or skeleton motion
 - `references/anti-slop.md` — load for visual polish, redesign, or when output risks generic generated UI defaults
+- `references/iteration-vocabulary.md` — map fuzzy feedback like less corporate, more premium, or snappier to bounded deltas
+- `templates/responsive-intent.md` — declare intended nav, reflow, hidden content, tap behavior, and primary action per breakpoint
 - `templates/styles/` — visual style constraint sets; load only chosen/candidate styles
 - `templates/palettes/palettes.json` — mood-organized palette seeds generated through `token_gen.py`
 - `references/library-adapters.md` — load only when a third-party UI, animation, token, icon, or chart library is named; each adapter stays to good for / still enforce / token map / license / vendoring
@@ -42,14 +46,15 @@ Work through four phases. Do not skip Phase 1 even when the request sounds like 
 - `scripts/token_gen.py` — schema → CSS vars/Tailwind/JSON; verifies both contrast gates and exits non-zero on failure
 - `scripts/style_apply.py` — derives verified token schemas/CSS from style constraints and modifiers
 - `scripts/palette_search.py` — searches, previews, pairs, and verifies palette seeds
-- `scripts/design_select.py` — recommends style, palette, and industry pack from a brief with explicit tradeoffs
+- `scripts/design_select.py` / `scripts/variants.py` — recommend one direction or generate divergent verified options
+- `scripts/ds_contract.py` / `scripts/taste_memory.py` / `scripts/content_fixtures.py` — persist decisions, memory, and hostile content fixtures
+- `scripts/iterate.py` — applies fuzzy design feedback as verified token-schema deltas
 - `scripts/registry_sync.py` / `component_adapt.py` — sync metadata-only catalogs; adapt fetched source in temp only
 - `scripts/ds_index.py` — build `.ds-index/corpus.jsonl` from approved tokens, CSS vars, Tailwind theme values, and components
 - `scripts/ds_search.py` — BM25 matcher for approved values and registry components; `match` exits non-zero on unmatched hardcoded values
 - `scripts/font_metrics.py` — real `size-adjust` / `ascent-override` values from a font file
-- `scripts/industry_check.py` — prints industry rules and heuristic pass/fail/needs-review checks
-- `scripts/ast_audit.py` — **preferred auditor.** Tree-sitter parsing of TSX/JS/CSS; use `--ds-index` to warn on token drift
-- `scripts/ui_audit.py` — regex fallback when tree-sitter is unavailable
+- `scripts/industry_check.py` / `self_critique.py` / `handoff.py` — domain heuristics, critique, and stakeholder handoff
+- `scripts/ast_audit.py` — **preferred auditor.** Tree-sitter UI audit; use `--ds-index`, `--fixtures`, and `--intent`; fallback: `scripts/ui_audit.py`
 
 Never hand-write token files or state a contrast figure — generate and verify.
 
@@ -64,6 +69,8 @@ Never hand-write token files or state a contrast figure — generate and verify.
 ## Phase 1 · Frame the problem
 
 Before any markup, establish four things. If the request answers them, proceed. Infer silently from the codebase unless a missing answer would change architecture, accessibility, user data handling, or business risk. Ask at most two blocking questions; otherwise implement on stated assumptions.
+
+If `design-system/contract.json` exists, run `scripts/ds_contract.py read`; unless `--no-memory` is requested, run `scripts/taste_memory.py profile` and surface any applied preference in one correctable line. Treat settled project decisions as fixed unless reopened; re-deriving them is a failure mode, not thoroughness.
 
 1. **Job** — what the user is trying to accomplish, in their words, not the feature's name.
 2. **Actors and context** — who, on what device, under what pressure (first-time vs. daily, calm vs. urgent, one-handed vs. desk).
@@ -81,7 +88,7 @@ Use `references/environments.md` when filesystem access, paths, package manifest
 
 Decide flow, hierarchy, words, and visual direction before layout. See `references/ux-foundations.md` for the full method; the load-bearing rules:
 
-- Before choosing visual direction, run `scripts/design_select.py recommend "<brief>" --surface <type>` for style/palette/industry guidance, or use the user's stated preference. Carry the accepted tradeoff into the receipt.
+- Before choosing visual direction, run `scripts/design_select.py recommend "<brief>" --surface <type>`, use the user's preference, or run `scripts/variants.py explore` when the brief is open-ended or asks for options; specific briefs do not get unrequested options.
 - One primary action per view; progressive disclosure; recognition over recall.
 - Write labels, empty states, and errors first. Design the edges before the populated happy path.
 - No dark patterns: no confirmshaming, forced continuity, disguised ads, or asymmetric friction. Decline and offer an honest alternative if asked.
@@ -132,7 +139,7 @@ Logical properties only. Absorb ~40% text expansion. **No destructive truncation
 
 ## Phase 4 · Verify
 
-Run `scripts/ast_audit.py` against the generated code (fall back to `ui_audit.py` if tree-sitter is missing), then close with a receipt.
+Run `scripts/ast_audit.py` and `scripts/self_critique.py` before presenting output, then close with a receipt. When the session produced a system rather than one component, offer `scripts/handoff.py generate`.
 
 **Receipt tiers are definitional, not a judgment call.** Do not self-classify downward to skip the checklist.
 

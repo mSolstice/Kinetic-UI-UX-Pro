@@ -60,3 +60,17 @@ Where the stack permits, forms submit without JavaScript and are enhanced by it.
 **Theme flash.** Resolve the theme before first paint — a blocking inline script or a server-set attribute — never in a post-hydration effect. Dark-mode FOUC is a visible correctness bug.
 
 **View transitions across boundaries** must degrade cleanly rather than half-running when server and client disagree.
+
+## Responsive intent
+
+Responsive behavior is a design decision before it is a breakpoint. State what each size becomes: navigation pattern, content reflow, deprioritized content, hover-to-tap substitutions, and the primary action's placement. Use `templates/responsive-intent.md` and audit with `scripts/ast_audit.py --intent <file>`.
+
+Content removal must be justified. "Hidden on mobile" is incomplete; the spec must say either why the content is genuinely secondary or where the user can still reach it. Silent hiding is a responsive failure even when the page renders cleanly.
+
+Worked dashboard example:
+
+| Size | Navigation | Table and content | Filters | Primary action |
+|---|---|---|---|---|
+| Mobile `(max-width: 47.99rem)` | Bottom tabs; admin-only links move to More | KPI summary first; table becomes order cards with status, owner, and next action | Collapsed into a Filter button; active filter count remains visible | Sticky full-width "Create order" after summary |
+| Tablet `(48rem-63.99rem)` | Collapsible sidebar | Table keeps priority columns; low-priority metadata moves to row details | Inline filter chips plus a drawer for advanced filters | Header action plus repeated footer action after long lists |
+| Desktop `(min-width: 64rem)` | Persistent sidebar | Full table with comparison columns and pinned status/action columns | Persistent left filter rail when filtering is core to the task | Header-aligned action near page title |

@@ -32,7 +32,8 @@ except ImportError:
 
 LANG_BY_EXT = {
     '.tsx': 'tsx', '.jsx': 'tsx', '.ts': 'typescript', '.js': 'javascript',
-    '.css': 'css', '.scss': 'css', '.html': 'html',
+    '.css': 'css', '.scss': 'css', '.html': 'html', '.htm': 'html',
+    '.svelte': 'svelte', '.vue': 'vue', '.astro': 'astro',
 }
 
 # Elements that are interactive natively — a click handler is fine here.
@@ -49,6 +50,30 @@ PHYSICAL_PROPS = {'margin-left', 'margin-right', 'padding-left',
                   'padding-right', 'border-left', 'border-right',
                   'left', 'right', 'text-align'}
 
+NATIVE_IMPORT_RE = re.compile(r"from\s+['\"](?:react-native|expo(?:/[^'\"]*)?)['\"]|require\(\s*['\"](?:react-native|expo(?:/[^'\"]*)?)['\"]\s*\)")
+NATIVE_INTERACTIVE = {'Pressable', 'TouchableOpacity', 'TouchableHighlight',
+                      'TouchableWithoutFeedback'}
+NATIVE_STATE_ATTRS = {'disabled', 'selected', 'checked'}
+NATIVE_SUPPRESS_RULES = {
+    'a11y/ungated-hover',
+    'a11y/no-forced-colors',
+    'i18n/physical-property',
+    'layout/img-no-dimensions',
+}
+NATIVE_SIZE_PROPS = {'width', 'height', 'minWidth', 'minHeight'}
+NATIVE_TOKEN_PROPS = {
+    'color', 'backgroundColor', 'borderColor', 'shadowColor',
+    'width', 'height', 'minWidth', 'minHeight', 'maxWidth', 'maxHeight',
+    'margin', 'marginTop', 'marginRight', 'marginBottom', 'marginLeft',
+    'marginHorizontal', 'marginVertical',
+    'padding', 'paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft',
+    'paddingHorizontal', 'paddingVertical', 'gap', 'rowGap', 'columnGap',
+    'top', 'right', 'bottom', 'left',
+    'borderRadius', 'borderTopLeftRadius', 'borderTopRightRadius',
+    'borderBottomLeftRadius', 'borderBottomRightRadius',
+}
+RN_HEX_RE = re.compile(r"#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})\b")
+RN_RGB_RE = re.compile(r"rgba?\([^)]+\)", re.I)
 TOKEN_KINDS = {'color', 'space', 'radius', 'type', 'motion', 'shadow'}
 BREAKPOINT_AT_RE = re.compile(r"@(media|container)\b([^{]*)\{", re.I | re.S)
 BREAKPOINT_SIZE_RE = re.compile(
@@ -69,9 +94,12 @@ ID_RE = re.compile(r"\bid\s*=\s*(?:['\"]([^'\"]+)['\"]|\{\s*['\"]([^'\"]+)['\"]\
 COMPONENT_RE = re.compile(r"export\s+(?:default\s+)?(?:function|const|class)\s+([A-Z][A-Za-z0-9_]*)")
 
 try:
-    from ds_search import BM25, best_value_token, color_tokens, extract_values, load_corpus
+    from ds_search import (
+        BM25, best_value_token, color_tokens, extract_values, load_corpus,
+        scan_value,
+    )
 except ImportError:
-    BM25 = best_value_token = color_tokens = extract_values = load_corpus = None
+    BM25 = best_value_token = color_tokens = extract_values = load_corpus = scan_value = None
 
 
 class Finding(dict):
@@ -96,12 +124,23 @@ def walk(node):
         yield from walk(c)
 
 
-def audit_jsx(src, path):
+def jsx_attrs(node, src):
+    attrs = {}
+    for c in node.children:
+        if c.type == 'jsx_attribute':
+            an = c.child_by_field_name('name') or (c.children[0] if c.children else None)
+            if an:
+                attrs[txt(an, src)] = c
+    return attrs
+
+
+def audit_jsx(src, path, platform='web', ds=None):
     parser = get_parser('tsx')
     tree = parser.parse(src)
     root = tree.root_node
     out = []
     text = src.decode('utf8', 'replace')
+    native = platform == 'native'
 
     has_aria_busy = 'aria-busy' in text
     has_reduced = 'useReducedMotion' in text or 'prefers-reduced-motion' in text
@@ -113,16 +152,11 @@ def audit_jsx(src, path):
         if n.type in ('jsx_opening_element', 'jsx_self_closing_element'):
             name_node = n.child_by_field_name('name')
             tag = txt(name_node, src) if name_node else ''
-            attrs = {}
-            for c in n.children:
-                if c.type == 'jsx_attribute':
-                    an = c.child_by_field_name('name') or (c.children[0] if c.children else None)
-                    if an:
-                        attrs[txt(an, src)] = c
+            attrs = jsx_attrs(n, src)
             lower = tag.lower()
 
             # click handler on non-interactive element
-            if 'onClick' in attrs and lower in ('div', 'span', 'li', 'section', 'p'):
+            if not native and 'onClick' in attrs and lower in ('div', 'span', 'li', 'section', 'p'):
                 if 'role' not in attrs or 'onKeyDown' not in attrs:
                     out.append(Finding(
                         "a11y/nonsemantic-click", "ERROR", path, line_of(n),
@@ -131,22 +165,23 @@ def audit_jsx(src, path):
                         f"<{tag}>"))
 
             # positive tabindex
-            for k in ('tabIndex', 'tabindex'):
-                if k in attrs:
-                    v = txt(attrs[k], src)
-                    digits = ''.join(ch for ch in v if ch.isdigit() or ch == '-')
-                    try:
-                        if int(digits) > 0:
-                            out.append(Finding(
-                                "a11y/positive-tabindex", "ERROR", path, line_of(n),
-                                f"Positive tabIndex on <{tag}>",
-                                "Breaks natural order. Use 0 or -1 and fix DOM order.",
-                                f"<{tag}>"))
-                    except ValueError:
-                        pass
+            if not native:
+                for k in ('tabIndex', 'tabindex'):
+                    if k in attrs:
+                        v = txt(attrs[k], src)
+                        digits = ''.join(ch for ch in v if ch.isdigit() or ch == '-')
+                        try:
+                            if int(digits) > 0:
+                                out.append(Finding(
+                                    "a11y/positive-tabindex", "ERROR", path, line_of(n),
+                                    f"Positive tabIndex on <{tag}>",
+                                    "Breaks natural order. Use 0 or -1 and fix DOM order.",
+                                    f"<{tag}>"))
+                        except ValueError:
+                            pass
 
             # img without dimensions
-            if lower == 'img':
+            if not native and lower == 'img':
                 if not ({'width', 'height'} & attrs.keys()) and 'style' not in attrs \
                         and 'aspect' not in txt(n, src):
                     out.append(Finding(
@@ -203,6 +238,9 @@ def audit_jsx(src, path):
                     "<dialog> gives focus trap, Escape, and inerting for free.",
                     f"<{tag}>"))
 
+            if native:
+                out += audit_native_element(n, src, path, tag, attrs)
+
         # --- identifiers / calls -------------------------------------------
         if n.type == 'identifier':
             name = txt(n, src)
@@ -242,7 +280,7 @@ def audit_jsx(src, path):
             "Loading state present without aria-busy",
             "A spinner that only spins tells screen reader users nothing."))
 
-    if uses_motion_lib and not has_reduced:
+    if not native and uses_motion_lib and not has_reduced:
         out.append(Finding(
             "motion/no-js-reduced-motion", "ERROR", path, 1,
             "Motion library used without useReducedMotion",
@@ -254,6 +292,634 @@ def audit_jsx(src, path):
             "Live region present — confirm it mounts empty before content",
             "Injecting region and message together often announces nothing."))
 
+    if native:
+        out += audit_native_file(src, path, ds)
+
+    return out
+
+
+# ------------------------------------------------------------ React Native
+
+def jsx_attr_raw(attrs, name, src):
+    node = attrs.get(name)
+    return txt(node, src) if node else ''
+
+
+def jsx_attr_has_false(attrs, name, src):
+    raw = jsx_attr_raw(attrs, name, src).replace(' ', '').lower()
+    return raw in (f'{name.lower()}={{false}}', f'{name.lower()}="false"', f"{name.lower()}='false'")
+
+
+def native_style_ref(style_raw):
+    m = re.search(r"styles\.([A-Za-z_$][\w$]*)", style_raw)
+    return m.group(1) if m else ''
+
+
+def native_inline_style_props(style_raw):
+    if '{{' not in style_raw:
+        return {}
+    props = {}
+    for m in re.finditer(r"([A-Za-z_$][\w$]*)\s*:\s*(['\"][^'\"]+['\"]|-?\d*\.?\d+)", style_raw):
+        raw = m.group(2).strip().strip("'\"")
+        props[m.group(1)] = raw
+    return props
+
+
+def parse_native_stylesheets(text):
+    styles = {}
+    for m in re.finditer(r"StyleSheet\.create\s*\(", text):
+        start = text.find('{', m.end())
+        if start < 0:
+            continue
+        end = find_matching_brace(text, start - 1)
+        body = text[start + 1:end - 1]
+        for sm in re.finditer(r"([A-Za-z_$][\w$]*)\s*:\s*\{([^{}]*)\}", body, re.S):
+            props = {}
+            style_start = start + 1 + sm.start()
+            for pm in re.finditer(r"([A-Za-z_$][\w$]*)\s*:\s*([^,\n}]+)", sm.group(2)):
+                prop = pm.group(1)
+                raw = pm.group(2).strip().strip("'\"")
+                line = line_for_offset(text, style_start + pm.start())
+                props[prop] = (raw, line)
+            styles[sm.group(1)] = props
+    return styles
+
+
+def native_declared_size(style_props):
+    sizes = {}
+    for prop in NATIVE_SIZE_PROPS:
+        raw = style_props.get(prop)
+        if not raw:
+            continue
+        value = raw[0] if isinstance(raw, tuple) else raw
+        if re.fullmatch(r"-?\d*\.?\d+", str(value)):
+            sizes[prop] = float(value)
+    return sizes
+
+
+def native_style_props_for(attrs, src, style_map):
+    style_raw = jsx_attr_raw(attrs, 'style', src)
+    props = native_inline_style_props(style_raw)
+    ref = native_style_ref(style_raw)
+    if ref and ref in style_map:
+        for prop, (value, _line) in style_map[ref].items():
+            props.setdefault(prop, value)
+    return props
+
+
+def audit_native_element(node, src, path, tag, attrs):
+    out = []
+    text = src.decode('utf8', 'replace')
+    style_map = parse_native_stylesheets(text)
+    is_native_interactive = tag in NATIVE_INTERACTIVE
+    is_custom_interactive = tag[:1].isupper() and 'onPress' in attrs and tag not in NATIVE_INTERACTIVE
+    is_interactive = is_native_interactive or is_custom_interactive
+
+    if is_native_interactive and 'accessibilityLabel' not in attrs:
+        out.append(Finding(
+            "native/a11y-missing-label", "ERROR", path, line_of(node),
+            f"<{tag}> missing accessibilityLabel",
+            "Native touch controls need an accessible name independent of visible layout.",
+            f"<{tag}>"))
+
+    if is_custom_interactive and 'accessibilityRole' not in attrs:
+        out.append(Finding(
+            "native/a11y-missing-role", "ERROR", path, line_of(node),
+            f"Custom interactive <{tag}> missing accessibilityRole",
+            "Custom pressable components must expose their role to assistive tech.",
+            f"<{tag}>"))
+
+    if is_interactive and NATIVE_STATE_ATTRS.intersection(attrs) and 'accessibilityState' not in attrs:
+        states = ", ".join(sorted(NATIVE_STATE_ATTRS.intersection(attrs)))
+        out.append(Finding(
+            "native/a11y-missing-state", "ERROR", path, line_of(node),
+            f"<{tag}> has {states} state but no accessibilityState",
+            "Mirror disabled, selected, and checked state through accessibilityState.",
+            f"<{tag}>"))
+
+    if tag == 'Image':
+        decorative = jsx_attr_has_false(attrs, 'accessible', src) or \
+            'accessibilityElementsHidden' in attrs or \
+            'importantForAccessibility' in attrs and 'no-hide-descendants' in jsx_attr_raw(attrs, 'importantForAccessibility', src)
+        if not decorative and ('accessible' not in attrs or 'accessibilityLabel' not in attrs):
+            out.append(Finding(
+                "native/a11y-image-label", "ERROR", path, line_of(node),
+                "<Image> missing accessible + accessibilityLabel",
+                "Mark decorative images hidden, or provide accessible={true} and accessibilityLabel.",
+                "<Image>"))
+
+    if is_interactive:
+        props = native_style_props_for(attrs, src, style_map)
+        sizes = native_declared_size(props)
+        small = {prop: val for prop, val in sizes.items() if val < 44}
+        if small:
+            detail = ", ".join(f"{k}: {int(v) if v == int(v) else v}" for k, v in sorted(small.items()))
+            out.append(Finding(
+                "native/touch-target-small", "ERROR", path, line_of(node),
+                f"<{tag}> touch target below 44 ({detail})",
+                "Both iOS and Android require at least 44pt/dp touch targets.",
+                f"<{tag}>"))
+            if 'hitSlop' not in attrs:
+                out.append(Finding(
+                    "native/touch-target-missing-hitslop", "ERROR", path, line_of(node),
+                    f"<{tag}> small touch target missing hitSlop",
+                    "Add hitSlop when visual bounds are smaller than the platform target.",
+                    f"<{tag}>"))
+
+    return out
+
+
+def native_token_kind(prop, value):
+    if RN_HEX_RE.search(value) or RN_RGB_RE.search(value):
+        return "color"
+    if "radius" in prop.lower():
+        return "radius"
+    if prop in NATIVE_TOKEN_PROPS and re.fullmatch(r"-?\d*\.?\d+", value):
+        return "space"
+    return None
+
+
+def audit_native_stylesheet_token_drift(path, ds, style_map):
+    if not ds or not best_value_token:
+        return []
+    out = []
+    for style_name, props in style_map.items():
+        for prop, (value, line) in props.items():
+            if prop not in NATIVE_TOKEN_PROPS or 'tokens.' in value or 'var(' in value:
+                continue
+            kind = native_token_kind(prop, value)
+            if not kind:
+                continue
+            verdict, doc, score, note = best_value_token(
+                {'kind': kind, 'value': value, 'property': prop},
+                ds['corpus'], ds['bm25'], ds['color_tokens'])
+            if verdict not in ('EXACT', 'NEAR') or not doc:
+                continue
+            token = doc['name']
+            out.append(Finding(
+                "ds/token-drift", "WARN", path, line,
+                f"hardcoded {value} - use token {token}",
+                f"Approved native {kind} token found ({verdict}; {note}).",
+                f"{style_name}.{prop}"))
+    return out
+
+
+def audit_native_file(src, path, ds=None):
+    text = src.decode('utf8', 'replace')
+    out = []
+    style_map = parse_native_stylesheets(text)
+
+    uses_native_motion = any(k in text for k in ('Animated.', 'Reanimated', 'useSharedValue', 'withTiming', 'withSpring'))
+    if uses_native_motion and 'AccessibilityInfo.isReduceMotionEnabled' not in text:
+        out.append(Finding(
+            "native/motion-no-reduced-motion", "ERROR", path, 1,
+            "Native animation used without AccessibilityInfo.isReduceMotionEnabled",
+            "Check reduce motion before running Animated or Reanimated transitions."))
+
+    for m in re.finditer(r"(Animated\.\w+\s*\([^)]*(?:transform|opacity)[\s\S]{0,240}?useNativeDriver\s*:\s*false|useNativeDriver\s*:\s*false[\s\S]{0,240}?(?:transform|opacity))", text):
+        out.append(Finding(
+            "native/motion-js-driver", "ERROR", path, line_for_offset(text, m.start()),
+            "Transform/opacity animation uses useNativeDriver: false",
+            "Transform and opacity animations should run on the native thread.",
+            "useNativeDriver: false"))
+
+    for m in re.finditer(r"Dimensions\.get\s*\(\s*['\"]window['\"]\s*\)", text):
+        if not any(k in text for k in ('Dimensions.addEventListener', 'useWindowDimensions')):
+            out.append(Finding(
+                "native/layout-dimensions-static", "WARN", path, line_for_offset(text, m.start()),
+                "Dimensions.get('window') used for layout without a change listener",
+                "Use useWindowDimensions or subscribe to dimension changes for rotation and split-screen.",
+                "Dimensions.get('window')"))
+
+    for m in re.finditer(r"<ScrollView\b[\s\S]{0,1600}?\.\s*(?:map|forEach)\s*\(", text):
+        out.append(Finding(
+            "native/layout-scrollview-list", "WARN", path, line_for_offset(text, m.start()),
+            "<ScrollView> renders a list",
+            "Use <FlatList> for virtualized native lists.",
+            "<ScrollView>"))
+
+    screen_like = re.search(r"export\s+(?:default\s+)?function\s+[A-Z][\w]*Screen\b|function\s+Screen\b|const\s+[A-Z][\w]*Screen\s*=", text)
+    near_edges = re.search(r"<View\b|flex\s*:\s*1|position\s*:\s*['\"]absolute['\"]|top\s*:\s*0", text)
+    has_safe_area = any(k in text for k in ('SafeAreaView', 'useSafeAreaInsets', 'safe-area-context'))
+    if screen_like and near_edges and not has_safe_area:
+        out.append(Finding(
+            "native/layout-missing-safe-area", "WARN", path, 1,
+            "Screen-like component has edge content without SafeAreaView or safe-area insets",
+            "Respect notches, status bars, and gesture areas with SafeAreaView/useSafeAreaInsets."))
+
+    out += audit_native_stylesheet_token_drift(path, ds, style_map)
+    return out
+
+
+# ----------------------------------------------------------------- HTML
+
+def html_attrs(start_tag, src):
+    attrs = {}
+    for c in start_tag.children:
+        if c.type not in ('attribute', 'directive_attribute'):
+            continue
+        name_node = None
+        value_node = None
+        directive_name = ''
+        directive_arg = ''
+        for part in c.children:
+            if part.type == 'attribute_name':
+                name_node = part
+            elif part.type == 'directive_name':
+                directive_name = txt(part, src)
+            elif part.type == 'directive_argument':
+                directive_arg = txt(part, src)
+            elif part.type in ('quoted_attribute_value', 'attribute_value'):
+                value_node = part
+        if not name_node:
+            if directive_name == '@' and directive_arg:
+                name = f"@{directive_arg}".lower()
+            elif directive_name and directive_arg:
+                name = f"{directive_name}:{directive_arg}".lower()
+            elif directive_name:
+                name = directive_name.lower()
+            else:
+                continue
+        else:
+            name = txt(name_node, src).lower()
+        value = ''
+        if value_node:
+            value_text = txt(value_node, src).strip()
+            if (value_text.startswith('"') and value_text.endswith('"')) or \
+                    (value_text.startswith("'") and value_text.endswith("'")):
+                value_text = value_text[1:-1]
+            value = value_text
+        attrs[name] = {'node': c, 'value': value}
+    return attrs
+
+
+def html_attr_value(attrs, name):
+    item = attrs.get(name.lower())
+    return item['value'] if item else ''
+
+
+def offset_findings(findings, line_offset):
+    for f in findings:
+        f['line'] = max(1, int(f.get('line') or 1) + line_offset)
+    return findings
+
+
+def audit_inline_style(style_text, path, line):
+    out = []
+    if not scan_value:
+        return out
+    found = []
+    for decl in style_text.split(';'):
+        if ':' not in decl:
+            continue
+        prop, raw = decl.split(':', 1)
+        try:
+            scan_value(found, path, line, prop.strip(), raw.strip())
+        except Exception as e:
+            print(f"skip inline style value {path}:{line}: {e}", file=sys.stderr)
+    seen = set()
+    for item in found:
+        key = (item['property'], item['value'])
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(Finding(
+            "ds/inline-style-token-drift", "WARN", path, item['line'],
+            f"inline style contains hardcoded {item['value']}",
+            "Move design values to verified CSS custom properties or approved tokens.",
+            item['property']))
+    return out
+
+
+def tag_name_for(node, src):
+    name_node = next((c for c in node.children if c.type == 'tag_name'), None)
+    return txt(name_node, src) if name_node else ''
+
+
+def has_reduced_motion_handling(text):
+    return any(k in text for k in (
+        'prefers-reduced-motion', 'useReducedMotion', 'reducedMotion',
+        'matchMedia("(prefers-reduced-motion', "matchMedia('(prefers-reduced-motion",
+        '$app/environment',
+    ))
+
+
+def audit_html_element_rules(root, src, path, full_document=False):
+    out = []
+    text = src.decode('utf8', 'replace')
+    label_targets = set()
+    has_html = False
+    html_has_lang = False
+    has_doctype = False
+    has_novalidate = False
+
+    for n in walk(root):
+        if n.type == 'doctype':
+            has_doctype = True
+        if n.type not in ('start_tag', 'self_closing_tag'):
+            continue
+        tag = tag_name_for(n, src).lower()
+        attrs = html_attrs(n, src)
+        if tag == 'html':
+            has_html = True
+            html_has_lang = bool(html_attr_value(attrs, 'lang').strip())
+        if 'novalidate' in attrs:
+            has_novalidate = True
+        if tag == 'label' and 'for' in attrs:
+            label_targets.add(html_attr_value(attrs, 'for'))
+
+    for n in walk(root):
+        if n.type in ('start_tag', 'self_closing_tag'):
+            tag = tag_name_for(n, src).lower()
+            attrs = html_attrs(n, src)
+
+            if 'onclick' in attrs and tag in ('div', 'span', 'li', 'section', 'p'):
+                if 'role' not in attrs or 'onkeydown' not in attrs:
+                    out.append(Finding(
+                        "a11y/nonsemantic-click", "ERROR", path, line_of(n),
+                        f"onclick on <{tag}> without role + keyboard handler",
+                        "Use <button>. Native elements carry keyboard and focus behavior.",
+                        f"<{tag}>"))
+
+            if 'tabindex' in attrs:
+                try:
+                    if int(html_attr_value(attrs, 'tabindex')) > 0:
+                        out.append(Finding(
+                            "a11y/positive-tabindex", "ERROR", path, line_of(n),
+                            f"Positive tabindex on <{tag}>",
+                            "Breaks natural order. Use 0 or -1 and fix DOM order.",
+                            f"<{tag}>"))
+                except ValueError:
+                    pass
+
+            if tag == 'img':
+                if 'alt' not in attrs:
+                    out.append(Finding(
+                        "a11y/img-missing-alt", "ERROR", path, line_of(n),
+                        "<img> missing alt attribute",
+                        "Use meaningful alt text, or alt=\"\" for decorative images.",
+                        "<img>"))
+                if not ({'width', 'height'} & attrs.keys()) and 'style' not in attrs \
+                        and 'aspect' not in txt(n, src):
+                    out.append(Finding(
+                        "layout/img-no-dimensions", "ERROR", path, line_of(n),
+                        "<img> without width/height or aspect-ratio",
+                        "Primary CLS source. Reserve the space.", "<img>"))
+
+            if tag == 'input':
+                input_id = html_attr_value(attrs, 'id')
+                labelled = {'aria-label', 'aria-labelledby'} & attrs.keys()
+                labelled = labelled or (input_id and input_id in label_targets)
+                if 'placeholder' in attrs and not labelled:
+                    out.append(Finding(
+                        "a11y/placeholder-as-label", "ERROR", path, line_of(n),
+                        "Input labelled only by placeholder",
+                        "Placeholders vanish on focus and fail contrast. Use <label>.",
+                        "<input>"))
+                if 'type' in attrs and 'autocomplete' not in attrs:
+                    out.append(Finding(
+                        "a11y/missing-autocomplete", "INFO", path, line_of(n),
+                        "Input without autocomplete token",
+                        "autocomplete is an accessibility requirement, not a convenience.",
+                        "<input>"))
+
+            if 'required' in attrs and not has_novalidate:
+                out.append(Finding(
+                    "a11y/native-validation-conflict", "WARN", path, line_of(n),
+                    "required present, form has no novalidate",
+                    "Native bubbles collide with custom ARIA errors.",
+                    f"<{tag}>"))
+
+            if html_attr_value(attrs, 'aria-live').lower() == 'assertive':
+                out.append(Finding(
+                    "a11y/assertive-live", "WARN", path, line_of(n),
+                    "assertive live region",
+                    "Reserve for interruptions; use polite/role=alert for errors.",
+                    f"<{tag}>"))
+
+            if 'aria-haspopup' in attrs:
+                out.append(Finding(
+                    "a11y/haspopup-not-focus", "INFO", path, line_of(n),
+                    "aria-haspopup announces a popup; it manages no focus",
+                    "Ensure real focus handling exists alongside it.",
+                    f"<{tag}>"))
+
+            if html_attr_value(attrs, 'role').lower() == 'dialog' and tag != 'dialog':
+                out.append(Finding(
+                    "a11y/handrolled-dialog", "WARN", path, line_of(n),
+                    f'role="dialog" on <{tag}> instead of native <dialog>',
+                    "<dialog> gives focus trap, Escape, and inerting for free.",
+                    f"<{tag}>"))
+
+            href = html_attr_value(attrs, 'href').strip().lower()
+            if tag == 'a' and ('href' not in attrs or href in ('', '#', 'javascript:void(0)')):
+                out.append(Finding(
+                    "a11y/anchor-button-substitute", "ERROR", path, line_of(n),
+                    "<a> used without a real href",
+                    "Use <button> for actions and <a href> only for navigation.",
+                    "<a>"))
+
+            if 'style' in attrs:
+                out += audit_inline_style(html_attr_value(attrs, 'style'), path, line_of(attrs['style']['node']))
+
+    if full_document and (has_html or has_doctype) and not html_has_lang:
+        out.append(Finding(
+            "a11y/html-missing-lang", "ERROR", path, 1,
+            "Full HTML document missing <html lang>",
+            "Declare the document language so assistive tech chooses the right voice.",
+            "<html>"))
+
+    if 'aria-live' in text or 'role="alert"' in text or "role='alert'" in text:
+        out.append(Finding(
+            "a11y/live-region-premount", "INFO", path, 1,
+            "Live region present - confirm it mounts empty before content",
+            "Injecting region and message together often announces nothing."))
+
+    return out
+
+
+def raw_child(node):
+    return next((c for c in node.children if c.type in ('raw_text', 'frontmatter_js_block')), None)
+
+
+def audit_html(src, path):
+    parser = get_parser('html')
+    root = parser.parse(src).root_node
+    out = audit_html_element_rules(root, src, path, full_document=True)
+
+    for n in walk(root):
+        if n.type in ('style_element', 'script_element'):
+            raw = next((c for c in n.children if c.type == 'raw_text'), None)
+            if not raw:
+                continue
+            embedded = src[raw.start_byte:raw.end_byte]
+            line_offset = line_of(raw) - 1
+            try:
+                if n.type == 'style_element':
+                    out += offset_findings(audit_css(embedded, path), line_offset)
+                else:
+                    out += offset_findings(audit_jsx(embedded, path), line_offset)
+            except Exception as e:
+                print(f"skip embedded {n.type} {path}:{line_of(raw)}: {e}", file=sys.stderr)
+
+    return out
+
+
+# ---------------------------------------------------------- SFC frameworks
+
+def audit_sfc(src, path, lang):
+    parser = get_parser(lang)
+    root = parser.parse(src).root_node
+    out = []
+    text = src.decode('utf8', 'replace')
+    reduced = has_reduced_motion_handling(text)
+
+    out += audit_html_element_rules(root, src, path, full_document=False)
+
+    for n in walk(root):
+        if n.type == 'style_element':
+            raw = raw_child(n)
+            if not raw:
+                continue
+            embedded = src[raw.start_byte:raw.end_byte]
+            try:
+                out += offset_findings(audit_css(embedded, path), line_of(raw) - 1)
+            except Exception as e:
+                print(f"skip embedded style {path}:{line_of(raw)}: {e}", file=sys.stderr)
+        elif n.type == 'script_element':
+            raw = raw_child(n)
+            if not raw:
+                continue
+            embedded = src[raw.start_byte:raw.end_byte]
+            try:
+                script_findings = offset_findings(audit_jsx(embedded, path), line_of(raw) - 1)
+                if lang == 'vue':
+                    script_findings = [
+                        f for f in script_findings
+                        if f.get('rule') != 'state/boolean-soup'
+                    ]
+                out += script_findings
+            except Exception as e:
+                print(f"skip embedded script {path}:{line_of(raw)}: {e}", file=sys.stderr)
+        elif lang == 'astro' and n.type == 'frontmatter':
+            raw = raw_child(n)
+            if not raw:
+                continue
+            embedded = src[raw.start_byte:raw.end_byte]
+            try:
+                out += offset_findings(audit_jsx(embedded, path), line_of(raw) - 1)
+            except Exception as e:
+                print(f"skip frontmatter script {path}:{line_of(raw)}: {e}", file=sys.stderr)
+
+    if lang == 'svelte':
+        out += audit_svelte_rules(root, src, path, text, reduced)
+    elif lang == 'vue':
+        out += audit_vue_rules(root, src, path, text, reduced)
+    elif lang == 'astro':
+        out += audit_astro_rules(root, src, path)
+    return out
+
+
+def audit_svelte_rules(root, src, path, text, reduced):
+    out = []
+    first_motion_directive = None
+    for n in walk(root):
+        if n.type == 'start_tag':
+            tag = tag_name_for(n, src).lower()
+            attrs = html_attrs(n, src)
+            for name, item in attrs.items():
+                if name.startswith(('transition:', 'in:', 'out:', 'animate:')) and not first_motion_directive:
+                    first_motion_directive = (name, item['node'])
+            if 'on:click' in attrs and tag in ('div', 'span', 'li', 'section', 'p'):
+                if 'role' not in attrs or 'on:keydown' not in attrs:
+                    out.append(Finding(
+                        "a11y/svelte-nonsemantic-click", "ERROR", path, line_of(n),
+                        f"on:click on <{tag}> without role + keyboard handler",
+                        "Use <button>. Native elements carry keyboard and focus behavior.",
+                        f"<{tag}>"))
+        if n.type == 'await_statement':
+            if 'catch' not in {c.type for c in walk(n)}:
+                out.append(Finding(
+                    "state/svelte-await-no-catch", "ERROR", path, line_of(n),
+                    "{#await} block has no {:catch} branch",
+                    "Async UI needs an explicit error state, not just loading and success.",
+                    "{#await}"))
+    if first_motion_directive and not reduced:
+        name, node = first_motion_directive
+        out.append(Finding(
+            "motion/svelte-no-reduced-motion", "ERROR", path, line_of(node),
+            f"Svelte {name} directive used without reduced-motion handling",
+            "Gate transition:, in:, out:, and animate: with prefers-reduced-motion logic.",
+            name))
+    return out
+
+
+def audit_vue_rules(root, src, path, text, reduced):
+    out = []
+    first_transition = None
+    for n in walk(root):
+        if n.type in ('start_tag', 'self_closing_tag'):
+            tag = tag_name_for(n, src)
+            lower = tag.lower()
+            attrs = html_attrs(n, src)
+            if tag in ('Transition', 'TransitionGroup') and not first_transition:
+                first_transition = n
+            if any(k in attrs for k in ('@click', 'v-on:click')) and lower in ('div', 'span', 'li', 'section', 'p'):
+                if 'role' not in attrs or not any(k in attrs for k in ('@keydown', 'v-on:keydown', 'onkeydown')):
+                    out.append(Finding(
+                        "a11y/vue-nonsemantic-click", "ERROR", path, line_of(n),
+                        f"@click on <{lower}> without role + keyboard handler",
+                        "Use <button>. Native elements carry keyboard and focus behavior.",
+                        f"<{lower}>"))
+            if 'v-html' in attrs:
+                out.append(Finding(
+                    "security/vue-v-html", "ERROR", path, line_of(n),
+                    "v-html bypasses Vue escaping",
+                    "Render trusted, sanitized HTML only; prefer text binding for user content.",
+                    f"<{lower}>"))
+    if first_transition and not reduced:
+        out.append(Finding(
+            "motion/vue-no-reduced-motion", "ERROR", path, line_of(first_transition),
+            "Vue <Transition> used without reduced-motion handling",
+            "Gate <Transition>/<TransitionGroup> with prefers-reduced-motion logic.",
+            tag_name_for(first_transition, src)))
+
+    refs = re.findall(r"\b(?:const|let|var)\s+(isLoading|isPending|isError|hasError|isSuccess)\s*=\s*ref\s*\(", text)
+    if len(set(refs)) >= 2 and 'status' not in text:
+        first_ref = re.search(r"\b(?:const|let|var)\s+(?:isLoading|isPending|isError|hasError|isSuccess)\s*=\s*ref\s*\(", text)
+        out.append(Finding(
+            "state/boolean-soup", "WARN", path, 1,
+            f"{len(set(refs))} Vue boolean refs, no status union",
+            "Booleans permit loading && error && success. Use one status ref/union."))
+        if first_ref:
+            out[-1]['line'] = line_for_offset(text, first_ref.start())
+    return out
+
+
+def audit_astro_rules(root, src, path):
+    out = []
+    for n in walk(root):
+        if n.type in ('start_tag', 'self_closing_tag'):
+            tag = tag_name_for(n, src)
+            attrs = html_attrs(n, src)
+            if 'client:load' in attrs and tag[:1].isupper():
+                out.append(Finding(
+                    "perf/astro-client-load-static", "INFO", path, line_of(n),
+                    f"<{tag}> uses client:load hydration",
+                    "Astro islands should stay static unless immediate client interactivity is required.",
+                    f"<{tag}>"))
+        if n.type == 'style_element':
+            start = next((c for c in n.children if c.type == 'start_tag'), None)
+            attrs = html_attrs(start, src) if start else {}
+            raw = raw_child(n)
+            style_text = txt(raw, src) if raw else ''
+            global_intent = re.search(r"(^|[,{]\s*)(html|body|:root|\*|\[data-theme)", style_text, re.M)
+            if global_intent and 'is:global' not in attrs:
+                out.append(Finding(
+                    "css/astro-global-style-scope", "WARN", path, line_of(n),
+                    "<style> appears to target global selectors without is:global",
+                    "Astro scopes component styles by default; add is:global only when global styling is intentional.",
+                    "<style>"))
     return out
 
 
@@ -775,6 +1441,243 @@ def print_breakpoint_report(rows):
     print(f"  Count: {len(distinct)}\n")
 
 
+# ------------------------------------------------------ responsive intent
+
+INTENT_FIELDS = {
+    'query': ('query', 'breakpoint'),
+    'navigation': ('navigation', 'nav'),
+    'primary_content': ('primary content', 'content reflow', 'reflow'),
+    'persist': ('persist', 'must persist', 'kept'),
+    'remove': ('remove', 'removed', 'deprioritized', 'hidden'),
+    'tap_changes': ('tap changes', 'tap-based', 'hover to tap'),
+    'primary_action': ('primary action', 'action'),
+}
+REMOVAL_REASON_RE = re.compile(
+    r"\b(because|reason|secondary|available through|available in|moved to|via|path|drawer|menu|details?|disclosure)\b",
+    re.I)
+NAV_PATTERNS = {
+    'bottom tabs': (r"bottom[-_\s]?tabs?", r"tablist", r"mobile[-_\s]?tabs?"),
+    'tab bar': (r"tab[-_\s]?bar", r"tablist", r"mobile[-_\s]?tabs?"),
+    'drawer': (r"drawer", r"sheet", r"aria-expanded", r"menu"),
+    'collapsible sidebar': (r"collapsible[-_\s]?sidebar", r"sidebar", r"aria-expanded"),
+    'persistent sidebar': (r"persistent[-_\s]?sidebar", r"desktop[-_\s]?sidebar", r"<aside\b"),
+    'sidebar': (r"sidebar", r"<aside\b", r"side[-_\s]?nav"),
+    'top nav': (r"top[-_\s]?nav", r"<nav\b", r"<header\b"),
+    'breadcrumb': (r"breadcrumb", r"aria-label=['\"]breadcrumb"),
+    'rail': (r"\brail\b", r"nav[-_\s]?rail"),
+}
+
+
+def intent_field_for(label):
+    key = re.sub(r"[^a-z0-9]+", " ", label.lower()).strip()
+    for field, aliases in INTENT_FIELDS.items():
+        if key in aliases:
+            return field
+    return None
+
+
+def parse_responsive_intent(path):
+    text = Path(path).read_text(encoding='utf-8', errors='replace')
+    sections = []
+    current = None
+    for lineno, raw in enumerate(text.splitlines(), 1):
+        heading = re.match(r"^#{2,4}\s+(?:Breakpoint:\s*)?(.+?)\s*$", raw, re.I)
+        if heading and 'responsive intent' not in heading.group(1).lower():
+            if current:
+                sections.append(current)
+            title = heading.group(1).strip()
+            current = {
+                'name': title,
+                'line': lineno,
+                'fields': {field: [] for field in INTENT_FIELDS},
+            }
+            query = re.search(r"(\([^)]*width[^)]*\))", title, re.I)
+            if query:
+                current['fields']['query'].append((query.group(1), lineno))
+            continue
+        if not current:
+            continue
+        bullet = re.match(r"^\s*[-*]\s*([^:]+):\s*(.+?)\s*$", raw)
+        if not bullet:
+            continue
+        field = intent_field_for(bullet.group(1))
+        if field:
+            current['fields'][field].append((bullet.group(2).strip(), lineno))
+    if current:
+        sections.append(current)
+    return sections
+
+
+def split_intent_items(values):
+    items = []
+    for value, line in values:
+        if value.strip().lower().rstrip('.') in ('none', 'n/a', 'na'):
+            continue
+        for part in re.split(r",|;", value):
+            item = part.strip()
+            if item:
+                items.append((item, line))
+    return items
+
+
+def normalize_selector_token(value):
+    value = re.sub(r"`", "", value.strip())
+    value = re.split(r"\s+(?:because|why|reason)\b", value, 1, flags=re.I)[0]
+    return value.strip().rstrip('.')
+
+
+def selector_mentions(selector, item):
+    token = normalize_selector_token(item)
+    if not token:
+        return False
+    if token.startswith(('.', '#', '[')):
+        return token in selector
+    low_selector = selector.lower()
+    low_token = re.sub(r"[^a-z0-9_-]+", " ", token.lower()).strip()
+    if not low_token:
+        return False
+    variants = {low_token, low_token.replace(" ", "-"), low_token.replace(" ", "_")}
+    return any(v in low_selector for v in variants)
+
+
+def collect_source_text(files):
+    chunks = []
+    for path in files:
+        if path.suffix not in LANG_BY_EXT:
+            continue
+        try:
+            chunks.append(path.read_text(encoding='utf-8', errors='replace')[:200000])
+        except Exception:
+            pass
+    return "\n".join(chunks)
+
+
+def collect_hidden_selectors(files):
+    hidden = []
+    block_re = re.compile(r"([^{}@]+)\{([^{}]*(?:display\s*:\s*none|visibility\s*:\s*hidden|content-visibility\s*:\s*hidden)[^{}]*)\}", re.I | re.S)
+    for path in files:
+        if path.suffix not in ('.css', '.scss'):
+            continue
+        try:
+            text = path.read_text(encoding='utf-8', errors='replace')
+        except Exception:
+            continue
+        for media in BREAKPOINT_AT_RE.finditer(text):
+            brace = text.find('{', media.end() - 1)
+            if brace < 0:
+                continue
+            end = find_matching_brace(text, brace)
+            body = text[brace + 1:end - 1]
+            query = " ".join(media.group(2).strip().split())
+            for m in block_re.finditer(body):
+                selector = " ".join(m.group(1).strip().split())
+                hidden.append({
+                    'file': path,
+                    'line': line_for_offset(text, brace + 1 + m.start()),
+                    'selector': selector,
+                    'query': query,
+                    'distinct': parse_breakpoint_query(query)[2],
+                })
+    return hidden
+
+
+def breakpoint_declared(intent_query, breakpoint_rows):
+    try:
+        _lower, _upper, values, _px_units = parse_breakpoint_query(intent_query)
+    except Exception:
+        return False
+    if not values:
+        return True
+    code_values = [value for row in breakpoint_rows for value in row['distinct']]
+    return all(any(abs(value - code) < 0.5 for code in code_values) for value in values)
+
+
+def intent_query_overlaps_hidden(intent_query, hidden):
+    try:
+        _lower, _upper, values, _px_units = parse_breakpoint_query(intent_query)
+    except Exception:
+        return True
+    if not values or not hidden.get('distinct'):
+        return True
+    return any(abs(value - other) < 0.5 for value in values for other in hidden['distinct'])
+
+
+def nav_pattern_matches(intent_text, source_text):
+    low = intent_text.lower()
+    for label, patterns in NAV_PATTERNS.items():
+        if label in low:
+            return any(re.search(pattern, source_text, re.I) for pattern in patterns)
+    selectors = re.findall(r"[.#][A-Za-z_][\w-]*", intent_text)
+    if selectors:
+        return any(selector in source_text for selector in selectors)
+    return True
+
+
+def audit_responsive_intent(intent_path, files, breakpoint_rows):
+    try:
+        sections = parse_responsive_intent(intent_path)
+    except Exception as e:
+        return [Finding(
+            "responsive/intent-unreadable", "ERROR", intent_path, 1,
+            f"Could not read responsive intent spec: {e}",
+            "Use templates/responsive-intent.md as the structure.",
+            "responsive intent")]
+    out = []
+    source_text = collect_source_text(files)
+    hidden = collect_hidden_selectors(files)
+    intent_file = Path(intent_path)
+    if not sections:
+        return [Finding(
+            "responsive/intent-empty", "ERROR", intent_file, 1,
+            "Responsive intent spec has no breakpoint sections",
+            "Declare at least one `## Breakpoint:` section with a query and behavior fields.",
+            "responsive intent")]
+
+    for section in sections:
+        fields = section['fields']
+        for field in ('query', 'navigation', 'primary_content', 'tap_changes', 'primary_action'):
+            if not fields[field]:
+                out.append(Finding(
+                    "responsive/intent-missing-field", "WARN", intent_file, section['line'],
+                    f"{section['name']} has no {field.replace('_', ' ')} decision",
+                    "Each breakpoint should state nav, reflow, tap behavior, and primary action intent.",
+                    section['name']))
+        queries = [value for value, _line in fields['query']]
+        for query, line in fields['query']:
+            if not breakpoint_declared(query, breakpoint_rows):
+                out.append(Finding(
+                    "responsive/intent-breakpoint-absent", "WARN", intent_file, line,
+                    f"Spec declares breakpoint {query}, but audited CSS does not",
+                    "Either implement the declared breakpoint or revise the intent spec.",
+                    section['name']))
+        for value, line in fields['navigation']:
+            if not nav_pattern_matches(value, source_text):
+                out.append(Finding(
+                    "responsive/intent-nav-mismatch", "WARN", intent_file, line,
+                    f"Navigation intent not found in implementation: {value}",
+                    "Use a declared class/pattern in the component or update the intent.",
+                    section['name']))
+        for item, line in split_intent_items(fields['remove']):
+            if not REMOVAL_REASON_RE.search(item):
+                out.append(Finding(
+                    "responsive/intent-removal-unjustified", "WARN", intent_file, line,
+                    f"Removal is not justified: {item}",
+                    "Hidden content needs a reason or a named alternate path.",
+                    section['name']))
+        for item, line in split_intent_items(fields['persist']):
+            for hidden_item in hidden:
+                if queries and not any(intent_query_overlaps_hidden(q, hidden_item) for q in queries):
+                    continue
+                if selector_mentions(hidden_item['selector'], item):
+                    out.append(Finding(
+                        "responsive/intent-persist-hidden", "WARN", hidden_item['file'], hidden_item['line'],
+                        f"{item} is declared to persist at {section['name']} but is hidden in CSS",
+                        f"Spec says it should remain available; hidden under {hidden_item['query']}.",
+                        hidden_item['selector']))
+                    break
+    return out
+
+
 # ----------------------------------------------------------------- driver
 
 SEV = {"ERROR": 0, "WARN": 1, "INFO": 2}
@@ -943,6 +1846,108 @@ def audit_token_drift(path, ds):
     return out
 
 
+CONTENT_SHAPES = {
+    "person-names": re.compile(r"\b(customer|user|person|people|assignee|owner|recipient|fullName|firstName|lastName|displayName)\b", re.I),
+    "company-names": re.compile(r"\b(company|account|organization|orgName|vendor|supplier|client)\b", re.I),
+    "product-titles": re.compile(r"\b(product|item|sku|title|catalog|variant)\b", re.I),
+    "addresses": re.compile(r"\b(address|street|city|postal|zipcode|zipCode|delivery|shipping|billing)\b", re.I),
+    "email-addresses": re.compile(r"\b(email|e-mail|mailTo|contactEmail)\b", re.I),
+    "prices": re.compile(r"\b(price|amount|total|subtotal|currency|discount|tax|fee|balance|payment)\b", re.I),
+    "dates": re.compile(r"\b(date|createdAt|updatedAt|deadline|scheduled|expires|dueDate)\b", re.I),
+    "durations": re.compile(r"\b(duration|eta|timeLeft|processingTime)\b", re.I),
+    "file-names": re.compile(r"\b(fileName|filename|attachmentName|uploadedFile|downloadName|\.pdf|\.csv|\.xlsx)\b", re.I),
+    "paragraph-body-copy": re.compile(r"\b(description|summary|notes|message|details|comment)\b", re.I),
+}
+FIXTURE_EVIDENCE_RE = re.compile(
+    r"content_fixtures|edge-cases-only|edgeCasesOnly|hostile|forty-percent|40%",
+    re.I)
+
+
+def nearby_fixture_text(path):
+    chunks = []
+    roots = [path.parent]
+    for name in ("tests", "__tests__", "fixtures"):
+        candidate = path.parent / name
+        if candidate.exists():
+            roots.append(candidate)
+    for root in roots:
+        try:
+            files = list(root.rglob("*")) if root.is_dir() else []
+        except Exception:
+            continue
+        for f in files[:200]:
+            if f.is_file() and f.suffix in ('.ts', '.tsx', '.js', '.jsx', '.json', '.md', '.html'):
+                try:
+                    chunks.append(f.read_text(encoding='utf-8', errors='replace')[:8000])
+                except Exception:
+                    pass
+    return "\n".join(chunks)
+
+
+def fixture_surface_text(text):
+    chunks = []
+    attr_names = (
+        'aria-label', 'aria-labelledby', 'placeholder', 'title', 'alt',
+        'label', 'name', 'id', 'htmlFor', 'for'
+    )
+    attr_alt = "|".join(re.escape(name) for name in attr_names)
+    for m in re.finditer(rf"\b(?:{attr_alt})\s*=\s*(?:{{\s*)?['\"]([^'\"]+)['\"]", text, re.I):
+        chunks.append(m.group(1))
+    for m in re.finditer(r">\s*([^<>{}\n][^<>{}]*?)\s*<", text):
+        visible = re.sub(r"\s+", " ", m.group(1)).strip()
+        if visible:
+            chunks.append(visible)
+    data_keys = (
+        'name', 'fullName', 'firstName', 'lastName', 'displayName',
+        'email', 'company', 'account', 'organization', 'title', 'product',
+        'address', 'city', 'postalCode', 'zipCode', 'price', 'amount',
+        'total', 'date', 'dueDate', 'duration', 'fileName', 'attachmentName',
+        'description', 'summary', 'message', 'notes'
+    )
+    data_alt = "|".join(re.escape(key) for key in data_keys)
+    for m in re.finditer(rf"\b({data_alt})\b\s*[:=]", text):
+        chunks.append(m.group(1))
+    return "\n".join(chunks)
+
+
+def audit_content_fixtures(path):
+    if path.suffix not in ('.tsx', '.jsx', '.ts', '.js', '.html', '.htm', '.svelte', '.vue', '.astro'):
+        return []
+    try:
+        text = path.read_text(encoding='utf-8', errors='replace')
+    except Exception as e:
+        print(f"skip content fixtures {path}: {e}", file=sys.stderr)
+        return []
+    surface = fixture_surface_text(text)
+    shapes = sorted(shape for shape, pattern in CONTENT_SHAPES.items()
+                    if pattern.search(surface))
+    evidence_text = text + "\n" + nearby_fixture_text(path)
+    has_edge_set = bool(FIXTURE_EVIDENCE_RE.search(evidence_text))
+    if not shapes:
+        return [Finding(
+            "content/fixtures-coverage", "INFO", path, 1,
+            "No obvious dynamic content shapes detected",
+            "If this component renders user or product content, test it with scripts/content_fixtures.py --edge-cases-only.",
+            "content fixtures")]
+    status = "edge fixture evidence found" if has_edge_set else "no edge fixture evidence found"
+    return [Finding(
+        "content/fixtures-coverage", "INFO", path, 1,
+        f"Likely content shapes: {', '.join(shapes)}; {status}",
+        "Run scripts/content_fixtures.py generate for these shapes, including --edge-cases-only and --empty-states, before visual approval.",
+        "content fixtures")]
+
+
+def detect_platform(src, requested):
+    if requested in ('web', 'native'):
+        return requested
+    text = src.decode('utf8', 'replace')
+    return 'native' if NATIVE_IMPORT_RE.search(text) else 'web'
+
+
+def suppress_native_web_rules(findings):
+    return [f for f in findings if f.get('rule') not in NATIVE_SUPPRESS_RULES]
+
+
 def line_for_offset(text, offset):
     return text[:offset].count('\n') + 1
 
@@ -1108,24 +2113,33 @@ def audit_project_graph(graph):
     return out
 
 
-def audit_file(path, ds=None):
+def audit_file(path, ds=None, platform='auto'):
     lang = LANG_BY_EXT.get(path.suffix)
     if not lang:
         return []
     src = path.read_bytes()
+    active_platform = detect_platform(src, platform)
     out = []
     if lang == 'css':
         out = audit_css(src, path)
+    elif lang == 'html':
+        out = audit_html(src, path)
+    elif lang in ('svelte', 'vue', 'astro'):
+        out = audit_sfc(src, path, lang)
     elif lang in ('tsx', 'typescript', 'javascript'):
-        out = audit_jsx(src, path)
-    return out + audit_token_drift(path, ds)
+        out = audit_jsx(src, path, active_platform, ds)
+    if active_platform != 'native':
+        out += audit_token_drift(path, ds)
+    if active_platform == 'native':
+        out = suppress_native_web_rules(out)
+    return out
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('target')
-    ap.add_argument('--ext', default='.tsx,.jsx,.ts,.js,.css,.scss')
+    ap.add_argument('--ext', default='.tsx,.jsx,.ts,.js,.css,.scss,.html,.htm,.svelte,.vue,.astro')
     ap.add_argument('--json', action='store_true')
     ap.add_argument('--format', default='text',
                     choices=['text', 'json', 'sarif', 'junit'],
@@ -1134,6 +2148,13 @@ def main():
                     help='path to .ds-index/corpus.jsonl for token drift warnings')
     ap.add_argument('--breakpoints', action='store_true',
                     help='print only the CSS breakpoint table')
+    ap.add_argument('--platform', default='auto',
+                    choices=['web', 'native', 'auto'],
+                    help='web, native, or auto-detect React Native/Expo imports')
+    ap.add_argument('--fixtures', action='store_true',
+                    help='report likely rendered content shapes and edge-fixture coverage')
+    ap.add_argument('--intent',
+                    help='responsive intent markdown spec to compare against audited CSS/markup')
     ap.add_argument('--fail-on', default='ERROR',
                     choices=['ERROR', 'WARN', 'INFO', 'NONE'])
     args = ap.parse_args()
@@ -1161,9 +2182,13 @@ def main():
 
     findings = audit_project_graph(graph) if graph else []
     findings += audit_breakpoints(breakpoint_rows)
+    if args.intent:
+        findings += audit_responsive_intent(Path(args.intent), files, breakpoint_rows)
     for f in files:
         try:
-            findings += audit_file(f, ds)
+            findings += audit_file(f, ds, args.platform)
+            if args.fixtures:
+                findings += audit_content_fixtures(f)
         except Exception as e:
             print(f"skip {f}: {e}", file=sys.stderr)
 

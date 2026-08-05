@@ -36,9 +36,19 @@ type State =
 
 Transitions are built in (`transition:fade`), but they do not read `prefers-reduced-motion` automatically — gate them. Stores hold the state machine; keep the union shape. `{#await}` blocks map cleanly to the loading/success/error trio.
 
+`scripts/ast_audit.py` now enforces Svelte transition reduced-motion handling, `on:click` on non-interactive elements, and `{#await}` without `{:catch}`.
+
 ## Vue
 
 `<Transition>` and `<TransitionGroup>` for choreography. `useMediaQuery` composable for reduced motion. Prefer a `state` ref holding a union over multiple booleans.
+
+`scripts/ast_audit.py` now enforces Vue transition reduced-motion handling, `@click` on non-interactive elements, `v-html`, and multiple boolean refs that should be one status union.
+
+## Astro
+
+Astro islands make static UI cheap and interactive UI explicit. Keep non-interactive surfaces server-rendered; hydrate only the smallest island that owns state. Every hydrated island still needs the full state matrix because partial hydration does not remove loading, empty, error, disabled, or focus-return obligations.
+
+`scripts/ast_audit.py` now flags likely unnecessary `client:load` hydration and global selectors inside scoped `<style>` blocks that appear to need `is:global`.
 
 ## Universal checks regardless of stack
 
