@@ -1,0 +1,51 @@
+{
+  "library": "DaisyUI",
+  "license": "MIT",
+  "vendorable": true,
+  "frameworks": ["html", "react", "vue", "svelte"],
+  "registry": {
+    "type": "sitemap",
+    "url": "https://daisyui.com/sitemap.xml"
+  },
+  "theming": {
+    "attach": "semantic-classes",
+    "tokenMap": {
+      "surface.canvas": "--color-base-100: var(--surface-canvas)",
+      "surface.panel": "--color-base-200: var(--surface-panel)",
+      "text.primary": "--color-base-content: var(--text-primary)",
+      "accent.fill": "--color-primary: var(--accent-fill)",
+      "accent.text": "--color-primary-content: var(--accent-text)",
+      "status.error": "--color-error: var(--status-error-fill)",
+      "status.success": "--color-success: var(--status-success-fill)",
+      "radius.control": "--radius-box: var(--radius-control)"
+    }
+  },
+  "stateGaps": ["focus-visible", "loading", "error", "success", "empty"],
+  "conformancePatch": {
+    "focus-visible": {
+      "language": "css",
+      "code": ".btn:focus-visible, .input:focus-visible { outline: var(--focus-ring-width) solid var(--focus-ring); outline-offset: var(--focus-ring-offset); }"
+    },
+    "loading": {
+      "language": "html",
+      "code": "<button class=\"btn\" aria-busy=\"true\" disabled><span class=\"loading loading-spinner\" aria-hidden=\"true\"></span><span>Saving</span></button><div aria-live=\"polite\" class=\"sr-only\">Saving</div>"
+    },
+    "error": {
+      "language": "html",
+      "code": "<p id=\"field-error\" role=\"alert\" class=\"text-error\">Enter a valid value.</p><input class=\"input input-error\" aria-invalid=\"true\" aria-describedby=\"field-error\" />"
+    },
+    "success": {
+      "language": "html",
+      "code": "<div role=\"status\" class=\"text-success\">Saved successfully.</div>"
+    },
+    "empty": {
+      "language": "html",
+      "code": "<div role=\"status\" class=\"text-base-content/70\">No results match the current filters.</div>"
+    },
+    "aria": {
+      "language": "tsx",
+      "code": "<button className=\"btn btn-primary\" aria-busy={status === 'loading'} aria-describedby={status === 'error' ? errorId : undefined} disabled={status === 'loading' || disabled}>{label}</button>"
+    }
+  },
+  "avoidFor": ["custom-brand-system-with-strict-visual-language", "regulated-workflow-without-aria-review", "non-tailwind-project"]
+}

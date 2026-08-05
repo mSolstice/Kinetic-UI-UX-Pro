@@ -1,0 +1,25 @@
+{
+  "id": "duotone",
+  "name": "Duotone",
+  "intent": "Adds a two-hue system where one hue owns actions and the other owns structure or data contrast.",
+  "order": 20,
+  "touches": ["color", "prohibitions"],
+  "transform": {
+    "set": {
+      "color.hueRelationshipRules": ["complementary"]
+    },
+    "ranges": {
+      "color.chromaRange": { "multiply": 0.9, "minFloor": 0.06, "maxCeiling": 0.2 }
+    },
+    "setValues": {
+      "color.surfaceCountLimit": 4,
+      "color.saturatedBackgroundsPermitted": false
+    },
+    "addProhibitions": ["no-third-accent-hue", "no-role-swapping-between-action-and-data-hues"]
+  },
+  "incompatibleWith": {
+    "baseStyles": [],
+    "modifiers": ["mono"]
+  },
+  "cannotOverride": ["contrast-gates", "touch-target-minimums", "focus-indicator-visibility", "reduced-motion-support", "text-expansion-40-percent"]
+}

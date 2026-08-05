@@ -1,0 +1,56 @@
+{
+  "library": "HyperUI",
+  "license": "MIT",
+  "vendorable": true,
+  "frameworks": ["html", "react"],
+  "registry": {
+    "type": "sitemap",
+    "url": "https://www.hyperui.dev/sitemap.xml"
+  },
+  "theming": {
+    "attach": "tailwind-classes",
+    "tokenMap": {
+      "surface.canvas": "bg-[var(--surface-canvas)]",
+      "surface.panel": "bg-[var(--surface-panel)]",
+      "text.primary": "text-[var(--text-primary)]",
+      "text.muted": "text-[var(--text-muted)]",
+      "border.subtle": "border-[color:var(--border-subtle)]",
+      "accent.fill": "bg-[var(--accent-fill)]",
+      "accent.text": "text-[var(--accent-text)]",
+      "radius.card": "rounded-[var(--radius-card)]",
+      "space.section": "py-[var(--space-section)]"
+    }
+  },
+  "stateGaps": ["focus-visible", "active", "loading", "disabled", "error", "success", "empty"],
+  "conformancePatch": {
+    "focus-visible": {
+      "language": "css",
+      "code": ".kui-hyperui a:focus-visible, .kui-hyperui button:focus-visible { outline: var(--focus-ring-width) solid var(--focus-ring); outline-offset: var(--focus-ring-offset); }"
+    },
+    "active": {
+      "language": "css",
+      "code": ".kui-hyperui button:active { transform: translateY(var(--press-offset)); }"
+    },
+    "loading": {
+      "language": "tsx",
+      "code": "<div aria-busy={status === 'loading'}>{status === 'loading' ? <div className=\"kui-skeleton\" aria-hidden=\"true\" /> : children}</div>"
+    },
+    "disabled": {
+      "language": "tsx",
+      "code": "<button disabled={disabled} aria-disabled={disabled} className=\"disabled:pointer-events-none disabled:opacity-[var(--opacity-disabled)]\">{label}</button>"
+    },
+    "error": {
+      "language": "tsx",
+      "code": "{status === 'error' ? <p role=\"alert\" className=\"text-[var(--status-error-text)]\">{errorMessage}</p> : null}"
+    },
+    "success": {
+      "language": "tsx",
+      "code": "<div aria-live=\"polite\" className=\"sr-only\">{status === 'success' ? successMessage : ''}</div>"
+    },
+    "empty": {
+      "language": "tsx",
+      "code": "{items.length === 0 ? <div role=\"status\" className=\"text-[var(--text-muted)]\">{emptyMessage}</div> : null}"
+    }
+  },
+  "avoidFor": ["data-dense-dashboard", "settings", "editor", "bespoke-component-library", "non-tailwind-project"]
+}

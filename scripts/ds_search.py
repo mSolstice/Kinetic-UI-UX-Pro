@@ -18,6 +18,15 @@ K1, B = 1.5, 0.75
 NEAR_SCORE = 1.2
 LENGTH_EPS = 0.01
 COLOR_EPS = 0.6
+ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_REGISTRY_INDEX = ".registry/components.jsonl"
+ADAPTER_DIR = ROOT / "templates" / "adapters"
+STYLE_DIR = ROOT / "templates" / "styles"
+INDUSTRY_DIR = ROOT / "references" / "industries"
+LICENSE_ALLOWLISTS = {
+    "mit-only": {"MIT"},
+    "permissive": {"MIT", "Apache-2.0", "ISC", "BSD-2-Clause", "BSD-3-Clause", "CC0-1.0"},
+}
 
 CAMEL_RE = re.compile(r"([a-z0-9])([A-Z])")
 TOKEN_RE = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
@@ -65,6 +74,22 @@ def load_corpus(path: Path) -> list[dict]:
     return rows
 
 
+def load_jsonl(path: Path, missing_hint: str) -> list[dict]:
+    rows = []
+    try:
+        lines = path.read_text(encoding="utf-8").splitlines()
+    except FileNotFoundError:
+        raise SystemExit(missing_hint)
+    for i, line in enumerate(lines, 1):
+        if not line.strip():
+            continue
+        try:
+            rows.append(json.loads(line))
+        except json.JSONDecodeError as e:
+            print(f"ds_search: skipped {path}:{i}: {e}", file=sys.stderr)
+    return rows
+
+
 class BM25:
     def __init__(self, docs: list[dict]):
         self.docs = docs
@@ -97,6 +122,300 @@ class BM25:
             if score > 0:
                 scores.append((score, doc))
         return sorted(scores, key=lambda x: (-x[0], x[1]["id"]))
+
+
+def slug(value: str) -> str:
+    value = CAMEL_RE.sub(r"\1-\2", str(value).replace("_", "-"))
+    return re.sub(r"[^a-zA-Z0-9]+", "-", value).strip("-").lower()
+
+
+def token_overlap(a: str, b: str) -> bool:
+    at, bt = set(tokenize(a)), set(tokenize(b))
+    return bool(at and bt and (at <= bt or bt <= at or at & bt))
+
+
+def load_adapters(adapter_dir: Path = ADAPTER_DIR) -> dict[str, dict]:
+    adapters = {}
+    for path in sorted(adapter_dir.glob("*.json")):
+        if path.name == "_schema.json":
+            continue
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except Exception as e:
+            print(f"ds_search: skipped adapter {path}: {e}", file=sys.stderr)
+            continue
+        key = path.stem
+        data["_id"] = key
+        adapters[key] = data
+        adapters[slug(data.get("library", key))] = data
+    return adapters
+
+
+def adapter_for(record: dict, adapters: dict[str, dict]) -> dict:
+    library = record.get("library", "")
+    return adapters.get(slug(library), {"_id": slug(library), "library": library, "stateGaps": [], "avoidFor": []})
+
+
+def load_style(style_id: str | None) -> dict:
+    if not style_id:
+        return {}
+    path = STYLE_DIR / f"{slug(style_id)}.json"
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception as e:
+        print(f"ds_search: style {style_id} unavailable: {e}", file=sys.stderr)
+        return {}
+
+
+def load_industry(industry_id: str | None, query: str, surface: str) -> tuple[str, str, float]:
+    packs = []
+    for path in sorted(INDUSTRY_DIR.glob("*.md")):
+        if path.name == "README.md":
+            continue
+        try:
+            text = path.read_text(encoding="utf-8")
+        except Exception:
+            continue
+        packs.append({"id": path.stem, "text": f"{path.stem} {text}"})
+    if not packs:
+        return "", "", 0.0
+    if industry_id:
+        for pack in packs:
+            if pack["id"] == slug(industry_id):
+                return pack["id"], pack["text"], 999.0
+    ranked = BM25(packs).ranked(f"{query} {surface}")
+    if not ranked or ranked[0][0] < 1.0:
+        return "", "", 0.0
+    score, pack = ranked[0]
+    return pack["id"], pack["text"], score
+
+
+def industry_motion_budget(industry_text: str) -> str:
+    m = re.search(r"## Motion Budget\s+(.+?)(?=\n## |\Z)", industry_text, re.S)
+    return re.sub(r"\s+", " ", m.group(1)).strip().lower() if m else ""
+
+
+def registry_text(record: dict) -> str:
+    return " ".join([
+        str(record.get("name", "")),
+        str(record.get("description", "")),
+        str(record.get("category", "")),
+        str(record.get("library", "")),
+        " ".join(str(x) for x in record.get("tags", [])),
+    ])
+
+
+def animation_heavy(record: dict, adapter: dict) -> bool:
+    haystack = " ".join([
+        record.get("library", ""),
+        record.get("name", ""),
+        record.get("description", ""),
+        record.get("category", ""),
+        " ".join(record.get("tags", [])),
+        " ".join(adapter.get("avoidFor", [])),
+    ]).lower()
+    return bool(re.search(r"\b(animation|animated|motion|gesture|marquee|sparkle|orbit|beam|effect|transition)\b", haystack))
+
+
+def surface_excluded(avoid_for: list[str], surface: str) -> str:
+    surface_slug = slug(surface)
+    for item in avoid_for:
+        item_slug = slug(item)
+        if item_slug == surface_slug or item_slug.startswith(f"{surface_slug}-") or surface_slug.startswith(f"{item_slug}-"):
+            return item
+    return ""
+
+
+def style_library_conflict(style: dict, record: dict, adapter: dict, surface: str) -> str:
+    if not style:
+        return ""
+    blocked_surface = surface_excluded(style.get("avoidFor", []), surface)
+    if blocked_surface:
+        return f"style avoids surface {blocked_surface}"
+    style_text = " ".join(style.get("avoidFor", []) + style.get("prohibitions", [])).lower()
+    if animation_heavy(record, adapter) and (
+        "no-expressive-animation-libraries" in style_text
+        or "decorative motion" in style_text
+        or "animation" in style_text
+    ):
+        return "style prohibits expressive animation libraries"
+    library_slug = slug(record.get("library", ""))
+    adapter_slug = slug(adapter.get("_id", ""))
+    style_slugs = {slug(item) for item in style.get("avoidFor", []) + style.get("prohibitions", [])}
+    if library_slug in style_slugs or adapter_slug in style_slugs:
+        return "style explicitly avoids this library"
+    return ""
+
+
+def motion_decision(record: dict, adapter: dict, surface: str, industry_id: str, industry_text: str) -> tuple[float, str, bool]:
+    if not animation_heavy(record, adapter):
+        return 0.0, "component is not animation-heavy", False
+    motion = industry_motion_budget(industry_text)
+    surface_tokens = set(tokenize(surface))
+    if industry_id == "healthcare" and "form" in surface_tokens:
+        return -999.0, "healthcare forms must not offer animation-heavy components", True
+    if "dashboard" in surface_tokens or "near-zero" in motion or "very low" in motion:
+        return -1.5, "animation-heavy component down-ranked for low-motion surface", False
+    if "low" in motion:
+        return -0.75, "animation-heavy component down-ranked for low motion budget", False
+    return -0.25, "animation-heavy component lightly down-ranked", False
+
+
+def component_docs_url(record: dict) -> str:
+    return record.get("docs_url") or record.get("registry_url") or ""
+
+
+def fetch_command(record: dict, adapter: dict) -> str:
+    sync_id = adapter.get("_id") or slug(record.get("library", ""))
+    url = component_docs_url(record)
+    suffix = f"  # docs: {url}" if url else ""
+    return f"python scripts/registry_sync.py --sync {sync_id}{suffix}"
+
+
+def rank_components(args, records: list[dict], adapters: dict[str, dict]) -> tuple[list[dict], list[dict], dict]:
+    style = load_style(args.style)
+    industry_id, industry_text, industry_score = load_industry(getattr(args, "industry", None), args.query, args.surface)
+    docs = [{"id": r.get("id", ""), "text": registry_text(r), "record": r} for r in records]
+    bm25 = BM25(docs)
+    allow = LICENSE_ALLOWLISTS[args.license]
+    ranked = []
+    blocked = []
+    for i, doc in enumerate(docs):
+        record = doc["record"]
+        adapter = adapter_for(record, adapters)
+        bm_score = bm25.score(args.query, i)
+        if bm_score <= 0:
+            continue
+        reasons = []
+        penalties = []
+        license_id = record.get("license") or adapter.get("license", "")
+        if license_id not in allow:
+            blocked.append({"record": record, "blocked": f"license {license_id} outside {args.license}", "score": bm_score})
+            continue
+        if args.framework:
+            frameworks = set(tokenize(" ".join(adapter.get("frameworks", [])) + " " + record.get("framework", "")))
+            wanted = set(tokenize(args.framework))
+            if wanted and not frameworks.intersection(wanted):
+                blocked.append({"record": record, "blocked": f"framework does not include {args.framework}", "score": bm_score})
+                continue
+        adapter_penalty = 0.0
+        adapter_block = surface_excluded(adapter.get("avoidFor", []), args.surface)
+        if adapter_block and "dashboard" in set(tokenize(args.surface)) and animation_heavy(record, adapter):
+            adapter_penalty = -1.0
+            penalties.append(f"library adapter discourages {adapter_block}")
+        elif adapter_block:
+            blocked.append({"record": record, "blocked": f"library adapter avoids {adapter_block}", "score": bm_score})
+            continue
+        style_block = style_library_conflict(style, record, adapter, args.surface)
+        if style_block:
+            blocked.append({"record": record, "blocked": style_block, "score": bm_score})
+            continue
+        motion_penalty, motion_reason, motion_block = motion_decision(record, adapter, args.surface, industry_id, industry_text)
+        if motion_block:
+            blocked.append({"record": record, "blocked": motion_reason, "score": bm_score})
+            continue
+        if motion_penalty:
+            penalties.append(motion_reason)
+        final = bm_score + motion_penalty + adapter_penalty
+        tags = ", ".join(record.get("tags", [])[:3])
+        reasons.append(f"matched {record.get('name')} / {record.get('category', 'component')}")
+        if tags:
+            reasons.append(f"tags: {tags}")
+        ranked.append({
+            "record": record,
+            "adapter": adapter,
+            "bm25": bm_score,
+            "motionPenalty": motion_penalty,
+            "adapterPenalty": adapter_penalty,
+            "final": final,
+            "reasons": reasons,
+            "penalties": penalties,
+            "license": license_id,
+            "industry": industry_id,
+            "industryScore": industry_score,
+        })
+    ranked.sort(key=lambda x: (-x["final"], x["record"].get("id", "")))
+    context = {"style": style, "industry_id": industry_id, "industry_text": industry_text}
+    return ranked, blocked, context
+
+
+def print_component_result(item: dict) -> None:
+    record, adapter = item["record"], item["adapter"]
+    gaps = record.get("stateGaps") or adapter.get("stateGaps", [])
+    reason = "; ".join(item["reasons"][:2])
+    if item["penalties"]:
+        reason += f"; {item['penalties'][0]}"
+    print(f"### {record.get('name')} ({record.get('id')})")
+    print(f"- Component: {record.get('name')}")
+    print(f"- Library: {record.get('library')} ({record.get('framework', adapter.get('frameworks', [''])[0])})")
+    print(f"- License: {item['license']}")
+    print(f"- Reason: {reason}")
+    print(f"- Known state gaps: {', '.join(gaps) if gaps else 'none recorded'}")
+    print(f"- Fetch command: `{fetch_command(record, adapter)}`")
+
+
+def tradeoffs_line(results: list[dict]) -> str:
+    if len(results) < 2:
+        return "Tradeoffs: only one strong result remained after filters, so there is no meaningful runner-up comparison."
+    first, second = results[0], results[1]
+    f, s = first["record"], second["record"]
+    first_penalty = "less motion risk" if first["motionPenalty"] >= second["motionPenalty"] else "stronger text match"
+    second_advantage = "broader interaction coverage" if len(second["adapter"].get("stateGaps", [])) < len(first["adapter"].get("stateGaps", [])) else "a different implementation shape"
+    return (
+        f"Tradeoffs: {f.get('name')} ranks above {s.get('name')} on {first_penalty}; "
+        f"{s.get('name')} may still win if you prefer {second_advantage}."
+    )
+
+
+def cmd_component(args) -> int:
+    records = load_jsonl(
+        Path(args.registry_index),
+        f"Registry index not found: {args.registry_index}. Run scripts/registry_sync.py --sync-all first.",
+    )
+    adapters = load_adapters()
+    ranked, blocked, context = rank_components(args, records, adapters)
+    if args.why:
+        target = next((r for r in ranked if r["record"].get("id") == args.why), None)
+        blocked_target = next((r for r in blocked if r["record"].get("id") == args.why), None)
+        if not target and not blocked_target:
+            print(f"No ranked or filtered component found for id {args.why}")
+            return 1
+        if blocked_target:
+            print(f"{args.why}: filtered out")
+            print(f"- BM25: {blocked_target['score']:.3f}")
+            print(f"- Reason: {blocked_target['blocked']}")
+            return 0
+        record, adapter = target["record"], target["adapter"]
+        print(f"{record.get('id')}: ranking breakdown")
+        print(f"- BM25: {target['bm25']:.3f}")
+        print(f"- Motion penalty: {target['motionPenalty']:.3f}")
+        print(f"- Final score: {target['final']:.3f}")
+        print(f"- License filter: {target['license']} allowed by {args.license}")
+        print(f"- Style: {context['style'].get('id', args.style or 'none')}")
+        print(f"- Surface: {args.surface}")
+        print(f"- Industry: {target['industry'] or 'not detected'}")
+        print(f"- Known state gaps: {', '.join(record.get('stateGaps') or adapter.get('stateGaps', [])) or 'none recorded'}")
+        print(f"- Fetch command: `{fetch_command(record, adapter)}`")
+        if target["penalties"]:
+            print(f"- Penalties: {'; '.join(target['penalties'])}")
+        return 0
+
+    top = ranked[:max(1, min(args.top, 5))]
+    if not top:
+        print("No component matches remained after filters.")
+        if blocked:
+            print(f"Closest filtered result: {blocked[0]['record'].get('id')} — {blocked[0]['blocked']}")
+        return 0
+    print(f"Showing {len(top)} component result(s).")
+    if context["industry_id"]:
+        print(f"Detected industry pack: {context['industry_id']}")
+    for idx, item in enumerate(top, 1):
+        if idx > 1:
+            print()
+        print_component_result(item)
+    print()
+    print(tradeoffs_line(top))
+    return 0
 
 
 def srgb_to_oklab(rgb: tuple[float, float, float]) -> tuple[float, float, float]:
@@ -352,7 +671,20 @@ def main() -> int:
     d = sub.add_parser("drift")
     d.add_argument("dir")
     d.set_defaults(func=cmd_drift)
+    c = sub.add_parser("component")
+    c.add_argument("query")
+    c.add_argument("--style")
+    c.add_argument("--surface", default="")
+    c.add_argument("--license", choices=sorted(LICENSE_ALLOWLISTS), default="permissive")
+    c.add_argument("--framework")
+    c.add_argument("--industry")
+    c.add_argument("--top", type=int, default=5)
+    c.add_argument("--why", metavar="ID")
+    c.add_argument("--registry-index", default=DEFAULT_REGISTRY_INDEX)
+    c.set_defaults(func=cmd_component)
     args = ap.parse_args()
+    if getattr(args, "cmd", "") == "component":
+        args.top = max(1, min(args.top, 5))
     return args.func(args)
 
 

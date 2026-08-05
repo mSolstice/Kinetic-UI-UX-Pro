@@ -1,0 +1,21 @@
+{
+  "id": "elevated",
+  "name": "Elevated",
+  "intent": "Moves hierarchy into restrained shadow and overlap for surfaces that need layered focus.",
+  "order": 30,
+  "touches": ["shape", "depth", "prohibitions"],
+  "transform": {
+    "set": {
+      "depth.allowedElevationTechniques": ["shadow", "overlap"]
+    },
+    "ranges": {
+      "shape.borderWeightRange": { "multiply": 0.65, "minFloor": 0, "maxCeiling": 1 }
+    },
+    "addProhibitions": ["no-heavy-borders", "no-shadow-for-critical-state-alone"]
+  },
+  "incompatibleWith": {
+    "baseStyles": ["brutalist"],
+    "modifiers": ["bordered"]
+  },
+  "cannotOverride": ["contrast-gates", "touch-target-minimums", "focus-indicator-visibility", "reduced-motion-support", "text-expansion-40-percent"]
+}

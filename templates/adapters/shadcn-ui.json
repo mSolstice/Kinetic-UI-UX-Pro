@@ -1,0 +1,49 @@
+{
+  "library": "shadcn/ui",
+  "license": "MIT",
+  "vendorable": true,
+  "frameworks": ["react", "next"],
+  "registry": {
+    "type": "shadcn-registry",
+    "url": "https://ui.shadcn.com/r/registry.json"
+  },
+  "theming": {
+    "attach": "tailwind-classes",
+    "tokenMap": {
+      "surface.canvas": "bg-[var(--surface-canvas)]",
+      "surface.panel": "bg-[var(--surface-panel)]",
+      "text.primary": "text-[var(--text-primary)]",
+      "text.muted": "text-[var(--text-muted)]",
+      "border.subtle": "border-[color:var(--border-subtle)]",
+      "accent.fill": "bg-[var(--accent-fill)]",
+      "accent.text": "text-[var(--accent-text)]",
+      "radius.control": "rounded-[var(--radius-control)]",
+      "space.controlX": "px-[var(--space-control-x)]",
+      "duration.fast": "duration-[var(--duration-fast)]"
+    }
+  },
+  "stateGaps": ["loading", "error", "success", "empty"],
+  "conformancePatch": {
+    "loading": {
+      "language": "tsx",
+      "code": "const isLoading = state.status === 'loading';\n<Button aria-busy={isLoading} disabled={isLoading || disabled} data-state={isLoading ? 'loading' : 'idle'}>\n  {isLoading ? <span className=\"kui-spinner\" aria-hidden=\"true\" /> : null}\n  <span>{isLoading ? loadingLabel : children}</span>\n</Button>"
+    },
+    "skeleton-geometry": {
+      "language": "tsx",
+      "code": "function MetricSkeleton() {\n  return <div className=\"kui-skeleton metric-card\" aria-hidden=\"true\"><span className=\"metric-title\" /><span className=\"metric-value\" /><span className=\"metric-delta\" /></div>;\n}"
+    },
+    "error": {
+      "language": "tsx",
+      "code": "{state.status === 'error' ? <p id={errorId} role=\"alert\" className=\"text-[var(--status-error-text)]\">{state.message}</p> : null}"
+    },
+    "success": {
+      "language": "tsx",
+      "code": "<div aria-live=\"polite\" className=\"sr-only\">{state.status === 'success' ? successMessage : ''}</div>"
+    },
+    "empty": {
+      "language": "tsx",
+      "code": "{state.status === 'empty' ? <div role=\"status\" className=\"text-[var(--text-muted)]\">{emptyMessage}</div> : null}"
+    }
+  },
+  "avoidFor": ["data-dense-dashboard-without-retokenizing", "regulated-form-without-copy-review", "non-react-project"]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "mono",
+  "name": "Mono",
+  "intent": "Collapses color into one disciplined hue family so hierarchy comes from value and structure.",
+  "order": 20,
+  "touches": ["color", "prohibitions"],
+  "transform": {
+    "set": {
+      "color.hueRelationshipRules": ["monochrome"]
+    },
+    "ranges": {
+      "color.chromaRange": { "multiply": 0.72, "minFloor": 0.0, "maxCeiling": 0.16 }
+    },
+    "setValues": {
+      "color.surfaceCountLimit": 3,
+      "color.saturatedBackgroundsPermitted": false
+    },
+    "addProhibitions": ["no-independent-accent-hues", "no-color-only-state-differences"]
+  },
+  "incompatibleWith": {
+    "baseStyles": [],
+    "modifiers": ["duotone"]
+  },
+  "cannotOverride": ["contrast-gates", "touch-target-minimums", "focus-indicator-visibility", "reduced-motion-support", "text-expansion-40-percent"]
+}

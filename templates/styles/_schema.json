@@ -1,0 +1,429 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kinetic-ui-ux-pro/style-constraint-schema/1",
+  "title": "Kinetic UI UX Pro Visual Style Constraint",
+  "description": "A visual style is a generator constraint set, never a stylesheet or literal token file. It defines ranges, ratios, relationships, and prohibitions that must survive token_gen.py --verify before shipping.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "intent",
+    "worksFor",
+    "avoidFor",
+    "color",
+    "type",
+    "space",
+    "shape",
+    "depth",
+    "motion",
+    "accessibilityWarnings",
+    "fallbacks",
+    "prohibitions",
+    "constraints"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "intent": {
+      "type": "string",
+      "description": "One sentence describing the feeling this style should produce.",
+      "minLength": 1
+    },
+    "worksFor": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "avoidFor": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "color": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "chromaRange",
+        "lightnessSpread",
+        "hueRelationshipRules",
+        "surfaceCountLimit",
+        "saturatedBackgroundsPermitted"
+      ],
+      "properties": {
+        "chromaRange": {
+          "$ref": "#/$defs/range"
+        },
+        "lightnessSpread": {
+          "$ref": "#/$defs/range"
+        },
+        "hueRelationshipRules": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "monochrome",
+              "analogous",
+              "complementary"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "surfaceCountLimit": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "saturatedBackgroundsPermitted": {
+          "type": "boolean"
+        }
+      }
+    },
+    "type": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scaleRatio",
+        "weightRange",
+        "trackingRules",
+        "maximumSimultaneousFamilies",
+        "caseTreatment"
+      ],
+      "properties": {
+        "scaleRatio": {
+          "$ref": "#/$defs/range"
+        },
+        "weightRange": {
+          "$ref": "#/$defs/integerRange"
+        },
+        "trackingRules": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "maximumSimultaneousFamilies": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "caseTreatment": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "sentence",
+              "title",
+              "uppercase-labels-only",
+              "no-all-caps",
+              "numeric-tabular"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      }
+    },
+    "space": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "densityMultiplier",
+        "whitespaceToContentRatioTarget"
+      ],
+      "properties": {
+        "densityMultiplier": {
+          "$ref": "#/$defs/range"
+        },
+        "whitespaceToContentRatioTarget": {
+          "$ref": "#/$defs/range"
+        }
+      }
+    },
+    "shape": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "radiusMultiplierRange",
+        "borderWeightRange"
+      ],
+      "properties": {
+        "radiusMultiplierRange": {
+          "$ref": "#/$defs/range"
+        },
+        "borderWeightRange": {
+          "$ref": "#/$defs/range"
+        }
+      }
+    },
+    "depth": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowedElevationTechniques"
+      ],
+      "properties": {
+        "allowedElevationTechniques": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "shadow",
+              "border",
+              "overlap",
+              "none"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      }
+    },
+    "motion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "durationMultiplier",
+        "permittedEasingFamilies"
+      ],
+      "properties": {
+        "durationMultiplier": {
+          "$ref": "#/$defs/range"
+        },
+        "permittedEasingFamilies": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "linear",
+              "standard",
+              "emphasized",
+              "decelerate",
+              "accelerate",
+              "spring"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      }
+    },
+    "accessibilityWarnings": {
+      "type": "array",
+      "description": "Style-specific usability risks and mitigations. Use an empty array when the style has no extra warning beyond global constraints.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "risk",
+          "mitigation"
+        ],
+        "properties": {
+          "risk": {
+            "type": "string"
+          },
+          "mitigation": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "fallbacks": {
+      "type": "array",
+      "description": "Required generator fallbacks when preferences or environments remove the style's primary visual mechanism.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "condition",
+          "response"
+        ],
+        "properties": {
+          "condition": {
+            "type": "string"
+          },
+          "response": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "prohibitions": {
+      "type": "array",
+      "description": "Explicit things this style must never do.",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "constraints": {
+      "type": "object",
+      "description": "Global rules no visual style may relax.",
+      "additionalProperties": false,
+      "required": [
+        "mayNotRelax"
+      ],
+      "properties": {
+        "mayNotRelax": {
+          "type": "array",
+          "const": [
+            "contrast-gates",
+            "touch-target-minimums",
+            "focus-indicator-visibility",
+            "reduced-motion-support",
+            "text-expansion-40-percent"
+          ]
+        }
+      }
+    }
+  },
+  "$defs": {
+    "range": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "min",
+        "max"
+      ],
+      "properties": {
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        }
+      }
+    },
+    "integerRange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "min",
+        "max"
+      ],
+      "properties": {
+        "min": {
+          "type": "integer"
+        },
+        "max": {
+          "type": "integer"
+        }
+      }
+    },
+    "example": {
+      "id": "quiet-product",
+      "name": "Quiet Product",
+      "intent": "Creates a calm, work-focused product interface that feels precise without becoming cold.",
+      "worksFor": [
+        "dashboard",
+        "settings",
+        "data-table",
+        "admin-tool"
+      ],
+      "avoidFor": [
+        "marketing-page",
+        "editorial-story",
+        "celebratory-onboarding"
+      ],
+      "color": {
+        "chromaRange": {
+          "min": 0.01,
+          "max": 0.14
+        },
+        "lightnessSpread": {
+          "min": 0.42,
+          "max": 0.92
+        },
+        "hueRelationshipRules": [
+          "monochrome",
+          "analogous"
+        ],
+        "surfaceCountLimit": 4,
+        "saturatedBackgroundsPermitted": false
+      },
+      "type": {
+        "scaleRatio": {
+          "min": 1.125,
+          "max": 1.2
+        },
+        "weightRange": {
+          "min": 400,
+          "max": 700
+        },
+        "trackingRules": [
+          "zero-tracking-for-body",
+          "positive-tracking-for-uppercase-labels-only",
+          "no-negative-tracking"
+        ],
+        "maximumSimultaneousFamilies": 2,
+        "caseTreatment": [
+          "sentence",
+          "uppercase-labels-only",
+          "numeric-tabular"
+        ]
+      },
+      "space": {
+        "densityMultiplier": {
+          "min": 0.85,
+          "max": 1.1
+        },
+        "whitespaceToContentRatioTarget": {
+          "min": 0.28,
+          "max": 0.42
+        }
+      },
+      "shape": {
+        "radiusMultiplierRange": {
+          "min": 0.75,
+          "max": 1.5
+        },
+        "borderWeightRange": {
+          "min": 1,
+          "max": 1.5
+        }
+      },
+      "depth": {
+        "allowedElevationTechniques": [
+          "border",
+          "shadow"
+        ]
+      },
+      "motion": {
+        "durationMultiplier": {
+          "min": 0.75,
+          "max": 1
+        },
+        "permittedEasingFamilies": [
+          "standard",
+          "decelerate"
+        ]
+      },
+      "accessibilityWarnings": [],
+      "fallbacks": [],
+      "prohibitions": [
+        "no-hardcoded-hex-values",
+        "no-fixed-pixel-layout-sizes",
+        "no-saturated-full-page-backgrounds",
+        "no-expressive-animation-libraries-in-dense-product-surfaces",
+        "no-low-contrast-muted-text"
+      ],
+      "constraints": {
+        "mayNotRelax": [
+          "contrast-gates",
+          "touch-target-minimums",
+          "focus-indicator-visibility",
+          "reduced-motion-support",
+          "text-expansion-40-percent"
+        ]
+      }
+    }
+  }
+}

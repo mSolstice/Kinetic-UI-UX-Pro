@@ -1,0 +1,49 @@
+{
+  "id": "technical-dense",
+  "name": "Technical Dense",
+  "intent": "Creates a focused, high-information interface that feels exact, operational, and built for repeated expert use.",
+  "worksFor": ["dashboard", "admin-tool", "developer-console", "monitoring", "data-table", "editor"],
+  "avoidFor": ["consumer-onboarding", "marketing-page", "checkout", "wellness", "children-product", "brand-story"],
+  "color": {
+    "chromaRange": { "min": 0.0, "max": 0.12 },
+    "lightnessSpread": { "min": 0.38, "max": 0.92 },
+    "hueRelationshipRules": ["monochrome", "analogous"],
+    "surfaceCountLimit": 4,
+    "saturatedBackgroundsPermitted": false
+  },
+  "type": {
+    "scaleRatio": { "min": 1.067, "max": 1.15 },
+    "weightRange": { "min": 400, "max": 700 },
+    "trackingRules": ["zero-tracking-for-body", "tabular-numerals-for-metrics", "no-condensed-body-copy"],
+    "maximumSimultaneousFamilies": 1,
+    "caseTreatment": ["sentence", "numeric-tabular", "uppercase-labels-only"]
+  },
+  "space": {
+    "densityMultiplier": { "min": 0.7, "max": 0.95 },
+    "whitespaceToContentRatioTarget": { "min": 0.16, "max": 0.3 }
+  },
+  "shape": {
+    "radiusMultiplierRange": { "min": 0, "max": 0.75 },
+    "borderWeightRange": { "min": 1, "max": 1.25 }
+  },
+  "depth": {
+    "allowedElevationTechniques": ["border", "none"]
+  },
+  "motion": {
+    "durationMultiplier": { "min": 0.5, "max": 0.85 },
+    "permittedEasingFamilies": ["linear", "standard"]
+  },
+  "accessibilityWarnings": [],
+  "fallbacks": [],
+  "prohibitions": [
+    "no-hardcoded-hex-values",
+    "no-fixed-pixel-layout-sizes",
+    "no-expressive-animation-libraries",
+    "no-card-heavy-marketing-layouts",
+    "no-hidden-overflow-that-clips-operational-data",
+    "no-color-only-status"
+  ],
+  "constraints": {
+    "mayNotRelax": ["contrast-gates", "touch-target-minimums", "focus-indicator-visibility", "reduced-motion-support", "text-expansion-40-percent"]
+  }
+}

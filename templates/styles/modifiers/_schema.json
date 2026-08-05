@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kinetic-ui-ux-pro/style-modifier-schema/1",
+  "title": "Kinetic UI UX Pro Style Modifier",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "intent", "order", "touches", "transform", "incompatibleWith", "cannotOverride"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "name": { "type": "string" },
+    "intent": { "type": "string" },
+    "order": { "type": "integer" },
+    "touches": {
+      "type": "array",
+      "items": { "enum": ["color", "type", "space", "shape", "depth", "motion", "prohibitions"] },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "transform": {
+      "type": "object",
+      "description": "Structured transforms interpreted by scripts/style_apply.py."
+    },
+    "incompatibleWith": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseStyles", "modifiers"],
+      "properties": {
+        "baseStyles": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "modifiers": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+      }
+    },
+    "cannotOverride": {
+      "type": "array",
+      "items": {
+        "enum": ["contrast-gates", "touch-target-minimums", "focus-indicator-visibility", "reduced-motion-support", "text-expansion-40-percent"]
+      },
+      "minItems": 5,
+      "uniqueItems": true
+    }
+  }
+}

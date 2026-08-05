@@ -1,0 +1,54 @@
+{
+  "id": "playful-rounded",
+  "name": "Playful Rounded",
+  "intent": "Creates a friendly, buoyant interface that feels forgiving, lively, and easy to approach.",
+  "worksFor": ["onboarding", "education", "creator-tool", "consumer-settings", "lightweight-dashboard", "empty-state-heavy-product"],
+  "avoidFor": ["legal-form", "financial-trading", "medical-records", "incident-response", "luxury-brand", "dense-admin-table"],
+  "color": {
+    "chromaRange": { "min": 0.06, "max": 0.2 },
+    "lightnessSpread": { "min": 0.46, "max": 0.94 },
+    "hueRelationshipRules": ["analogous", "complementary"],
+    "surfaceCountLimit": 5,
+    "saturatedBackgroundsPermitted": true
+  },
+  "type": {
+    "scaleRatio": { "min": 1.125, "max": 1.25 },
+    "weightRange": { "min": 450, "max": 800 },
+    "trackingRules": ["zero-tracking-for-body", "no-bouncy-letterspacing", "labels-must-remain-scannable"],
+    "maximumSimultaneousFamilies": 2,
+    "caseTreatment": ["sentence", "title", "no-all-caps"]
+  },
+  "space": {
+    "densityMultiplier": { "min": 1, "max": 1.35 },
+    "whitespaceToContentRatioTarget": { "min": 0.36, "max": 0.56 }
+  },
+  "shape": {
+    "radiusMultiplierRange": { "min": 1.5, "max": 3 },
+    "borderWeightRange": { "min": 1, "max": 2 }
+  },
+  "depth": {
+    "allowedElevationTechniques": ["shadow", "border", "overlap"]
+  },
+  "motion": {
+    "durationMultiplier": { "min": 0.85, "max": 1.25 },
+    "permittedEasingFamilies": ["standard", "decelerate", "spring"]
+  },
+  "accessibilityWarnings": [],
+  "fallbacks": [
+    {
+      "condition": "prefers-reduced-motion",
+      "response": "Replace bounce and travel with short opacity or color-state changes while preserving completion feedback."
+    }
+  ],
+  "prohibitions": [
+    "no-hardcoded-hex-values",
+    "no-fixed-pixel-layout-sizes",
+    "no-playful-motion-on-destructive-confirmation",
+    "no-candy-color-status-without-text",
+    "no-rounding-that-obscures-hit-target-boundaries",
+    "no-childish-tone-for-serious-data"
+  ],
+  "constraints": {
+    "mayNotRelax": ["contrast-gates", "touch-target-minimums", "focus-indicator-visibility", "reduced-motion-support", "text-expansion-40-percent"]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "id": "sharp",
+  "name": "Sharp",
+  "intent": "Removes rounded corners so structure feels precise, severe, and mechanical.",
+  "order": 40,
+  "touches": ["shape", "prohibitions"],
+  "transform": {
+    "set": {
+      "shape.radiusMultiplierRange": { "min": 0, "max": 0 }
+    },
+    "addProhibitions": ["no-rounded-corners", "no-pill-controls"]
+  },
+  "incompatibleWith": {
+    "baseStyles": ["playful-rounded"],
+    "modifiers": ["rounded"]
+  },
+  "cannotOverride": ["contrast-gates", "touch-target-minimums", "focus-indicator-visibility", "reduced-motion-support", "text-expansion-40-percent"]
+}

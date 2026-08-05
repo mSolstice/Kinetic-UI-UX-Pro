@@ -1,0 +1,49 @@
+{
+  "id": "brutalist",
+  "name": "Brutalist",
+  "intent": "Creates a blunt, confrontational interface that feels raw, immediate, and intentionally unpolished.",
+  "worksFor": ["campaign-page", "experimental-portfolio", "event-microsite", "artist-tool"],
+  "avoidFor": ["healthcare", "finance", "checkout", "settings", "enterprise-dashboard", "assistive-workflow"],
+  "color": {
+    "chromaRange": { "min": 0.05, "max": 0.22 },
+    "lightnessSpread": { "min": 0.48, "max": 0.96 },
+    "hueRelationshipRules": ["monochrome", "complementary"],
+    "surfaceCountLimit": 3,
+    "saturatedBackgroundsPermitted": true
+  },
+  "type": {
+    "scaleRatio": { "min": 1.25, "max": 1.5 },
+    "weightRange": { "min": 500, "max": 900 },
+    "trackingRules": ["zero-tracking-for-body", "tight-tracking-for-display-is-forbidden", "uppercase-only-for-short-labels"],
+    "maximumSimultaneousFamilies": 2,
+    "caseTreatment": ["sentence", "uppercase-labels-only"]
+  },
+  "space": {
+    "densityMultiplier": { "min": 0.75, "max": 1.15 },
+    "whitespaceToContentRatioTarget": { "min": 0.2, "max": 0.4 }
+  },
+  "shape": {
+    "radiusMultiplierRange": { "min": 0, "max": 0.5 },
+    "borderWeightRange": { "min": 1, "max": 3 }
+  },
+  "depth": {
+    "allowedElevationTechniques": ["border", "overlap"]
+  },
+  "motion": {
+    "durationMultiplier": { "min": 0.65, "max": 0.95 },
+    "permittedEasingFamilies": ["linear", "standard"]
+  },
+  "accessibilityWarnings": [],
+  "fallbacks": [],
+  "prohibitions": [
+    "no-hardcoded-hex-values",
+    "no-fixed-pixel-layout-sizes",
+    "no-drop-shadows",
+    "no-gradients",
+    "no-subtle-disabled-states",
+    "no-jagged-layout-that-breaks-reading-order"
+  ],
+  "constraints": {
+    "mayNotRelax": ["contrast-gates", "touch-target-minimums", "focus-indicator-visibility", "reduced-motion-support", "text-expansion-40-percent"]
+  }
+}

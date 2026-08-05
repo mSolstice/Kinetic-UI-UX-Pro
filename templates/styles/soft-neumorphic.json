@@ -1,0 +1,58 @@
+{
+  "id": "soft-neumorphic",
+  "name": "Soft Neumorphic",
+  "intent": "Creates a gentle, tactile interface that feels cushioned, quiet, and physically approachable.",
+  "worksFor": ["wellness-dashboard", "personal-productivity", "ambient-control-panel", "low-risk-preference-ui"],
+  "avoidFor": ["forms-with-errors", "checkout", "medical", "finance", "dense-dashboard", "low-vision-primary-use"],
+  "color": {
+    "chromaRange": { "min": 0.0, "max": 0.08 },
+    "lightnessSpread": { "min": 0.34, "max": 0.9 },
+    "hueRelationshipRules": ["monochrome", "analogous"],
+    "surfaceCountLimit": 3,
+    "saturatedBackgroundsPermitted": false
+  },
+  "type": {
+    "scaleRatio": { "min": 1.125, "max": 1.25 },
+    "weightRange": { "min": 400, "max": 700 },
+    "trackingRules": ["zero-tracking-for-body", "no-low-contrast-microcopy", "no-negative-tracking"],
+    "maximumSimultaneousFamilies": 1,
+    "caseTreatment": ["sentence", "no-all-caps", "numeric-tabular"]
+  },
+  "space": {
+    "densityMultiplier": { "min": 1.05, "max": 1.4 },
+    "whitespaceToContentRatioTarget": { "min": 0.38, "max": 0.58 }
+  },
+  "shape": {
+    "radiusMultiplierRange": { "min": 1.25, "max": 2.5 },
+    "borderWeightRange": { "min": 0, "max": 1 }
+  },
+  "depth": {
+    "allowedElevationTechniques": ["shadow", "border"]
+  },
+  "motion": {
+    "durationMultiplier": { "min": 0.85, "max": 1.15 },
+    "permittedEasingFamilies": ["standard", "decelerate"]
+  },
+  "accessibilityWarnings": [
+    {
+      "risk": "Depth is created with near-identical surface values, so pressed, raised, and disabled states can become indistinguishable.",
+      "mitigation": "State meaning must also use explicit border, label, icon, aria state, or text change; low-contrast depth cues may never carry meaning alone."
+    }
+  ],
+  "fallbacks": [
+    {
+      "condition": "forced-colors-or-high-contrast-mode",
+      "response": "Replace soft depth with explicit border and outline tokens while preserving the same state hierarchy."
+    }
+  ],
+  "prohibitions": [
+    "no-hardcoded-hex-values",
+    "no-fixed-pixel-layout-sizes",
+    "no-state-meaning-conveyed-by-shadow-alone",
+    "no-disabled-state-based-only-on-lower-contrast",
+    "no-critical-action-with-neumorphic-only-affordance"
+  ],
+  "constraints": {
+    "mayNotRelax": ["contrast-gates", "touch-target-minimums", "focus-indicator-visibility", "reduced-motion-support", "text-expansion-40-percent"]
+  }
+}

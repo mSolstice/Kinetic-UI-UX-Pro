@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kinetic-ui-ux-pro/adapter-schema/1",
+  "title": "Kinetic UI UX Pro Library Adapter",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "library",
+    "license",
+    "vendorable",
+    "frameworks",
+    "registry",
+    "theming",
+    "stateGaps",
+    "conformancePatch",
+    "avoidFor"
+  ],
+  "properties": {
+    "library": {
+      "type": "string",
+      "minLength": 1
+    },
+    "license": {
+      "type": "string",
+      "description": "SPDX identifier read from the adapter source."
+    },
+    "vendorable": {
+      "type": "boolean"
+    },
+    "frameworks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "registry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "enum": ["shadcn-registry", "static-catalog", "sitemap", null]
+        },
+        "url": {
+          "type": "string"
+        },
+        "manual_url": {
+          "type": "string"
+        }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "type": {
+              "enum": ["shadcn-registry", "static-catalog", "sitemap"]
+            }
+          },
+          "required": ["url"]
+        },
+        {
+          "properties": {
+            "type": {
+              "type": "null"
+            }
+          },
+          "required": ["manual_url"]
+        }
+      ]
+    },
+    "theming": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["attach", "tokenMap"],
+      "properties": {
+        "attach": {
+          "enum": ["css-variables", "tailwind-classes", "semantic-classes", "props"]
+        },
+        "tokenMap": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "minProperties": 1
+        }
+      }
+    },
+    "stateGaps": {
+      "type": "array",
+      "items": {
+        "enum": ["default", "hover", "focus-visible", "active", "loading", "disabled", "error", "success", "empty"]
+      },
+      "uniqueItems": true
+    },
+    "conformancePatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "patternProperties": {
+        "^(default|hover|focus-visible|active|loading|disabled|error|success|empty|reduced-motion|live-region|skeleton-geometry|aria)$": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["language", "code"],
+          "properties": {
+            "language": {
+              "type": "string"
+            },
+            "code": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "avoidFor": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}

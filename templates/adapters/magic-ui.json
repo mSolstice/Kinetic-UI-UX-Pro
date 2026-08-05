@@ -1,0 +1,55 @@
+{
+  "library": "Magic UI",
+  "license": "MIT",
+  "vendorable": true,
+  "frameworks": ["react", "next"],
+  "registry": {
+    "type": "shadcn-registry",
+    "url": "https://magicui.design/r/registry.json"
+  },
+  "theming": {
+    "attach": "tailwind-classes",
+    "tokenMap": {
+      "surface.canvas": "bg-[var(--surface-canvas)]",
+      "surface.panel": "bg-[var(--surface-panel)]",
+      "text.primary": "text-[var(--text-primary)]",
+      "text.muted": "text-[var(--text-muted)]",
+      "accent.fill": "from-[var(--accent-fill)]",
+      "accent.text": "text-[var(--accent-text)]",
+      "duration.normal": "duration-[var(--duration-normal)]",
+      "ease.expressive": "ease-[var(--ease-expressive)]"
+    }
+  },
+  "stateGaps": ["focus-visible", "loading", "disabled", "error", "success", "empty"],
+  "conformancePatch": {
+    "reduced-motion": {
+      "language": "tsx",
+      "code": "const reduceMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;\nconst animationClass = reduceMotion ? 'motion-reduce:animate-none motion-reduce:transition-none' : 'animate-[var(--motion-recipe)]';"
+    },
+    "focus-visible": {
+      "language": "css",
+      "code": ".kui-magic-action:focus-visible { outline: var(--focus-ring-width) solid var(--focus-ring); outline-offset: var(--focus-ring-offset); }"
+    },
+    "loading": {
+      "language": "tsx",
+      "code": "<section aria-busy={state.status === 'loading'}>{state.status === 'loading' ? <div className=\"kui-skeleton\" aria-hidden=\"true\" /> : children}</section>"
+    },
+    "disabled": {
+      "language": "tsx",
+      "code": "<button disabled={disabled} aria-disabled={disabled} data-disabled={disabled ? '' : undefined}>{label}</button>"
+    },
+    "error": {
+      "language": "tsx",
+      "code": "{state.status === 'error' ? <p role=\"alert\" className=\"text-[var(--status-error-text)]\">{state.message}</p> : null}"
+    },
+    "success": {
+      "language": "tsx",
+      "code": "<div aria-live=\"polite\" className=\"sr-only\">{state.status === 'success' ? successMessage : ''}</div>"
+    },
+    "empty": {
+      "language": "tsx",
+      "code": "{state.status === 'empty' ? <div role=\"status\">{emptyMessage}</div> : null}"
+    }
+  },
+  "avoidFor": ["dashboard", "settings", "editor", "logistics-internal", "healthcare", "government"]
+}

@@ -67,6 +67,7 @@ const labels = {
 let currentStep = 0;
 let maxUnlockedStep = 0;
 let status = { name: "editing" };
+let checkoutDraft = "{}";
 
 function total() {
   return order.items.reduce((sum, item) => sum + item.price, 0) + order.tax;
@@ -74,19 +75,19 @@ function total() {
 
 function hydrateFromStorage() {
   try {
-    const saved = JSON.parse(localStorage.getItem("kinetic-checkout") || "{}");
+    const saved = JSON.parse(checkoutDraft || "{}");
     Object.keys(model).forEach((key) => {
       if (Object.prototype.hasOwnProperty.call(saved, key)) {
         model[key] = saved[key];
       }
     });
   } catch {
-    localStorage.removeItem("kinetic-checkout");
+    checkoutDraft = "{}";
   }
 }
 
 function saveModel() {
-  localStorage.setItem("kinetic-checkout", JSON.stringify(model));
+  checkoutDraft = JSON.stringify(model);
 }
 
 function populateFields() {

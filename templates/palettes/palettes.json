@@ -1,0 +1,4186 @@
+{
+  "trustworthy": [
+    {
+      "id": "trustworthy-muted-204",
+      "name": "Trustworthy Muted Amber",
+      "moodTags": [
+        "amber",
+        "clear",
+        "institutional",
+        "muted",
+        "stable",
+        "trustworthy"
+      ],
+      "baseHue": 204,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "data-forward",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "trustworthy-moderate-204",
+      "name": "Trustworthy Moderate Cyan",
+      "moodTags": [
+        "clear",
+        "cyan",
+        "institutional",
+        "moderate",
+        "stable",
+        "trustworthy"
+      ],
+      "baseHue": 204,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "data-forward",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "trustworthy-saturated-204",
+      "name": "Trustworthy Saturated Slate",
+      "moodTags": [
+        "clear",
+        "institutional",
+        "saturated",
+        "slate",
+        "stable",
+        "trustworthy"
+      ],
+      "baseHue": 204,
+      "chroma": 0.165,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "data-forward",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "trustworthy-muted-216",
+      "name": "Trustworthy Muted Teal",
+      "moodTags": [
+        "clear",
+        "institutional",
+        "muted",
+        "stable",
+        "teal",
+        "trustworthy"
+      ],
+      "baseHue": 216,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "data-forward",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "trustworthy-moderate-216",
+      "name": "Trustworthy Moderate Olive",
+      "moodTags": [
+        "clear",
+        "institutional",
+        "moderate",
+        "olive",
+        "stable",
+        "trustworthy"
+      ],
+      "baseHue": 216,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "data-forward",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "trustworthy-saturated-216",
+      "name": "Trustworthy Saturated Coral",
+      "moodTags": [
+        "clear",
+        "coral",
+        "institutional",
+        "saturated",
+        "stable",
+        "trustworthy"
+      ],
+      "baseHue": 216,
+      "chroma": 0.165,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "data-forward",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "trustworthy-muted-228",
+      "name": "Trustworthy Muted Slate",
+      "moodTags": [
+        "clear",
+        "institutional",
+        "muted",
+        "slate",
+        "stable",
+        "trustworthy"
+      ],
+      "baseHue": 228,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "data-forward",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "trustworthy-moderate-228",
+      "name": "Trustworthy Moderate Plum",
+      "moodTags": [
+        "clear",
+        "institutional",
+        "moderate",
+        "plum",
+        "stable",
+        "trustworthy"
+      ],
+      "baseHue": 228,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "data-forward",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "trustworthy-saturated-228",
+      "name": "Trustworthy Saturated Blue",
+      "moodTags": [
+        "blue",
+        "clear",
+        "institutional",
+        "saturated",
+        "stable",
+        "trustworthy"
+      ],
+      "baseHue": 228,
+      "chroma": 0.165,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "data-forward",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "trustworthy-muted-240",
+      "name": "Trustworthy Muted Coral",
+      "moodTags": [
+        "clear",
+        "coral",
+        "institutional",
+        "muted",
+        "stable",
+        "trustworthy"
+      ],
+      "baseHue": 240,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "data-forward",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "trustworthy-moderate-240",
+      "name": "Trustworthy Moderate Indigo",
+      "moodTags": [
+        "clear",
+        "indigo",
+        "institutional",
+        "moderate",
+        "stable",
+        "trustworthy"
+      ],
+      "baseHue": 240,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "data-forward",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "trustworthy-saturated-240",
+      "name": "Trustworthy Saturated Violet",
+      "moodTags": [
+        "clear",
+        "institutional",
+        "saturated",
+        "stable",
+        "trustworthy",
+        "violet"
+      ],
+      "baseHue": 240,
+      "chroma": 0.165,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "data-forward",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "trustworthy-muted-252",
+      "name": "Trustworthy Muted Blue",
+      "moodTags": [
+        "blue",
+        "clear",
+        "institutional",
+        "muted",
+        "stable",
+        "trustworthy"
+      ],
+      "baseHue": 252,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "data-forward",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "trustworthy-moderate-252",
+      "name": "Trustworthy Moderate Rose",
+      "moodTags": [
+        "clear",
+        "institutional",
+        "moderate",
+        "rose",
+        "stable",
+        "trustworthy"
+      ],
+      "baseHue": 252,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "data-forward",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "trustworthy-saturated-252",
+      "name": "Trustworthy Saturated Amber",
+      "moodTags": [
+        "amber",
+        "clear",
+        "institutional",
+        "saturated",
+        "stable",
+        "trustworthy"
+      ],
+      "baseHue": 252,
+      "chroma": 0.165,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "data-forward",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "trustworthy-muted-184",
+      "name": "Trustworthy Muted Violet",
+      "moodTags": [
+        "clear",
+        "institutional",
+        "muted",
+        "stable",
+        "trustworthy",
+        "violet"
+      ],
+      "baseHue": 184,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "data-forward",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "trustworthy-moderate-184",
+      "name": "Trustworthy Moderate Green",
+      "moodTags": [
+        "clear",
+        "green",
+        "institutional",
+        "moderate",
+        "stable",
+        "trustworthy"
+      ],
+      "baseHue": 184,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "data-forward",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "radix-blue",
+      "name": "Radix Blue",
+      "moodTags": [
+        "radix",
+        "trustworthy",
+        "blue",
+        "reference",
+        "interface"
+      ],
+      "baseHue": 212,
+      "chroma": 0.13,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "data-forward",
+        "high-contrast-utility"
+      ],
+      "source": "radix"
+    }
+  ],
+  "energetic": [
+    {
+      "id": "energetic-muted-012",
+      "name": "Energetic Muted Violet",
+      "moodTags": [
+        "active",
+        "bold",
+        "conversion",
+        "energetic",
+        "muted",
+        "violet"
+      ],
+      "baseHue": 12,
+      "chroma": 0.065,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "brutalist",
+        "editorial"
+      ]
+    },
+    {
+      "id": "energetic-moderate-012",
+      "name": "Energetic Moderate Green",
+      "moodTags": [
+        "active",
+        "bold",
+        "conversion",
+        "energetic",
+        "green",
+        "moderate"
+      ],
+      "baseHue": 12,
+      "chroma": 0.115,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "brutalist",
+        "editorial"
+      ]
+    },
+    {
+      "id": "energetic-saturated-012",
+      "name": "Energetic Saturated Teal",
+      "moodTags": [
+        "active",
+        "bold",
+        "conversion",
+        "energetic",
+        "saturated",
+        "teal"
+      ],
+      "baseHue": 12,
+      "chroma": 0.165,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "brutalist",
+        "editorial"
+      ]
+    },
+    {
+      "id": "energetic-muted-028",
+      "name": "Energetic Muted Amber",
+      "moodTags": [
+        "active",
+        "amber",
+        "bold",
+        "conversion",
+        "energetic",
+        "muted"
+      ],
+      "baseHue": 28,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "brutalist",
+        "editorial"
+      ]
+    },
+    {
+      "id": "energetic-moderate-028",
+      "name": "Energetic Moderate Cyan",
+      "moodTags": [
+        "active",
+        "bold",
+        "conversion",
+        "cyan",
+        "energetic",
+        "moderate"
+      ],
+      "baseHue": 28,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "brutalist",
+        "editorial"
+      ]
+    },
+    {
+      "id": "energetic-saturated-028",
+      "name": "Energetic Saturated Slate",
+      "moodTags": [
+        "active",
+        "bold",
+        "conversion",
+        "energetic",
+        "saturated",
+        "slate"
+      ],
+      "baseHue": 28,
+      "chroma": 0.165,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "brutalist",
+        "editorial"
+      ]
+    },
+    {
+      "id": "energetic-muted-044",
+      "name": "Energetic Muted Teal",
+      "moodTags": [
+        "active",
+        "bold",
+        "conversion",
+        "energetic",
+        "muted",
+        "teal"
+      ],
+      "baseHue": 44,
+      "chroma": 0.065,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "brutalist",
+        "editorial"
+      ]
+    },
+    {
+      "id": "energetic-moderate-044",
+      "name": "Energetic Moderate Olive",
+      "moodTags": [
+        "active",
+        "bold",
+        "conversion",
+        "energetic",
+        "moderate",
+        "olive"
+      ],
+      "baseHue": 44,
+      "chroma": 0.115,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "brutalist",
+        "editorial"
+      ]
+    },
+    {
+      "id": "energetic-saturated-044",
+      "name": "Energetic Saturated Coral",
+      "moodTags": [
+        "active",
+        "bold",
+        "conversion",
+        "coral",
+        "energetic",
+        "saturated"
+      ],
+      "baseHue": 44,
+      "chroma": 0.165,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "brutalist",
+        "editorial"
+      ]
+    },
+    {
+      "id": "energetic-muted-330",
+      "name": "Energetic Muted Slate",
+      "moodTags": [
+        "active",
+        "bold",
+        "conversion",
+        "energetic",
+        "muted",
+        "slate"
+      ],
+      "baseHue": 330,
+      "chroma": 0.065,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "brutalist",
+        "editorial"
+      ]
+    },
+    {
+      "id": "energetic-moderate-330",
+      "name": "Energetic Moderate Plum",
+      "moodTags": [
+        "active",
+        "bold",
+        "conversion",
+        "energetic",
+        "moderate",
+        "plum"
+      ],
+      "baseHue": 330,
+      "chroma": 0.115,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "brutalist",
+        "editorial"
+      ]
+    },
+    {
+      "id": "energetic-saturated-330",
+      "name": "Energetic Saturated Blue",
+      "moodTags": [
+        "active",
+        "blue",
+        "bold",
+        "conversion",
+        "energetic",
+        "saturated"
+      ],
+      "baseHue": 330,
+      "chroma": 0.165,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "brutalist",
+        "editorial"
+      ]
+    },
+    {
+      "id": "energetic-muted-292",
+      "name": "Energetic Muted Coral",
+      "moodTags": [
+        "active",
+        "bold",
+        "conversion",
+        "coral",
+        "energetic",
+        "muted"
+      ],
+      "baseHue": 292,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "brutalist",
+        "editorial"
+      ]
+    },
+    {
+      "id": "energetic-moderate-292",
+      "name": "Energetic Moderate Indigo",
+      "moodTags": [
+        "active",
+        "bold",
+        "conversion",
+        "energetic",
+        "indigo",
+        "moderate"
+      ],
+      "baseHue": 292,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "brutalist",
+        "editorial"
+      ]
+    },
+    {
+      "id": "energetic-saturated-292",
+      "name": "Energetic Saturated Violet",
+      "moodTags": [
+        "active",
+        "bold",
+        "conversion",
+        "energetic",
+        "saturated",
+        "violet"
+      ],
+      "baseHue": 292,
+      "chroma": 0.165,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "brutalist",
+        "editorial"
+      ]
+    },
+    {
+      "id": "energetic-muted-176",
+      "name": "Energetic Muted Blue",
+      "moodTags": [
+        "active",
+        "blue",
+        "bold",
+        "conversion",
+        "energetic",
+        "muted"
+      ],
+      "baseHue": 176,
+      "chroma": 0.065,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "brutalist",
+        "editorial"
+      ]
+    },
+    {
+      "id": "energetic-moderate-176",
+      "name": "Energetic Moderate Rose",
+      "moodTags": [
+        "active",
+        "bold",
+        "conversion",
+        "energetic",
+        "moderate",
+        "rose"
+      ],
+      "baseHue": 176,
+      "chroma": 0.115,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "brutalist",
+        "editorial"
+      ]
+    }
+  ],
+  "calm": [
+    {
+      "id": "calm-muted-188",
+      "name": "Calm Muted Olive",
+      "moodTags": [
+        "calm",
+        "low-pressure",
+        "muted",
+        "olive",
+        "quiet",
+        "spacious"
+      ],
+      "baseHue": 188,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "soft-neumorphic",
+        "swiss-grid"
+      ]
+    },
+    {
+      "id": "calm-moderate-188",
+      "name": "Calm Moderate Blue",
+      "moodTags": [
+        "blue",
+        "calm",
+        "low-pressure",
+        "moderate",
+        "quiet",
+        "spacious"
+      ],
+      "baseHue": 188,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "soft-neumorphic",
+        "swiss-grid"
+      ]
+    },
+    {
+      "id": "calm-saturated-188",
+      "name": "Calm Saturated Indigo",
+      "moodTags": [
+        "calm",
+        "indigo",
+        "low-pressure",
+        "quiet",
+        "saturated",
+        "spacious"
+      ],
+      "baseHue": 188,
+      "chroma": 0.165,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "soft-neumorphic",
+        "swiss-grid"
+      ]
+    },
+    {
+      "id": "calm-muted-204",
+      "name": "Calm Muted Plum",
+      "moodTags": [
+        "calm",
+        "low-pressure",
+        "muted",
+        "plum",
+        "quiet",
+        "spacious"
+      ],
+      "baseHue": 204,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "soft-neumorphic",
+        "swiss-grid"
+      ]
+    },
+    {
+      "id": "calm-moderate-204",
+      "name": "Calm Moderate Violet",
+      "moodTags": [
+        "calm",
+        "low-pressure",
+        "moderate",
+        "quiet",
+        "spacious",
+        "violet"
+      ],
+      "baseHue": 204,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "soft-neumorphic",
+        "swiss-grid"
+      ]
+    },
+    {
+      "id": "calm-saturated-204",
+      "name": "Calm Saturated Rose",
+      "moodTags": [
+        "calm",
+        "low-pressure",
+        "quiet",
+        "rose",
+        "saturated",
+        "spacious"
+      ],
+      "baseHue": 204,
+      "chroma": 0.165,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "soft-neumorphic",
+        "swiss-grid"
+      ]
+    },
+    {
+      "id": "calm-muted-144",
+      "name": "Calm Muted Indigo",
+      "moodTags": [
+        "calm",
+        "indigo",
+        "low-pressure",
+        "muted",
+        "quiet",
+        "spacious"
+      ],
+      "baseHue": 144,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "soft-neumorphic",
+        "swiss-grid"
+      ]
+    },
+    {
+      "id": "calm-moderate-144",
+      "name": "Calm Moderate Amber",
+      "moodTags": [
+        "amber",
+        "calm",
+        "low-pressure",
+        "moderate",
+        "quiet",
+        "spacious"
+      ],
+      "baseHue": 144,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "soft-neumorphic",
+        "swiss-grid"
+      ]
+    },
+    {
+      "id": "calm-saturated-144",
+      "name": "Calm Saturated Green",
+      "moodTags": [
+        "calm",
+        "green",
+        "low-pressure",
+        "quiet",
+        "saturated",
+        "spacious"
+      ],
+      "baseHue": 144,
+      "chroma": 0.165,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "soft-neumorphic",
+        "swiss-grid"
+      ]
+    },
+    {
+      "id": "calm-muted-164",
+      "name": "Calm Muted Rose",
+      "moodTags": [
+        "calm",
+        "low-pressure",
+        "muted",
+        "quiet",
+        "rose",
+        "spacious"
+      ],
+      "baseHue": 164,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "soft-neumorphic",
+        "swiss-grid"
+      ]
+    },
+    {
+      "id": "calm-moderate-164",
+      "name": "Calm Moderate Teal",
+      "moodTags": [
+        "calm",
+        "low-pressure",
+        "moderate",
+        "quiet",
+        "spacious",
+        "teal"
+      ],
+      "baseHue": 164,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "soft-neumorphic",
+        "swiss-grid"
+      ]
+    },
+    {
+      "id": "calm-saturated-164",
+      "name": "Calm Saturated Cyan",
+      "moodTags": [
+        "calm",
+        "cyan",
+        "low-pressure",
+        "quiet",
+        "saturated",
+        "spacious"
+      ],
+      "baseHue": 164,
+      "chroma": 0.165,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "soft-neumorphic",
+        "swiss-grid"
+      ]
+    },
+    {
+      "id": "calm-muted-276",
+      "name": "Calm Muted Green",
+      "moodTags": [
+        "calm",
+        "green",
+        "low-pressure",
+        "muted",
+        "quiet",
+        "spacious"
+      ],
+      "baseHue": 276,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "soft-neumorphic",
+        "swiss-grid"
+      ]
+    },
+    {
+      "id": "calm-moderate-276",
+      "name": "Calm Moderate Slate",
+      "moodTags": [
+        "calm",
+        "low-pressure",
+        "moderate",
+        "quiet",
+        "slate",
+        "spacious"
+      ],
+      "baseHue": 276,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "soft-neumorphic",
+        "swiss-grid"
+      ]
+    },
+    {
+      "id": "calm-saturated-276",
+      "name": "Calm Saturated Olive",
+      "moodTags": [
+        "calm",
+        "low-pressure",
+        "olive",
+        "quiet",
+        "saturated",
+        "spacious"
+      ],
+      "baseHue": 276,
+      "chroma": 0.165,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "soft-neumorphic",
+        "swiss-grid"
+      ]
+    },
+    {
+      "id": "calm-muted-116",
+      "name": "Calm Muted Cyan",
+      "moodTags": [
+        "calm",
+        "cyan",
+        "low-pressure",
+        "muted",
+        "quiet",
+        "spacious"
+      ],
+      "baseHue": 116,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "soft-neumorphic",
+        "swiss-grid"
+      ]
+    },
+    {
+      "id": "calm-moderate-116",
+      "name": "Calm Moderate Coral",
+      "moodTags": [
+        "calm",
+        "coral",
+        "low-pressure",
+        "moderate",
+        "quiet",
+        "spacious"
+      ],
+      "baseHue": 116,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "soft-neumorphic",
+        "swiss-grid"
+      ]
+    }
+  ],
+  "serious": [
+    {
+      "id": "serious-muted-220",
+      "name": "Serious Muted Blue",
+      "moodTags": [
+        "blue",
+        "controlled",
+        "decisive",
+        "formal",
+        "muted",
+        "serious"
+      ],
+      "baseHue": 220,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "technical-dense",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "serious-moderate-220",
+      "name": "Serious Moderate Rose",
+      "moodTags": [
+        "controlled",
+        "decisive",
+        "formal",
+        "moderate",
+        "rose",
+        "serious"
+      ],
+      "baseHue": 220,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "technical-dense",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "serious-saturated-220",
+      "name": "Serious Saturated Amber",
+      "moodTags": [
+        "amber",
+        "controlled",
+        "decisive",
+        "formal",
+        "saturated",
+        "serious"
+      ],
+      "baseHue": 220,
+      "chroma": 0.13,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "technical-dense",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "serious-muted-236",
+      "name": "Serious Muted Violet",
+      "moodTags": [
+        "controlled",
+        "decisive",
+        "formal",
+        "muted",
+        "serious",
+        "violet"
+      ],
+      "baseHue": 236,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "technical-dense",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "serious-moderate-236",
+      "name": "Serious Moderate Green",
+      "moodTags": [
+        "controlled",
+        "decisive",
+        "formal",
+        "green",
+        "moderate",
+        "serious"
+      ],
+      "baseHue": 236,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "technical-dense",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "serious-saturated-236",
+      "name": "Serious Saturated Teal",
+      "moodTags": [
+        "controlled",
+        "decisive",
+        "formal",
+        "saturated",
+        "serious",
+        "teal"
+      ],
+      "baseHue": 236,
+      "chroma": 0.13,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "technical-dense",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "serious-muted-252",
+      "name": "Serious Muted Amber",
+      "moodTags": [
+        "amber",
+        "controlled",
+        "decisive",
+        "formal",
+        "muted",
+        "serious"
+      ],
+      "baseHue": 252,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "technical-dense",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "serious-moderate-252",
+      "name": "Serious Moderate Cyan",
+      "moodTags": [
+        "controlled",
+        "cyan",
+        "decisive",
+        "formal",
+        "moderate",
+        "serious"
+      ],
+      "baseHue": 252,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "technical-dense",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "serious-saturated-252",
+      "name": "Serious Saturated Slate",
+      "moodTags": [
+        "controlled",
+        "decisive",
+        "formal",
+        "saturated",
+        "serious",
+        "slate"
+      ],
+      "baseHue": 252,
+      "chroma": 0.13,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "technical-dense",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "serious-muted-292",
+      "name": "Serious Muted Teal",
+      "moodTags": [
+        "controlled",
+        "decisive",
+        "formal",
+        "muted",
+        "serious",
+        "teal"
+      ],
+      "baseHue": 292,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "technical-dense",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "serious-moderate-292",
+      "name": "Serious Moderate Olive",
+      "moodTags": [
+        "controlled",
+        "decisive",
+        "formal",
+        "moderate",
+        "olive",
+        "serious"
+      ],
+      "baseHue": 292,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "technical-dense",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "serious-saturated-292",
+      "name": "Serious Saturated Coral",
+      "moodTags": [
+        "controlled",
+        "coral",
+        "decisive",
+        "formal",
+        "saturated",
+        "serious"
+      ],
+      "baseHue": 292,
+      "chroma": 0.13,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "technical-dense",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "serious-muted-096",
+      "name": "Serious Muted Slate",
+      "moodTags": [
+        "controlled",
+        "decisive",
+        "formal",
+        "muted",
+        "serious",
+        "slate"
+      ],
+      "baseHue": 96,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "technical-dense",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "serious-moderate-096",
+      "name": "Serious Moderate Plum",
+      "moodTags": [
+        "controlled",
+        "decisive",
+        "formal",
+        "moderate",
+        "plum",
+        "serious"
+      ],
+      "baseHue": 96,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "technical-dense",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "serious-saturated-096",
+      "name": "Serious Saturated Blue",
+      "moodTags": [
+        "blue",
+        "controlled",
+        "decisive",
+        "formal",
+        "saturated",
+        "serious"
+      ],
+      "baseHue": 96,
+      "chroma": 0.13,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "technical-dense",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "serious-muted-036",
+      "name": "Serious Muted Coral",
+      "moodTags": [
+        "controlled",
+        "coral",
+        "decisive",
+        "formal",
+        "muted",
+        "serious"
+      ],
+      "baseHue": 36,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "technical-dense",
+        "high-contrast-utility"
+      ]
+    },
+    {
+      "id": "serious-moderate-036",
+      "name": "Serious Moderate Indigo",
+      "moodTags": [
+        "controlled",
+        "decisive",
+        "formal",
+        "indigo",
+        "moderate",
+        "serious"
+      ],
+      "baseHue": 36,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "technical-dense",
+        "high-contrast-utility"
+      ]
+    }
+  ],
+  "warm": [
+    {
+      "id": "warm-muted-018",
+      "name": "Warm Muted Olive",
+      "moodTags": [
+        "crafted",
+        "grounded",
+        "human",
+        "muted",
+        "olive",
+        "warm"
+      ],
+      "baseHue": 18,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "editorial",
+        "playful-rounded"
+      ]
+    },
+    {
+      "id": "warm-moderate-018",
+      "name": "Warm Moderate Blue",
+      "moodTags": [
+        "blue",
+        "crafted",
+        "grounded",
+        "human",
+        "moderate",
+        "warm"
+      ],
+      "baseHue": 18,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "editorial",
+        "playful-rounded"
+      ]
+    },
+    {
+      "id": "warm-saturated-018",
+      "name": "Warm Saturated Indigo",
+      "moodTags": [
+        "crafted",
+        "grounded",
+        "human",
+        "indigo",
+        "saturated",
+        "warm"
+      ],
+      "baseHue": 18,
+      "chroma": 0.165,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "editorial",
+        "playful-rounded"
+      ]
+    },
+    {
+      "id": "warm-muted-030",
+      "name": "Warm Muted Plum",
+      "moodTags": [
+        "crafted",
+        "grounded",
+        "human",
+        "muted",
+        "plum",
+        "warm"
+      ],
+      "baseHue": 30,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "editorial",
+        "playful-rounded"
+      ]
+    },
+    {
+      "id": "warm-moderate-030",
+      "name": "Warm Moderate Violet",
+      "moodTags": [
+        "crafted",
+        "grounded",
+        "human",
+        "moderate",
+        "violet",
+        "warm"
+      ],
+      "baseHue": 30,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "editorial",
+        "playful-rounded"
+      ]
+    },
+    {
+      "id": "warm-saturated-030",
+      "name": "Warm Saturated Rose",
+      "moodTags": [
+        "crafted",
+        "grounded",
+        "human",
+        "rose",
+        "saturated",
+        "warm"
+      ],
+      "baseHue": 30,
+      "chroma": 0.165,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "editorial",
+        "playful-rounded"
+      ]
+    },
+    {
+      "id": "warm-muted-042",
+      "name": "Warm Muted Indigo",
+      "moodTags": [
+        "crafted",
+        "grounded",
+        "human",
+        "indigo",
+        "muted",
+        "warm"
+      ],
+      "baseHue": 42,
+      "chroma": 0.065,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "editorial",
+        "playful-rounded"
+      ]
+    },
+    {
+      "id": "warm-moderate-042",
+      "name": "Warm Moderate Amber",
+      "moodTags": [
+        "amber",
+        "crafted",
+        "grounded",
+        "human",
+        "moderate",
+        "warm"
+      ],
+      "baseHue": 42,
+      "chroma": 0.115,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "editorial",
+        "playful-rounded"
+      ]
+    },
+    {
+      "id": "warm-saturated-042",
+      "name": "Warm Saturated Green",
+      "moodTags": [
+        "crafted",
+        "green",
+        "grounded",
+        "human",
+        "saturated",
+        "warm"
+      ],
+      "baseHue": 42,
+      "chroma": 0.165,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "editorial",
+        "playful-rounded"
+      ]
+    },
+    {
+      "id": "warm-muted-054",
+      "name": "Warm Muted Rose",
+      "moodTags": [
+        "crafted",
+        "grounded",
+        "human",
+        "muted",
+        "rose",
+        "warm"
+      ],
+      "baseHue": 54,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "editorial",
+        "playful-rounded"
+      ]
+    },
+    {
+      "id": "warm-moderate-054",
+      "name": "Warm Moderate Teal",
+      "moodTags": [
+        "crafted",
+        "grounded",
+        "human",
+        "moderate",
+        "teal",
+        "warm"
+      ],
+      "baseHue": 54,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "editorial",
+        "playful-rounded"
+      ]
+    },
+    {
+      "id": "warm-saturated-054",
+      "name": "Warm Saturated Cyan",
+      "moodTags": [
+        "crafted",
+        "cyan",
+        "grounded",
+        "human",
+        "saturated",
+        "warm"
+      ],
+      "baseHue": 54,
+      "chroma": 0.165,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "editorial",
+        "playful-rounded"
+      ]
+    },
+    {
+      "id": "warm-muted-072",
+      "name": "Warm Muted Green",
+      "moodTags": [
+        "crafted",
+        "green",
+        "grounded",
+        "human",
+        "muted",
+        "warm"
+      ],
+      "baseHue": 72,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "editorial",
+        "playful-rounded"
+      ]
+    },
+    {
+      "id": "warm-moderate-072",
+      "name": "Warm Moderate Slate",
+      "moodTags": [
+        "crafted",
+        "grounded",
+        "human",
+        "moderate",
+        "slate",
+        "warm"
+      ],
+      "baseHue": 72,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "editorial",
+        "playful-rounded"
+      ]
+    },
+    {
+      "id": "warm-saturated-072",
+      "name": "Warm Saturated Olive",
+      "moodTags": [
+        "crafted",
+        "grounded",
+        "human",
+        "olive",
+        "saturated",
+        "warm"
+      ],
+      "baseHue": 72,
+      "chroma": 0.165,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "editorial",
+        "playful-rounded"
+      ]
+    },
+    {
+      "id": "warm-muted-350",
+      "name": "Warm Muted Cyan",
+      "moodTags": [
+        "crafted",
+        "cyan",
+        "grounded",
+        "human",
+        "muted",
+        "warm"
+      ],
+      "baseHue": 350,
+      "chroma": 0.065,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "editorial",
+        "playful-rounded"
+      ]
+    },
+    {
+      "id": "warm-moderate-350",
+      "name": "Warm Moderate Coral",
+      "moodTags": [
+        "coral",
+        "crafted",
+        "grounded",
+        "human",
+        "moderate",
+        "warm"
+      ],
+      "baseHue": 350,
+      "chroma": 0.115,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "editorial",
+        "playful-rounded"
+      ]
+    }
+  ],
+  "technical": [
+    {
+      "id": "technical-muted-192",
+      "name": "Technical Muted Violet",
+      "moodTags": [
+        "muted",
+        "operational",
+        "precise",
+        "system",
+        "technical",
+        "violet"
+      ],
+      "baseHue": 192,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "technical-dense",
+        "data-forward",
+        "retro-terminal"
+      ]
+    },
+    {
+      "id": "technical-moderate-192",
+      "name": "Technical Moderate Green",
+      "moodTags": [
+        "green",
+        "moderate",
+        "operational",
+        "precise",
+        "system",
+        "technical"
+      ],
+      "baseHue": 192,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "technical-dense",
+        "data-forward",
+        "retro-terminal"
+      ]
+    },
+    {
+      "id": "technical-saturated-192",
+      "name": "Technical Saturated Teal",
+      "moodTags": [
+        "operational",
+        "precise",
+        "saturated",
+        "system",
+        "teal",
+        "technical"
+      ],
+      "baseHue": 192,
+      "chroma": 0.14,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "technical-dense",
+        "data-forward",
+        "retro-terminal"
+      ]
+    },
+    {
+      "id": "technical-muted-210",
+      "name": "Technical Muted Amber",
+      "moodTags": [
+        "amber",
+        "muted",
+        "operational",
+        "precise",
+        "system",
+        "technical"
+      ],
+      "baseHue": 210,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "technical-dense",
+        "data-forward",
+        "retro-terminal"
+      ]
+    },
+    {
+      "id": "technical-moderate-210",
+      "name": "Technical Moderate Cyan",
+      "moodTags": [
+        "cyan",
+        "moderate",
+        "operational",
+        "precise",
+        "system",
+        "technical"
+      ],
+      "baseHue": 210,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "technical-dense",
+        "data-forward",
+        "retro-terminal"
+      ]
+    },
+    {
+      "id": "technical-saturated-210",
+      "name": "Technical Saturated Slate",
+      "moodTags": [
+        "operational",
+        "precise",
+        "saturated",
+        "slate",
+        "system",
+        "technical"
+      ],
+      "baseHue": 210,
+      "chroma": 0.14,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "technical-dense",
+        "data-forward",
+        "retro-terminal"
+      ]
+    },
+    {
+      "id": "technical-muted-230",
+      "name": "Technical Muted Teal",
+      "moodTags": [
+        "muted",
+        "operational",
+        "precise",
+        "system",
+        "teal",
+        "technical"
+      ],
+      "baseHue": 230,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "technical-dense",
+        "data-forward",
+        "retro-terminal"
+      ]
+    },
+    {
+      "id": "technical-moderate-230",
+      "name": "Technical Moderate Olive",
+      "moodTags": [
+        "moderate",
+        "olive",
+        "operational",
+        "precise",
+        "system",
+        "technical"
+      ],
+      "baseHue": 230,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "technical-dense",
+        "data-forward",
+        "retro-terminal"
+      ]
+    },
+    {
+      "id": "technical-saturated-230",
+      "name": "Technical Saturated Coral",
+      "moodTags": [
+        "coral",
+        "operational",
+        "precise",
+        "saturated",
+        "system",
+        "technical"
+      ],
+      "baseHue": 230,
+      "chroma": 0.14,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "technical-dense",
+        "data-forward",
+        "retro-terminal"
+      ]
+    },
+    {
+      "id": "technical-muted-254",
+      "name": "Technical Muted Slate",
+      "moodTags": [
+        "muted",
+        "operational",
+        "precise",
+        "slate",
+        "system",
+        "technical"
+      ],
+      "baseHue": 254,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "technical-dense",
+        "data-forward",
+        "retro-terminal"
+      ]
+    },
+    {
+      "id": "technical-moderate-254",
+      "name": "Technical Moderate Plum",
+      "moodTags": [
+        "moderate",
+        "operational",
+        "plum",
+        "precise",
+        "system",
+        "technical"
+      ],
+      "baseHue": 254,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "technical-dense",
+        "data-forward",
+        "retro-terminal"
+      ]
+    },
+    {
+      "id": "technical-saturated-254",
+      "name": "Technical Saturated Blue",
+      "moodTags": [
+        "blue",
+        "operational",
+        "precise",
+        "saturated",
+        "system",
+        "technical"
+      ],
+      "baseHue": 254,
+      "chroma": 0.14,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "technical-dense",
+        "data-forward",
+        "retro-terminal"
+      ]
+    },
+    {
+      "id": "technical-muted-138",
+      "name": "Technical Muted Coral",
+      "moodTags": [
+        "coral",
+        "muted",
+        "operational",
+        "precise",
+        "system",
+        "technical"
+      ],
+      "baseHue": 138,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "technical-dense",
+        "data-forward",
+        "retro-terminal"
+      ]
+    },
+    {
+      "id": "technical-moderate-138",
+      "name": "Technical Moderate Indigo",
+      "moodTags": [
+        "indigo",
+        "moderate",
+        "operational",
+        "precise",
+        "system",
+        "technical"
+      ],
+      "baseHue": 138,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "technical-dense",
+        "data-forward",
+        "retro-terminal"
+      ]
+    },
+    {
+      "id": "technical-saturated-138",
+      "name": "Technical Saturated Violet",
+      "moodTags": [
+        "operational",
+        "precise",
+        "saturated",
+        "system",
+        "technical",
+        "violet"
+      ],
+      "baseHue": 138,
+      "chroma": 0.14,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "technical-dense",
+        "data-forward",
+        "retro-terminal"
+      ]
+    },
+    {
+      "id": "technical-muted-158",
+      "name": "Technical Muted Blue",
+      "moodTags": [
+        "blue",
+        "muted",
+        "operational",
+        "precise",
+        "system",
+        "technical"
+      ],
+      "baseHue": 158,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "technical-dense",
+        "data-forward",
+        "retro-terminal"
+      ]
+    },
+    {
+      "id": "technical-moderate-158",
+      "name": "Technical Moderate Rose",
+      "moodTags": [
+        "moderate",
+        "operational",
+        "precise",
+        "rose",
+        "system",
+        "technical"
+      ],
+      "baseHue": 158,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "technical-dense",
+        "data-forward",
+        "retro-terminal"
+      ]
+    }
+  ],
+  "premium": [
+    {
+      "id": "premium-muted-252",
+      "name": "Premium Muted Blue",
+      "moodTags": [
+        "blue",
+        "muted",
+        "polished",
+        "premium",
+        "refined",
+        "selective"
+      ],
+      "baseHue": 252,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "luxury-minimal",
+        "editorial",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "premium-moderate-252",
+      "name": "Premium Moderate Rose",
+      "moodTags": [
+        "moderate",
+        "polished",
+        "premium",
+        "refined",
+        "rose",
+        "selective"
+      ],
+      "baseHue": 252,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "luxury-minimal",
+        "editorial",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "premium-saturated-252",
+      "name": "Premium Saturated Amber",
+      "moodTags": [
+        "amber",
+        "polished",
+        "premium",
+        "refined",
+        "saturated",
+        "selective"
+      ],
+      "baseHue": 252,
+      "chroma": 0.12,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "luxury-minimal",
+        "editorial",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "premium-muted-276",
+      "name": "Premium Muted Violet",
+      "moodTags": [
+        "muted",
+        "polished",
+        "premium",
+        "refined",
+        "selective",
+        "violet"
+      ],
+      "baseHue": 276,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "luxury-minimal",
+        "editorial",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "premium-moderate-276",
+      "name": "Premium Moderate Green",
+      "moodTags": [
+        "green",
+        "moderate",
+        "polished",
+        "premium",
+        "refined",
+        "selective"
+      ],
+      "baseHue": 276,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "luxury-minimal",
+        "editorial",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "premium-saturated-276",
+      "name": "Premium Saturated Teal",
+      "moodTags": [
+        "polished",
+        "premium",
+        "refined",
+        "saturated",
+        "selective",
+        "teal"
+      ],
+      "baseHue": 276,
+      "chroma": 0.12,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "luxury-minimal",
+        "editorial",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "premium-muted-306",
+      "name": "Premium Muted Amber",
+      "moodTags": [
+        "amber",
+        "muted",
+        "polished",
+        "premium",
+        "refined",
+        "selective"
+      ],
+      "baseHue": 306,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "luxury-minimal",
+        "editorial",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "premium-moderate-306",
+      "name": "Premium Moderate Cyan",
+      "moodTags": [
+        "cyan",
+        "moderate",
+        "polished",
+        "premium",
+        "refined",
+        "selective"
+      ],
+      "baseHue": 306,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "luxury-minimal",
+        "editorial",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "premium-saturated-306",
+      "name": "Premium Saturated Slate",
+      "moodTags": [
+        "polished",
+        "premium",
+        "refined",
+        "saturated",
+        "selective",
+        "slate"
+      ],
+      "baseHue": 306,
+      "chroma": 0.12,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "luxury-minimal",
+        "editorial",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "premium-muted-042",
+      "name": "Premium Muted Teal",
+      "moodTags": [
+        "muted",
+        "polished",
+        "premium",
+        "refined",
+        "selective",
+        "teal"
+      ],
+      "baseHue": 42,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "luxury-minimal",
+        "editorial",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "premium-moderate-042",
+      "name": "Premium Moderate Olive",
+      "moodTags": [
+        "moderate",
+        "olive",
+        "polished",
+        "premium",
+        "refined",
+        "selective"
+      ],
+      "baseHue": 42,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "luxury-minimal",
+        "editorial",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "premium-saturated-042",
+      "name": "Premium Saturated Coral",
+      "moodTags": [
+        "coral",
+        "polished",
+        "premium",
+        "refined",
+        "saturated",
+        "selective"
+      ],
+      "baseHue": 42,
+      "chroma": 0.12,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "luxury-minimal",
+        "editorial",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "premium-muted-084",
+      "name": "Premium Muted Slate",
+      "moodTags": [
+        "muted",
+        "polished",
+        "premium",
+        "refined",
+        "selective",
+        "slate"
+      ],
+      "baseHue": 84,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "luxury-minimal",
+        "editorial",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "premium-moderate-084",
+      "name": "Premium Moderate Plum",
+      "moodTags": [
+        "moderate",
+        "plum",
+        "polished",
+        "premium",
+        "refined",
+        "selective"
+      ],
+      "baseHue": 84,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "luxury-minimal",
+        "editorial",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "premium-saturated-084",
+      "name": "Premium Saturated Blue",
+      "moodTags": [
+        "blue",
+        "polished",
+        "premium",
+        "refined",
+        "saturated",
+        "selective"
+      ],
+      "baseHue": 84,
+      "chroma": 0.12,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "luxury-minimal",
+        "editorial",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "premium-muted-184",
+      "name": "Premium Muted Coral",
+      "moodTags": [
+        "coral",
+        "muted",
+        "polished",
+        "premium",
+        "refined",
+        "selective"
+      ],
+      "baseHue": 184,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "luxury-minimal",
+        "editorial",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "premium-moderate-184",
+      "name": "Premium Moderate Indigo",
+      "moodTags": [
+        "indigo",
+        "moderate",
+        "polished",
+        "premium",
+        "refined",
+        "selective"
+      ],
+      "baseHue": 184,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "luxury-minimal",
+        "editorial",
+        "glass-layered"
+      ]
+    }
+  ],
+  "approachable": [
+    {
+      "id": "approachable-muted-206",
+      "name": "Approachable Muted Green",
+      "moodTags": [
+        "approachable",
+        "friendly",
+        "green",
+        "muted",
+        "simple",
+        "supportive"
+      ],
+      "baseHue": 206,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "soft-neumorphic"
+      ]
+    },
+    {
+      "id": "approachable-moderate-206",
+      "name": "Approachable Moderate Slate",
+      "moodTags": [
+        "approachable",
+        "friendly",
+        "moderate",
+        "simple",
+        "slate",
+        "supportive"
+      ],
+      "baseHue": 206,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "soft-neumorphic"
+      ]
+    },
+    {
+      "id": "approachable-saturated-206",
+      "name": "Approachable Saturated Olive",
+      "moodTags": [
+        "approachable",
+        "friendly",
+        "olive",
+        "saturated",
+        "simple",
+        "supportive"
+      ],
+      "baseHue": 206,
+      "chroma": 0.165,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "soft-neumorphic"
+      ]
+    },
+    {
+      "id": "approachable-muted-154",
+      "name": "Approachable Muted Cyan",
+      "moodTags": [
+        "approachable",
+        "cyan",
+        "friendly",
+        "muted",
+        "simple",
+        "supportive"
+      ],
+      "baseHue": 154,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "soft-neumorphic"
+      ]
+    },
+    {
+      "id": "approachable-moderate-154",
+      "name": "Approachable Moderate Coral",
+      "moodTags": [
+        "approachable",
+        "coral",
+        "friendly",
+        "moderate",
+        "simple",
+        "supportive"
+      ],
+      "baseHue": 154,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "soft-neumorphic"
+      ]
+    },
+    {
+      "id": "approachable-saturated-154",
+      "name": "Approachable Saturated Plum",
+      "moodTags": [
+        "approachable",
+        "friendly",
+        "plum",
+        "saturated",
+        "simple",
+        "supportive"
+      ],
+      "baseHue": 154,
+      "chroma": 0.165,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "soft-neumorphic"
+      ]
+    },
+    {
+      "id": "approachable-muted-332",
+      "name": "Approachable Muted Olive",
+      "moodTags": [
+        "approachable",
+        "friendly",
+        "muted",
+        "olive",
+        "simple",
+        "supportive"
+      ],
+      "baseHue": 332,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "soft-neumorphic"
+      ]
+    },
+    {
+      "id": "approachable-moderate-332",
+      "name": "Approachable Moderate Blue",
+      "moodTags": [
+        "approachable",
+        "blue",
+        "friendly",
+        "moderate",
+        "simple",
+        "supportive"
+      ],
+      "baseHue": 332,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "soft-neumorphic"
+      ]
+    },
+    {
+      "id": "approachable-saturated-332",
+      "name": "Approachable Saturated Indigo",
+      "moodTags": [
+        "approachable",
+        "friendly",
+        "indigo",
+        "saturated",
+        "simple",
+        "supportive"
+      ],
+      "baseHue": 332,
+      "chroma": 0.165,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "soft-neumorphic"
+      ]
+    },
+    {
+      "id": "approachable-muted-116",
+      "name": "Approachable Muted Plum",
+      "moodTags": [
+        "approachable",
+        "friendly",
+        "muted",
+        "plum",
+        "simple",
+        "supportive"
+      ],
+      "baseHue": 116,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "soft-neumorphic"
+      ]
+    },
+    {
+      "id": "approachable-moderate-116",
+      "name": "Approachable Moderate Violet",
+      "moodTags": [
+        "approachable",
+        "friendly",
+        "moderate",
+        "simple",
+        "supportive",
+        "violet"
+      ],
+      "baseHue": 116,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "soft-neumorphic"
+      ]
+    },
+    {
+      "id": "approachable-saturated-116",
+      "name": "Approachable Saturated Rose",
+      "moodTags": [
+        "approachable",
+        "friendly",
+        "rose",
+        "saturated",
+        "simple",
+        "supportive"
+      ],
+      "baseHue": 116,
+      "chroma": 0.165,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "soft-neumorphic"
+      ]
+    },
+    {
+      "id": "approachable-muted-024",
+      "name": "Approachable Muted Indigo",
+      "moodTags": [
+        "approachable",
+        "friendly",
+        "indigo",
+        "muted",
+        "simple",
+        "supportive"
+      ],
+      "baseHue": 24,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "soft-neumorphic"
+      ]
+    },
+    {
+      "id": "approachable-moderate-024",
+      "name": "Approachable Moderate Amber",
+      "moodTags": [
+        "amber",
+        "approachable",
+        "friendly",
+        "moderate",
+        "simple",
+        "supportive"
+      ],
+      "baseHue": 24,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "soft-neumorphic"
+      ]
+    },
+    {
+      "id": "approachable-saturated-024",
+      "name": "Approachable Saturated Green",
+      "moodTags": [
+        "approachable",
+        "friendly",
+        "green",
+        "saturated",
+        "simple",
+        "supportive"
+      ],
+      "baseHue": 24,
+      "chroma": 0.165,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "soft-neumorphic"
+      ]
+    },
+    {
+      "id": "approachable-muted-046",
+      "name": "Approachable Muted Rose",
+      "moodTags": [
+        "approachable",
+        "friendly",
+        "muted",
+        "rose",
+        "simple",
+        "supportive"
+      ],
+      "baseHue": 46,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "soft-neumorphic"
+      ]
+    },
+    {
+      "id": "approachable-moderate-046",
+      "name": "Approachable Moderate Teal",
+      "moodTags": [
+        "approachable",
+        "friendly",
+        "moderate",
+        "simple",
+        "supportive",
+        "teal"
+      ],
+      "baseHue": 46,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "soft-neumorphic"
+      ]
+    }
+  ],
+  "authoritative": [
+    {
+      "id": "authoritative-muted-218",
+      "name": "Authoritative Muted Teal",
+      "moodTags": [
+        "authoritative",
+        "commanding",
+        "credible",
+        "decision-ready",
+        "muted",
+        "teal"
+      ],
+      "baseHue": 218,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "high-contrast-utility",
+        "swiss-grid",
+        "technical-dense"
+      ]
+    },
+    {
+      "id": "authoritative-moderate-218",
+      "name": "Authoritative Moderate Olive",
+      "moodTags": [
+        "authoritative",
+        "commanding",
+        "credible",
+        "decision-ready",
+        "moderate",
+        "olive"
+      ],
+      "baseHue": 218,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "high-contrast-utility",
+        "swiss-grid",
+        "technical-dense"
+      ]
+    },
+    {
+      "id": "authoritative-saturated-218",
+      "name": "Authoritative Saturated Coral",
+      "moodTags": [
+        "authoritative",
+        "commanding",
+        "coral",
+        "credible",
+        "decision-ready",
+        "saturated"
+      ],
+      "baseHue": 218,
+      "chroma": 0.165,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "high-contrast-utility",
+        "swiss-grid",
+        "technical-dense"
+      ]
+    },
+    {
+      "id": "authoritative-muted-232",
+      "name": "Authoritative Muted Slate",
+      "moodTags": [
+        "authoritative",
+        "commanding",
+        "credible",
+        "decision-ready",
+        "muted",
+        "slate"
+      ],
+      "baseHue": 232,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "high-contrast-utility",
+        "swiss-grid",
+        "technical-dense"
+      ]
+    },
+    {
+      "id": "authoritative-moderate-232",
+      "name": "Authoritative Moderate Plum",
+      "moodTags": [
+        "authoritative",
+        "commanding",
+        "credible",
+        "decision-ready",
+        "moderate",
+        "plum"
+      ],
+      "baseHue": 232,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "high-contrast-utility",
+        "swiss-grid",
+        "technical-dense"
+      ]
+    },
+    {
+      "id": "authoritative-saturated-232",
+      "name": "Authoritative Saturated Blue",
+      "moodTags": [
+        "authoritative",
+        "blue",
+        "commanding",
+        "credible",
+        "decision-ready",
+        "saturated"
+      ],
+      "baseHue": 232,
+      "chroma": 0.165,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "high-contrast-utility",
+        "swiss-grid",
+        "technical-dense"
+      ]
+    },
+    {
+      "id": "authoritative-muted-248",
+      "name": "Authoritative Muted Coral",
+      "moodTags": [
+        "authoritative",
+        "commanding",
+        "coral",
+        "credible",
+        "decision-ready",
+        "muted"
+      ],
+      "baseHue": 248,
+      "chroma": 0.065,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "high-contrast-utility",
+        "swiss-grid",
+        "technical-dense"
+      ]
+    },
+    {
+      "id": "authoritative-moderate-248",
+      "name": "Authoritative Moderate Indigo",
+      "moodTags": [
+        "authoritative",
+        "commanding",
+        "credible",
+        "decision-ready",
+        "indigo",
+        "moderate"
+      ],
+      "baseHue": 248,
+      "chroma": 0.115,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "high-contrast-utility",
+        "swiss-grid",
+        "technical-dense"
+      ]
+    },
+    {
+      "id": "authoritative-saturated-248",
+      "name": "Authoritative Saturated Violet",
+      "moodTags": [
+        "authoritative",
+        "commanding",
+        "credible",
+        "decision-ready",
+        "saturated",
+        "violet"
+      ],
+      "baseHue": 248,
+      "chroma": 0.165,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "high-contrast-utility",
+        "swiss-grid",
+        "technical-dense"
+      ]
+    },
+    {
+      "id": "authoritative-muted-028",
+      "name": "Authoritative Muted Blue",
+      "moodTags": [
+        "authoritative",
+        "blue",
+        "commanding",
+        "credible",
+        "decision-ready",
+        "muted"
+      ],
+      "baseHue": 28,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "high-contrast-utility",
+        "swiss-grid",
+        "technical-dense"
+      ]
+    },
+    {
+      "id": "authoritative-moderate-028",
+      "name": "Authoritative Moderate Rose",
+      "moodTags": [
+        "authoritative",
+        "commanding",
+        "credible",
+        "decision-ready",
+        "moderate",
+        "rose"
+      ],
+      "baseHue": 28,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "high-contrast-utility",
+        "swiss-grid",
+        "technical-dense"
+      ]
+    },
+    {
+      "id": "authoritative-saturated-028",
+      "name": "Authoritative Saturated Amber",
+      "moodTags": [
+        "amber",
+        "authoritative",
+        "commanding",
+        "credible",
+        "decision-ready",
+        "saturated"
+      ],
+      "baseHue": 28,
+      "chroma": 0.165,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "high-contrast-utility",
+        "swiss-grid",
+        "technical-dense"
+      ]
+    },
+    {
+      "id": "authoritative-muted-356",
+      "name": "Authoritative Muted Violet",
+      "moodTags": [
+        "authoritative",
+        "commanding",
+        "credible",
+        "decision-ready",
+        "muted",
+        "violet"
+      ],
+      "baseHue": 356,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "high-contrast-utility",
+        "swiss-grid",
+        "technical-dense"
+      ]
+    },
+    {
+      "id": "authoritative-moderate-356",
+      "name": "Authoritative Moderate Green",
+      "moodTags": [
+        "authoritative",
+        "commanding",
+        "credible",
+        "decision-ready",
+        "green",
+        "moderate"
+      ],
+      "baseHue": 356,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "high-contrast-utility",
+        "swiss-grid",
+        "technical-dense"
+      ]
+    },
+    {
+      "id": "authoritative-saturated-356",
+      "name": "Authoritative Saturated Teal",
+      "moodTags": [
+        "authoritative",
+        "commanding",
+        "credible",
+        "decision-ready",
+        "saturated",
+        "teal"
+      ],
+      "baseHue": 356,
+      "chroma": 0.165,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "high-contrast-utility",
+        "swiss-grid",
+        "technical-dense"
+      ]
+    },
+    {
+      "id": "authoritative-muted-088",
+      "name": "Authoritative Muted Amber",
+      "moodTags": [
+        "amber",
+        "authoritative",
+        "commanding",
+        "credible",
+        "decision-ready",
+        "muted"
+      ],
+      "baseHue": 88,
+      "chroma": 0.065,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "high-contrast-utility",
+        "swiss-grid",
+        "technical-dense"
+      ]
+    },
+    {
+      "id": "authoritative-moderate-088",
+      "name": "Authoritative Moderate Cyan",
+      "moodTags": [
+        "authoritative",
+        "commanding",
+        "credible",
+        "cyan",
+        "decision-ready",
+        "moderate"
+      ],
+      "baseHue": 88,
+      "chroma": 0.115,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "high-contrast-utility",
+        "swiss-grid",
+        "technical-dense"
+      ]
+    },
+    {
+      "id": "radix-red",
+      "name": "Radix Red",
+      "moodTags": [
+        "radix",
+        "authoritative",
+        "red",
+        "reference",
+        "decisive"
+      ],
+      "baseHue": 24,
+      "chroma": 0.14,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "high-contrast-utility",
+        "brutalist",
+        "technical-dense"
+      ],
+      "source": "radix"
+    }
+  ],
+  "optimistic": [
+    {
+      "id": "optimistic-muted-042",
+      "name": "Optimistic Muted Rose",
+      "moodTags": [
+        "forward",
+        "growth",
+        "hopeful",
+        "muted",
+        "optimistic",
+        "rose"
+      ],
+      "baseHue": 42,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "editorial"
+      ]
+    },
+    {
+      "id": "optimistic-moderate-042",
+      "name": "Optimistic Moderate Teal",
+      "moodTags": [
+        "forward",
+        "growth",
+        "hopeful",
+        "moderate",
+        "optimistic",
+        "teal"
+      ],
+      "baseHue": 42,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "editorial"
+      ]
+    },
+    {
+      "id": "optimistic-saturated-042",
+      "name": "Optimistic Saturated Cyan",
+      "moodTags": [
+        "cyan",
+        "forward",
+        "growth",
+        "hopeful",
+        "optimistic",
+        "saturated"
+      ],
+      "baseHue": 42,
+      "chroma": 0.165,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "editorial"
+      ]
+    },
+    {
+      "id": "optimistic-muted-074",
+      "name": "Optimistic Muted Green",
+      "moodTags": [
+        "forward",
+        "green",
+        "growth",
+        "hopeful",
+        "muted",
+        "optimistic"
+      ],
+      "baseHue": 74,
+      "chroma": 0.065,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "editorial"
+      ]
+    },
+    {
+      "id": "optimistic-moderate-074",
+      "name": "Optimistic Moderate Slate",
+      "moodTags": [
+        "forward",
+        "growth",
+        "hopeful",
+        "moderate",
+        "optimistic",
+        "slate"
+      ],
+      "baseHue": 74,
+      "chroma": 0.115,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "editorial"
+      ]
+    },
+    {
+      "id": "optimistic-saturated-074",
+      "name": "Optimistic Saturated Olive",
+      "moodTags": [
+        "forward",
+        "growth",
+        "hopeful",
+        "olive",
+        "optimistic",
+        "saturated"
+      ],
+      "baseHue": 74,
+      "chroma": 0.165,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "editorial"
+      ]
+    },
+    {
+      "id": "optimistic-muted-112",
+      "name": "Optimistic Muted Cyan",
+      "moodTags": [
+        "cyan",
+        "forward",
+        "growth",
+        "hopeful",
+        "muted",
+        "optimistic"
+      ],
+      "baseHue": 112,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "editorial"
+      ]
+    },
+    {
+      "id": "optimistic-moderate-112",
+      "name": "Optimistic Moderate Coral",
+      "moodTags": [
+        "coral",
+        "forward",
+        "growth",
+        "hopeful",
+        "moderate",
+        "optimistic"
+      ],
+      "baseHue": 112,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "editorial"
+      ]
+    },
+    {
+      "id": "optimistic-saturated-112",
+      "name": "Optimistic Saturated Plum",
+      "moodTags": [
+        "forward",
+        "growth",
+        "hopeful",
+        "optimistic",
+        "plum",
+        "saturated"
+      ],
+      "baseHue": 112,
+      "chroma": 0.165,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "editorial"
+      ]
+    },
+    {
+      "id": "optimistic-muted-148",
+      "name": "Optimistic Muted Olive",
+      "moodTags": [
+        "forward",
+        "growth",
+        "hopeful",
+        "muted",
+        "olive",
+        "optimistic"
+      ],
+      "baseHue": 148,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "editorial"
+      ]
+    },
+    {
+      "id": "optimistic-moderate-148",
+      "name": "Optimistic Moderate Blue",
+      "moodTags": [
+        "blue",
+        "forward",
+        "growth",
+        "hopeful",
+        "moderate",
+        "optimistic"
+      ],
+      "baseHue": 148,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "editorial"
+      ]
+    },
+    {
+      "id": "optimistic-saturated-148",
+      "name": "Optimistic Saturated Indigo",
+      "moodTags": [
+        "forward",
+        "growth",
+        "hopeful",
+        "indigo",
+        "optimistic",
+        "saturated"
+      ],
+      "baseHue": 148,
+      "chroma": 0.165,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "editorial"
+      ]
+    },
+    {
+      "id": "optimistic-muted-184",
+      "name": "Optimistic Muted Plum",
+      "moodTags": [
+        "forward",
+        "growth",
+        "hopeful",
+        "muted",
+        "optimistic",
+        "plum"
+      ],
+      "baseHue": 184,
+      "chroma": 0.065,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "editorial"
+      ]
+    },
+    {
+      "id": "optimistic-moderate-184",
+      "name": "Optimistic Moderate Violet",
+      "moodTags": [
+        "forward",
+        "growth",
+        "hopeful",
+        "moderate",
+        "optimistic",
+        "violet"
+      ],
+      "baseHue": 184,
+      "chroma": 0.115,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "editorial"
+      ]
+    },
+    {
+      "id": "optimistic-saturated-184",
+      "name": "Optimistic Saturated Rose",
+      "moodTags": [
+        "forward",
+        "growth",
+        "hopeful",
+        "optimistic",
+        "rose",
+        "saturated"
+      ],
+      "baseHue": 184,
+      "chroma": 0.165,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "editorial"
+      ]
+    },
+    {
+      "id": "optimistic-muted-206",
+      "name": "Optimistic Muted Indigo",
+      "moodTags": [
+        "forward",
+        "growth",
+        "hopeful",
+        "indigo",
+        "muted",
+        "optimistic"
+      ],
+      "baseHue": 206,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "editorial"
+      ]
+    },
+    {
+      "id": "optimistic-moderate-206",
+      "name": "Optimistic Moderate Amber",
+      "moodTags": [
+        "amber",
+        "forward",
+        "growth",
+        "hopeful",
+        "moderate",
+        "optimistic"
+      ],
+      "baseHue": 206,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "playful-rounded",
+        "warm-organic",
+        "editorial"
+      ]
+    },
+    {
+      "id": "radix-green",
+      "name": "Radix Green",
+      "moodTags": [
+        "radix",
+        "optimistic",
+        "green",
+        "reference",
+        "growth"
+      ],
+      "baseHue": 145,
+      "chroma": 0.13,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "warm-organic",
+        "playful-rounded",
+        "data-forward"
+      ],
+      "source": "radix"
+    }
+  ],
+  "restrained": [
+    {
+      "id": "restrained-muted-220",
+      "name": "Restrained Muted Rose",
+      "moodTags": [
+        "disciplined",
+        "minimal",
+        "muted",
+        "quiet",
+        "restrained",
+        "rose"
+      ],
+      "baseHue": 220,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "luxury-minimal",
+        "data-forward"
+      ]
+    },
+    {
+      "id": "restrained-moderate-220",
+      "name": "Restrained Moderate Teal",
+      "moodTags": [
+        "disciplined",
+        "minimal",
+        "moderate",
+        "quiet",
+        "restrained",
+        "teal"
+      ],
+      "baseHue": 220,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "luxury-minimal",
+        "data-forward"
+      ]
+    },
+    {
+      "id": "restrained-saturated-220",
+      "name": "Restrained Saturated Cyan",
+      "moodTags": [
+        "cyan",
+        "disciplined",
+        "minimal",
+        "quiet",
+        "restrained",
+        "saturated"
+      ],
+      "baseHue": 220,
+      "chroma": 0.095,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "luxury-minimal",
+        "data-forward"
+      ]
+    },
+    {
+      "id": "restrained-muted-240",
+      "name": "Restrained Muted Green",
+      "moodTags": [
+        "disciplined",
+        "green",
+        "minimal",
+        "muted",
+        "quiet",
+        "restrained"
+      ],
+      "baseHue": 240,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "luxury-minimal",
+        "data-forward"
+      ]
+    },
+    {
+      "id": "restrained-moderate-240",
+      "name": "Restrained Moderate Slate",
+      "moodTags": [
+        "disciplined",
+        "minimal",
+        "moderate",
+        "quiet",
+        "restrained",
+        "slate"
+      ],
+      "baseHue": 240,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "luxury-minimal",
+        "data-forward"
+      ]
+    },
+    {
+      "id": "restrained-saturated-240",
+      "name": "Restrained Saturated Olive",
+      "moodTags": [
+        "disciplined",
+        "minimal",
+        "olive",
+        "quiet",
+        "restrained",
+        "saturated"
+      ],
+      "baseHue": 240,
+      "chroma": 0.095,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "luxury-minimal",
+        "data-forward"
+      ]
+    },
+    {
+      "id": "restrained-muted-260",
+      "name": "Restrained Muted Cyan",
+      "moodTags": [
+        "cyan",
+        "disciplined",
+        "minimal",
+        "muted",
+        "quiet",
+        "restrained"
+      ],
+      "baseHue": 260,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "luxury-minimal",
+        "data-forward"
+      ]
+    },
+    {
+      "id": "restrained-moderate-260",
+      "name": "Restrained Moderate Coral",
+      "moodTags": [
+        "coral",
+        "disciplined",
+        "minimal",
+        "moderate",
+        "quiet",
+        "restrained"
+      ],
+      "baseHue": 260,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "luxury-minimal",
+        "data-forward"
+      ]
+    },
+    {
+      "id": "restrained-saturated-260",
+      "name": "Restrained Saturated Plum",
+      "moodTags": [
+        "disciplined",
+        "minimal",
+        "plum",
+        "quiet",
+        "restrained",
+        "saturated"
+      ],
+      "baseHue": 260,
+      "chroma": 0.095,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "luxury-minimal",
+        "data-forward"
+      ]
+    },
+    {
+      "id": "restrained-muted-184",
+      "name": "Restrained Muted Olive",
+      "moodTags": [
+        "disciplined",
+        "minimal",
+        "muted",
+        "olive",
+        "quiet",
+        "restrained"
+      ],
+      "baseHue": 184,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "luxury-minimal",
+        "data-forward"
+      ]
+    },
+    {
+      "id": "restrained-moderate-184",
+      "name": "Restrained Moderate Blue",
+      "moodTags": [
+        "blue",
+        "disciplined",
+        "minimal",
+        "moderate",
+        "quiet",
+        "restrained"
+      ],
+      "baseHue": 184,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "luxury-minimal",
+        "data-forward"
+      ]
+    },
+    {
+      "id": "restrained-saturated-184",
+      "name": "Restrained Saturated Indigo",
+      "moodTags": [
+        "disciplined",
+        "indigo",
+        "minimal",
+        "quiet",
+        "restrained",
+        "saturated"
+      ],
+      "baseHue": 184,
+      "chroma": 0.095,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "luxury-minimal",
+        "data-forward"
+      ]
+    },
+    {
+      "id": "restrained-muted-096",
+      "name": "Restrained Muted Plum",
+      "moodTags": [
+        "disciplined",
+        "minimal",
+        "muted",
+        "plum",
+        "quiet",
+        "restrained"
+      ],
+      "baseHue": 96,
+      "chroma": 0.065,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "luxury-minimal",
+        "data-forward"
+      ]
+    },
+    {
+      "id": "restrained-moderate-096",
+      "name": "Restrained Moderate Violet",
+      "moodTags": [
+        "disciplined",
+        "minimal",
+        "moderate",
+        "quiet",
+        "restrained",
+        "violet"
+      ],
+      "baseHue": 96,
+      "chroma": 0.115,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "luxury-minimal",
+        "data-forward"
+      ]
+    },
+    {
+      "id": "restrained-saturated-096",
+      "name": "Restrained Saturated Rose",
+      "moodTags": [
+        "disciplined",
+        "minimal",
+        "quiet",
+        "restrained",
+        "rose",
+        "saturated"
+      ],
+      "baseHue": 96,
+      "chroma": 0.095,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "luxury-minimal",
+        "data-forward"
+      ]
+    },
+    {
+      "id": "restrained-muted-036",
+      "name": "Restrained Muted Indigo",
+      "moodTags": [
+        "disciplined",
+        "indigo",
+        "minimal",
+        "muted",
+        "quiet",
+        "restrained"
+      ],
+      "baseHue": 36,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "luxury-minimal",
+        "data-forward"
+      ]
+    },
+    {
+      "id": "restrained-moderate-036",
+      "name": "Restrained Moderate Amber",
+      "moodTags": [
+        "amber",
+        "disciplined",
+        "minimal",
+        "moderate",
+        "quiet",
+        "restrained"
+      ],
+      "baseHue": 36,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "luxury-minimal",
+        "data-forward"
+      ]
+    },
+    {
+      "id": "radix-gray",
+      "name": "Radix Gray",
+      "moodTags": [
+        "radix",
+        "restrained",
+        "neutral",
+        "reference",
+        "quiet"
+      ],
+      "baseHue": 240,
+      "chroma": 0.02,
+      "hueRelationshipRule": "monochrome",
+      "suggestedStylePairings": [
+        "swiss-grid",
+        "technical-dense",
+        "luxury-minimal"
+      ],
+      "source": "radix"
+    }
+  ],
+  "vivid": [
+    {
+      "id": "vivid-muted-008",
+      "name": "Vivid Muted Coral",
+      "moodTags": [
+        "coral",
+        "expressive",
+        "high-energy",
+        "memorable",
+        "muted",
+        "vivid"
+      ],
+      "baseHue": 8,
+      "chroma": 0.065,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "brutalist",
+        "playful-rounded",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "vivid-moderate-008",
+      "name": "Vivid Moderate Indigo",
+      "moodTags": [
+        "expressive",
+        "high-energy",
+        "indigo",
+        "memorable",
+        "moderate",
+        "vivid"
+      ],
+      "baseHue": 8,
+      "chroma": 0.115,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "brutalist",
+        "playful-rounded",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "vivid-saturated-008",
+      "name": "Vivid Saturated Violet",
+      "moodTags": [
+        "expressive",
+        "high-energy",
+        "memorable",
+        "saturated",
+        "violet",
+        "vivid"
+      ],
+      "baseHue": 8,
+      "chroma": 0.165,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "brutalist",
+        "playful-rounded",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "vivid-muted-034",
+      "name": "Vivid Muted Blue",
+      "moodTags": [
+        "blue",
+        "expressive",
+        "high-energy",
+        "memorable",
+        "muted",
+        "vivid"
+      ],
+      "baseHue": 34,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "brutalist",
+        "playful-rounded",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "vivid-moderate-034",
+      "name": "Vivid Moderate Rose",
+      "moodTags": [
+        "expressive",
+        "high-energy",
+        "memorable",
+        "moderate",
+        "rose",
+        "vivid"
+      ],
+      "baseHue": 34,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "brutalist",
+        "playful-rounded",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "vivid-saturated-034",
+      "name": "Vivid Saturated Amber",
+      "moodTags": [
+        "amber",
+        "expressive",
+        "high-energy",
+        "memorable",
+        "saturated",
+        "vivid"
+      ],
+      "baseHue": 34,
+      "chroma": 0.165,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "brutalist",
+        "playful-rounded",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "vivid-muted-062",
+      "name": "Vivid Muted Violet",
+      "moodTags": [
+        "expressive",
+        "high-energy",
+        "memorable",
+        "muted",
+        "violet",
+        "vivid"
+      ],
+      "baseHue": 62,
+      "chroma": 0.065,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "brutalist",
+        "playful-rounded",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "vivid-moderate-062",
+      "name": "Vivid Moderate Green",
+      "moodTags": [
+        "expressive",
+        "green",
+        "high-energy",
+        "memorable",
+        "moderate",
+        "vivid"
+      ],
+      "baseHue": 62,
+      "chroma": 0.115,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "brutalist",
+        "playful-rounded",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "vivid-saturated-062",
+      "name": "Vivid Saturated Teal",
+      "moodTags": [
+        "expressive",
+        "high-energy",
+        "memorable",
+        "saturated",
+        "teal",
+        "vivid"
+      ],
+      "baseHue": 62,
+      "chroma": 0.165,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "brutalist",
+        "playful-rounded",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "vivid-muted-156",
+      "name": "Vivid Muted Amber",
+      "moodTags": [
+        "amber",
+        "expressive",
+        "high-energy",
+        "memorable",
+        "muted",
+        "vivid"
+      ],
+      "baseHue": 156,
+      "chroma": 0.065,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "brutalist",
+        "playful-rounded",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "vivid-moderate-156",
+      "name": "Vivid Moderate Cyan",
+      "moodTags": [
+        "cyan",
+        "expressive",
+        "high-energy",
+        "memorable",
+        "moderate",
+        "vivid"
+      ],
+      "baseHue": 156,
+      "chroma": 0.115,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "brutalist",
+        "playful-rounded",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "vivid-saturated-156",
+      "name": "Vivid Saturated Slate",
+      "moodTags": [
+        "expressive",
+        "high-energy",
+        "memorable",
+        "saturated",
+        "slate",
+        "vivid"
+      ],
+      "baseHue": 156,
+      "chroma": 0.165,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "brutalist",
+        "playful-rounded",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "vivid-muted-204",
+      "name": "Vivid Muted Teal",
+      "moodTags": [
+        "expressive",
+        "high-energy",
+        "memorable",
+        "muted",
+        "teal",
+        "vivid"
+      ],
+      "baseHue": 204,
+      "chroma": 0.065,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "brutalist",
+        "playful-rounded",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "vivid-moderate-204",
+      "name": "Vivid Moderate Olive",
+      "moodTags": [
+        "expressive",
+        "high-energy",
+        "memorable",
+        "moderate",
+        "olive",
+        "vivid"
+      ],
+      "baseHue": 204,
+      "chroma": 0.115,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "brutalist",
+        "playful-rounded",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "vivid-saturated-204",
+      "name": "Vivid Saturated Coral",
+      "moodTags": [
+        "coral",
+        "expressive",
+        "high-energy",
+        "memorable",
+        "saturated",
+        "vivid"
+      ],
+      "baseHue": 204,
+      "chroma": 0.165,
+      "hueRelationshipRule": "analogous",
+      "suggestedStylePairings": [
+        "brutalist",
+        "playful-rounded",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "vivid-muted-286",
+      "name": "Vivid Muted Slate",
+      "moodTags": [
+        "expressive",
+        "high-energy",
+        "memorable",
+        "muted",
+        "slate",
+        "vivid"
+      ],
+      "baseHue": 286,
+      "chroma": 0.065,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "brutalist",
+        "playful-rounded",
+        "glass-layered"
+      ]
+    },
+    {
+      "id": "vivid-moderate-286",
+      "name": "Vivid Moderate Plum",
+      "moodTags": [
+        "expressive",
+        "high-energy",
+        "memorable",
+        "moderate",
+        "plum",
+        "vivid"
+      ],
+      "baseHue": 286,
+      "chroma": 0.115,
+      "hueRelationshipRule": "complementary",
+      "suggestedStylePairings": [
+        "brutalist",
+        "playful-rounded",
+        "glass-layered"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "id": "warm-organic",
+  "name": "Warm Organic",
+  "intent": "Creates a humane, grounded interface that feels soft, natural, and welcoming without becoming decorative.",
+  "worksFor": ["wellness", "food", "education", "community", "creator-portfolio", "onboarding"],
+  "avoidFor": ["security-console", "financial-terminal", "incident-dashboard", "developer-tool", "legal-review", "dense-data-table"],
+  "color": {
+    "chromaRange": { "min": 0.03, "max": 0.16 },
+    "lightnessSpread": { "min": 0.48, "max": 0.94 },
+    "hueRelationshipRules": ["analogous", "monochrome"],
+    "surfaceCountLimit": 5,
+    "saturatedBackgroundsPermitted": false
+  },
+  "type": {
+    "scaleRatio": { "min": 1.15, "max": 1.25 },
+    "weightRange": { "min": 400, "max": 750 },
+    "trackingRules": ["zero-tracking-for-body", "no-wide-tracking-on-long-labels", "no-negative-tracking"],
+    "maximumSimultaneousFamilies": 2,
+    "caseTreatment": ["sentence", "title", "no-all-caps"]
+  },
+  "space": {
+    "densityMultiplier": { "min": 1, "max": 1.35 },
+    "whitespaceToContentRatioTarget": { "min": 0.36, "max": 0.56 }
+  },
+  "shape": {
+    "radiusMultiplierRange": { "min": 1, "max": 2.25 },
+    "borderWeightRange": { "min": 0, "max": 1.25 }
+  },
+  "depth": {
+    "allowedElevationTechniques": ["border", "shadow"]
+  },
+  "motion": {
+    "durationMultiplier": { "min": 0.85, "max": 1.2 },
+    "permittedEasingFamilies": ["standard", "decelerate"]
+  },
+  "accessibilityWarnings": [],
+  "fallbacks": [],
+  "prohibitions": [
+    "no-hardcoded-hex-values",
+    "no-fixed-pixel-layout-sizes",
+    "no-brown-or-cream-monotone-interface",
+    "no-low-contrast-earth-tone-text",
+    "no-decorative-organic-shapes-that-reduce-scanability"
+  ],
+  "constraints": {
+    "mayNotRelax": ["contrast-gates", "touch-target-minimums", "focus-indicator-visibility", "reduced-motion-support", "text-expansion-40-percent"]
+  }
+}

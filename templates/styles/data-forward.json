@@ -1,0 +1,49 @@
+{
+  "id": "data-forward",
+  "name": "Data Forward",
+  "intent": "Creates an analytical interface that feels trustworthy, legible, and oriented around comparison.",
+  "worksFor": ["analytics-dashboard", "reporting", "data-table", "metrics-grid", "business-intelligence", "monitoring"],
+  "avoidFor": ["brand-story", "immersive-landing-page", "playful-onboarding", "luxury-commerce", "editorial-feature"],
+  "color": {
+    "chromaRange": { "min": 0.0, "max": 0.14 },
+    "lightnessSpread": { "min": 0.42, "max": 0.94 },
+    "hueRelationshipRules": ["monochrome", "analogous", "complementary"],
+    "surfaceCountLimit": 4,
+    "saturatedBackgroundsPermitted": false
+  },
+  "type": {
+    "scaleRatio": { "min": 1.067, "max": 1.2 },
+    "weightRange": { "min": 400, "max": 750 },
+    "trackingRules": ["zero-tracking-for-body", "tabular-numerals-required", "no-ornamental-display-type"],
+    "maximumSimultaneousFamilies": 1,
+    "caseTreatment": ["sentence", "numeric-tabular", "uppercase-labels-only"]
+  },
+  "space": {
+    "densityMultiplier": { "min": 0.8, "max": 1.05 },
+    "whitespaceToContentRatioTarget": { "min": 0.2, "max": 0.36 }
+  },
+  "shape": {
+    "radiusMultiplierRange": { "min": 0.25, "max": 1 },
+    "borderWeightRange": { "min": 1, "max": 1.5 }
+  },
+  "depth": {
+    "allowedElevationTechniques": ["border", "none"]
+  },
+  "motion": {
+    "durationMultiplier": { "min": 0.5, "max": 0.85 },
+    "permittedEasingFamilies": ["linear", "standard"]
+  },
+  "accessibilityWarnings": [],
+  "fallbacks": [],
+  "prohibitions": [
+    "no-hardcoded-hex-values",
+    "no-fixed-pixel-layout-sizes",
+    "no-chart-meaning-by-color-alone",
+    "no-expressive-animation-libraries",
+    "no-card-decoration-that-reduces-comparison-density",
+    "no-truncated-metric-label-without-full-label-access"
+  ],
+  "constraints": {
+    "mayNotRelax": ["contrast-gates", "touch-target-minimums", "focus-indicator-visibility", "reduced-motion-support", "text-expansion-40-percent"]
+  }
+}

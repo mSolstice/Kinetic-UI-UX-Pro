@@ -1,0 +1,48 @@
+{
+  "library": "HeroUI",
+  "license": "MIT",
+  "vendorable": true,
+  "frameworks": ["react", "next"],
+  "registry": {
+    "type": "sitemap",
+    "url": "https://www.heroui.com/sitemap.xml"
+  },
+  "theming": {
+    "attach": "css-variables",
+    "tokenMap": {
+      "surface.canvas": "--heroui-background: var(--surface-canvas)",
+      "surface.panel": "--heroui-content1: var(--surface-panel)",
+      "text.primary": "--heroui-foreground: var(--text-primary)",
+      "text.muted": "--heroui-default-foreground: var(--text-muted)",
+      "accent.fill": "--heroui-primary: var(--accent-fill)",
+      "accent.text": "--heroui-primary-foreground: var(--accent-text)",
+      "status.error": "--heroui-danger: var(--status-error-fill)",
+      "status.success": "--heroui-success: var(--status-success-fill)",
+      "radius.control": "--heroui-radius-medium: var(--radius-control)"
+    }
+  },
+  "stateGaps": ["loading", "error", "success", "empty"],
+  "conformancePatch": {
+    "loading": {
+      "language": "tsx",
+      "code": "<Button isLoading={status === 'loading'} isDisabled={status === 'loading' || disabled} aria-busy={status === 'loading'}>{label}</Button>"
+    },
+    "error": {
+      "language": "tsx",
+      "code": "<Input isInvalid={status === 'error'} errorMessage={status === 'error' ? errorMessage : undefined} aria-describedby={status === 'error' ? errorId : undefined} />"
+    },
+    "success": {
+      "language": "tsx",
+      "code": "<div aria-live=\"polite\" className=\"sr-only\">{status === 'success' ? successMessage : ''}</div>"
+    },
+    "empty": {
+      "language": "tsx",
+      "code": "{items.length === 0 ? <div role=\"status\" className=\"text-[var(--text-muted)]\">{emptyMessage}</div> : null}"
+    },
+    "aria": {
+      "language": "tsx",
+      "code": "<Table aria-label={tableLabel} bottomContent={items.length === 0 ? <div role=\"status\">{emptyMessage}</div> : null}>{children}</Table>"
+    }
+  },
+  "avoidFor": ["plain-html-project", "vue-project", "strictly-unstyled-design-system", "ultra-dense-internal-tool"]
+}

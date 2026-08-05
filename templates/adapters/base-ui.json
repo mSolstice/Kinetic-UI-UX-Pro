@@ -1,0 +1,47 @@
+{
+  "library": "Base UI",
+  "license": "MIT",
+  "vendorable": true,
+  "frameworks": ["react"],
+  "registry": {
+    "type": "sitemap",
+    "url": "https://base-ui.com/sitemap.xml"
+  },
+  "theming": {
+    "attach": "css-variables",
+    "tokenMap": {
+      "surface.panel": ".kui-base [data-popup] { background: var(--surface-panel); }",
+      "text.primary": ".kui-base { color: var(--text-primary); }",
+      "text.muted": ".kui-base [data-muted] { color: var(--text-muted); }",
+      "border.subtle": ".kui-base [data-popup] { border-color: var(--border-subtle); }",
+      "accent.fill": ".kui-base [data-highlighted] { background: var(--accent-fill); }",
+      "accent.text": ".kui-base [data-highlighted] { color: var(--accent-text); }",
+      "radius.overlay": ".kui-base [data-popup] { border-radius: var(--radius-overlay); }",
+      "duration.fast": ".kui-base [data-starting-style], .kui-base [data-ending-style] { transition-duration: var(--duration-fast); }"
+    }
+  },
+  "stateGaps": ["loading", "error", "success", "empty"],
+  "conformancePatch": {
+    "loading": {
+      "language": "tsx",
+      "code": "<BaseRoot aria-busy={state.status === 'loading'} data-loading={state.status === 'loading' ? '' : undefined}>{state.status === 'loading' ? <span className=\"kui-spinner\" aria-hidden=\"true\" /> : children}</BaseRoot>"
+    },
+    "live-region": {
+      "language": "tsx",
+      "code": "<div aria-live=\"polite\" className=\"sr-only\">{state.status === 'loading' ? loadingMessage : state.status === 'success' ? successMessage : ''}</div>"
+    },
+    "error": {
+      "language": "tsx",
+      "code": "{state.status === 'error' ? <p id={errorId} role=\"alert\" className=\"kui-error\">{state.message}</p> : null}"
+    },
+    "success": {
+      "language": "tsx",
+      "code": "{state.status === 'success' ? <span data-state=\"success\">{successLabel}</span> : null}"
+    },
+    "empty": {
+      "language": "tsx",
+      "code": "{state.status === 'empty' ? <div role=\"status\" className=\"kui-empty\">{emptyMessage}</div> : null}"
+    }
+  },
+  "avoidFor": ["non-react-project", "teams-needing-prestyled-components", "marketing-page-with-no-custom-design-system"]
+}

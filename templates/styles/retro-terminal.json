@@ -1,0 +1,59 @@
+{
+  "id": "retro-terminal",
+  "name": "Retro Terminal",
+  "intent": "Creates a nostalgic, command-line interface that feels focused, mechanical, and slightly cinematic.",
+  "worksFor": ["developer-tool", "security-lab", "portfolio-experiment", "technical-demo", "command-palette"],
+  "avoidFor": ["consumer-checkout", "medical", "finance", "education-for-children", "longform-reading", "low-vision-primary-use"],
+  "color": {
+    "chromaRange": { "min": 0.04, "max": 0.18 },
+    "lightnessSpread": { "min": 0.5, "max": 0.94 },
+    "hueRelationshipRules": ["monochrome", "analogous"],
+    "surfaceCountLimit": 3,
+    "saturatedBackgroundsPermitted": false
+  },
+  "type": {
+    "scaleRatio": { "min": 1.067, "max": 1.15 },
+    "weightRange": { "min": 400, "max": 700 },
+    "trackingRules": ["zero-tracking-for-body", "monospace-metrics-must-stay-readable", "no-scanline-letterspacing"],
+    "maximumSimultaneousFamilies": 1,
+    "caseTreatment": ["sentence", "numeric-tabular", "uppercase-labels-only"]
+  },
+  "space": {
+    "densityMultiplier": { "min": 0.8, "max": 1.1 },
+    "whitespaceToContentRatioTarget": { "min": 0.22, "max": 0.4 }
+  },
+  "shape": {
+    "radiusMultiplierRange": { "min": 0, "max": 0.5 },
+    "borderWeightRange": { "min": 1, "max": 2 }
+  },
+  "depth": {
+    "allowedElevationTechniques": ["border", "none"]
+  },
+  "motion": {
+    "durationMultiplier": { "min": 0.55, "max": 0.95 },
+    "permittedEasingFamilies": ["linear", "standard"]
+  },
+  "accessibilityWarnings": [
+    {
+      "risk": "Traditional phosphor palettes often rely on dim, low-contrast glow that fails modern contrast gates.",
+      "mitigation": "Generate terminal accents only after WCAG and APCA pass; glow may be decorative only and must not reduce text contrast."
+    }
+  ],
+  "fallbacks": [
+    {
+      "condition": "prefers-reduced-motion-or-forced-colors",
+      "response": "Remove scanline, blink, and glow effects while preserving text, borders, caret, and focus visibility."
+    }
+  ],
+  "prohibitions": [
+    "no-hardcoded-hex-values",
+    "no-fixed-pixel-layout-sizes",
+    "no-low-contrast-phosphor-text",
+    "no-blinking-required-for-state",
+    "no-scanline-overlay-over-body-copy",
+    "no-glow-that-obscures-focus"
+  ],
+  "constraints": {
+    "mayNotRelax": ["contrast-gates", "touch-target-minimums", "focus-indicator-visibility", "reduced-motion-support", "text-expansion-40-percent"]
+  }
+}

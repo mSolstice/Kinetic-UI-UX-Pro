@@ -1,0 +1,54 @@
+{
+  "library": "Radix UI",
+  "license": "MIT",
+  "vendorable": true,
+  "frameworks": ["react"],
+  "registry": {
+    "type": null,
+    "manual_url": "https://www.radix-ui.com/primitives/docs/overview/introduction"
+  },
+  "theming": {
+    "attach": "css-variables",
+    "tokenMap": {
+      "surface.panel": "[data-radix-popper-content-wrapper] { --kui-surface: var(--surface-panel); }",
+      "text.primary": "[data-state] { color: var(--text-primary); }",
+      "border.subtle": "[data-state] { border-color: var(--border-subtle); }",
+      "accent.fill": "[data-highlighted] { background: var(--accent-fill); }",
+      "accent.text": "[data-highlighted] { color: var(--accent-text); }",
+      "radius.overlay": "[data-radix-popper-content-wrapper] { --kui-radius: var(--radius-overlay); }",
+      "duration.fast": "[data-state='open'], [data-state='closed'] { --kui-duration: var(--duration-fast); }"
+    }
+  },
+  "stateGaps": ["hover", "active", "loading", "error", "success", "empty"],
+  "conformancePatch": {
+    "loading": {
+      "language": "tsx",
+      "code": "<RadixPrimitive.Root aria-busy={state.status === 'loading'} data-loading={state.status === 'loading' ? '' : undefined}>{children}</RadixPrimitive.Root>"
+    },
+    "live-region": {
+      "language": "tsx",
+      "code": "<div aria-live=\"polite\" className=\"sr-only\">{state.status === 'loading' ? loadingMessage : state.status === 'success' ? successMessage : ''}</div>"
+    },
+    "error": {
+      "language": "tsx",
+      "code": "{state.status === 'error' ? <p id={errorId} role=\"alert\">{state.message}</p> : null}"
+    },
+    "success": {
+      "language": "tsx",
+      "code": "{state.status === 'success' ? <span data-state=\"success\">{successLabel}</span> : null}"
+    },
+    "empty": {
+      "language": "tsx",
+      "code": "{state.status === 'empty' ? <div role=\"status\">{emptyMessage}</div> : null}"
+    },
+    "hover": {
+      "language": "css",
+      "code": "@media (hover: hover) { .kui-radix-trigger:hover { background: var(--surface-hover); } }"
+    },
+    "active": {
+      "language": "css",
+      "code": ".kui-radix-trigger:active { transform: translateY(var(--press-offset)); }"
+    }
+  },
+  "avoidFor": ["non-react-project", "static-marketing-page-without-interaction", "teams-requiring-prestyled-components"]
+}

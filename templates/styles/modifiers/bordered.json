@@ -1,0 +1,21 @@
+{
+  "id": "bordered",
+  "name": "Bordered",
+  "intent": "Moves depth into crisp borders so layers stay explicit without relying on blur or shadow.",
+  "order": 30,
+  "touches": ["shape", "depth", "prohibitions"],
+  "transform": {
+    "set": {
+      "depth.allowedElevationTechniques": ["border", "none"]
+    },
+    "ranges": {
+      "shape.borderWeightRange": { "multiply": 1.25, "minFloor": 1, "maxCeiling": 2 }
+    },
+    "addProhibitions": ["no-drop-shadows", "no-shadow-as-depth-cue"]
+  },
+  "incompatibleWith": {
+    "baseStyles": ["soft-neumorphic"],
+    "modifiers": ["elevated"]
+  },
+  "cannotOverride": ["contrast-gates", "touch-target-minimums", "focus-indicator-visibility", "reduced-motion-support", "text-expansion-40-percent"]
+}

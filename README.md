@@ -48,6 +48,15 @@ Color conversion and contrast utilities for OKLCH, sRGB, WCAG 2.x ratio, APCA Lc
 python scripts/color_tools.py ramp "oklch(0.55 0.18 265)"
 ```
 
+### `scripts/component_adapt.py`
+
+Fetches a registry component at generation time, remaps hardcoded design values to verified tokens, injects adapter conformance patches, and audits the result.
+
+```bash
+python scripts/component_adapt.py shadcn-ui:button --ds-index .ds-index/corpus.jsonl --out ./out/adapted/button
+python scripts/component_adapt.py magic-ui:animated-beam --adapter magic-ui --redistribute
+```
+
 ### `scripts/ds_index.py`
 
 Builds `.ds-index/corpus.jsonl` from tokens, Style Dictionary JSON, Tailwind config/theme blocks, CSS custom properties, and component manifests.
@@ -64,6 +73,17 @@ Searches approved design-system tokens and reports hardcoded design-value drift.
 python scripts/ds_search.py search "brand 600" --kind color --top 5
 python scripts/ds_search.py match templates/component-scaffold.css
 python scripts/ds_search.py drift ./src
+python scripts/ds_search.py component "async combobox" --style swiss-grid --surface dashboard --license mit-only --framework react --top 5
+python scripts/ds_search.py component "async combobox" --why shadcn-ui:combobox
+```
+
+### `scripts/design_select.py`
+
+Recommends a style, palette, and industry pack from a brief, then states the tradeoff.
+
+```bash
+python scripts/design_select.py recommend "banking dashboard with reconciled balances" --surface dashboard
+python scripts/design_select.py recommend "public benefits form for shared phones" --surface form --apply --out ./out/benefits
 ```
 
 ### `scripts/emit_files.py`
@@ -85,6 +105,15 @@ Computes font metric overrides from real font files.
 python scripts/font_metrics.py path/to/font.woff2
 ```
 
+### `scripts/industry_check.py`
+
+Prints structured industry rules grouped by category and runs conservative heuristics for detectable rules.
+
+```bash
+python scripts/industry_check.py --count
+python scripts/industry_check.py fintech templates/patterns/data-table.tsx
+```
+
 ### `scripts/license_check.py`
 
 Gates non-vendorable licenses and unverified third-party code.
@@ -92,6 +121,42 @@ Gates non-vendorable licenses and unverified third-party code.
 ```bash
 python scripts/license_check.py --root .
 python scripts/license_check.py --root . --explain @radix-ui/colors
+```
+
+### `scripts/style_apply.py`
+
+Applies a visual style constraint set to a brand hue and emits only verified token schemas.
+
+```bash
+python scripts/style_apply.py list
+python scripts/style_apply.py explain data-forward --surface dashboard
+python scripts/style_apply.py apply data-forward --hue 260
+python scripts/style_apply.py apply swiss-grid --hue 260 --modifier dense --modifier bordered
+python scripts/style_apply.py matrix
+python scripts/style_apply.py apply data-forward --hue 260 --out ./out/data-forward
+```
+
+### `scripts/palette_search.py`
+
+Searches 208 verified mood-organized palette seeds, previews generated ramps, pairs palettes with styles, imports Radix reference seeds, and verifies every seed.
+
+```bash
+python scripts/palette_search.py find "trustworthy dashboard"
+python scripts/palette_search.py preview civic-ledger
+python scripts/palette_search.py pair data-forward
+python scripts/palette_search.py --import-radix-colors blue gray --out /tmp/palettes-with-radix.json
+python scripts/palette_search.py verify-all
+```
+
+### `scripts/registry_sync.py`
+
+Syncs open component registry metadata into `.registry/components.jsonl` with adapter license gates, ETags, and sanitized cache records only.
+
+```bash
+python scripts/registry_sync.py --sync shadcn-ui
+python scripts/registry_sync.py --sync-all
+python scripts/registry_sync.py --stats
+python scripts/registry_sync.py --stale
 ```
 
 ### `scripts/token_gen.py`

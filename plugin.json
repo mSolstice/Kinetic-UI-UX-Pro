@@ -20,13 +20,23 @@
       "optional_dependencies": []
     },
     {
+      "path": "scripts/component_adapt.py",
+      "description": "Fetches third-party registry component source into a temp directory, remaps hardcoded design values to verified tokens, injects adapter conformance patches, and verifies the adapted output.",
+      "optional_dependencies": []
+    },
+    {
       "path": "scripts/ds_index.py",
       "description": "Builds a searchable design-system corpus from tokens, Tailwind/theme CSS, CSS custom properties, and TSX component manifests.",
       "optional_dependencies": []
     },
     {
       "path": "scripts/ds_search.py",
-      "description": "BM25 design-token search, hardcoded value matching, OKLab color comparison, and drift reports.",
+      "description": "BM25 design-token and registry component search, hardcoded value matching, OKLab color comparison, and drift reports.",
+      "optional_dependencies": []
+    },
+    {
+      "path": "scripts/design_select.py",
+      "description": "Recommends a compatible style, palette, and industry pack from a brief, with tradeoffs and optional verified token generation.",
       "optional_dependencies": []
     },
     {
@@ -40,8 +50,28 @@
       "optional_dependencies": ["fonttools", "brotli"]
     },
     {
+      "path": "scripts/industry_check.py",
+      "description": "Prints industry-specific rule checklists and runs conservative heuristics for detectable domain rules.",
+      "optional_dependencies": []
+    },
+    {
       "path": "scripts/license_check.py",
       "description": "Conservative license gate for dependencies, vendored source, and third-party attribution notices.",
+      "optional_dependencies": []
+    },
+    {
+      "path": "scripts/palette_search.py",
+      "description": "Searches 208 verified mood-organized palette seeds, previews ramps, imports Radix reference seeds, pairs compatible styles, and verifies all palettes with token_gen.py.",
+      "optional_dependencies": []
+    },
+    {
+      "path": "scripts/registry_sync.py",
+      "description": "Syncs metadata-only component registry catalogs into .registry/components.jsonl with adapter license gates and sanitized ETag caching.",
+      "optional_dependencies": []
+    },
+    {
+      "path": "scripts/style_apply.py",
+      "description": "Applies visual style constraints plus repeatable modifiers to a brand hue, validates compatibility, retries inside constraints, and emits only verified token schemas.",
       "optional_dependencies": []
     },
     {

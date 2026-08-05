@@ -1,0 +1,48 @@
+{
+  "id": "editorial",
+  "name": "Editorial",
+  "intent": "Creates a considered, magazine-like interface that feels spacious, authored, and quietly opinionated.",
+  "worksFor": ["landing-page", "portfolio", "case-study", "longform-content", "brand-story"],
+  "avoidFor": ["dense-dashboard", "admin-table", "high-frequency-operations", "checkout", "incident-response"],
+  "color": {
+    "chromaRange": { "min": 0.02, "max": 0.16 },
+    "lightnessSpread": { "min": 0.5, "max": 0.94 },
+    "hueRelationshipRules": ["monochrome", "analogous"],
+    "surfaceCountLimit": 5,
+    "saturatedBackgroundsPermitted": false
+  },
+  "type": {
+    "scaleRatio": { "min": 1.2, "max": 1.333 },
+    "weightRange": { "min": 350, "max": 750 },
+    "trackingRules": ["zero-tracking-for-body", "wide-tracking-only-for-short-kickers", "no-negative-tracking"],
+    "maximumSimultaneousFamilies": 2,
+    "caseTreatment": ["sentence", "title"]
+  },
+  "space": {
+    "densityMultiplier": { "min": 1.15, "max": 1.55 },
+    "whitespaceToContentRatioTarget": { "min": 0.42, "max": 0.62 }
+  },
+  "shape": {
+    "radiusMultiplierRange": { "min": 0.5, "max": 1.25 },
+    "borderWeightRange": { "min": 0, "max": 1 }
+  },
+  "depth": {
+    "allowedElevationTechniques": ["border", "overlap"]
+  },
+  "motion": {
+    "durationMultiplier": { "min": 0.9, "max": 1.25 },
+    "permittedEasingFamilies": ["standard", "decelerate"]
+  },
+  "accessibilityWarnings": [],
+  "fallbacks": [],
+  "prohibitions": [
+    "no-hardcoded-hex-values",
+    "no-fixed-pixel-layout-sizes",
+    "no-dense-control-clusters",
+    "no-body-copy-over-image-without-generated-surface-token",
+    "no-decorative-motion-on-reading-surfaces"
+  ],
+  "constraints": {
+    "mayNotRelax": ["contrast-gates", "touch-target-minimums", "focus-indicator-visibility", "reduced-motion-support", "text-expansion-40-percent"]
+  }
+}

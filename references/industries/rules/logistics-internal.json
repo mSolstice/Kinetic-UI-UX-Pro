@@ -1,0 +1,194 @@
+{
+  "rules": [
+    {
+      "id": "logistics-internal-001",
+      "industry": "logistics-internal",
+      "category": "trust",
+      "rule": "Display item/order ID, location, route, freshness, assignee, exception state, scan confidence, next handoff, and reversibility beside every scan, route, assign, reconcile, or handoff action.",
+      "rationale": "Decision context must be visible at the moment of commitment.",
+      "failureMode": "Missing context causes barcode scan succeeds visually but fails server reconciliation.",
+      "detectable": true,
+      "severity": "ERROR"
+    },
+    {
+      "id": "logistics-internal-002",
+      "industry": "logistics-internal",
+      "category": "trust",
+      "rule": "Show full package ID in the same visual group as the primary action.",
+      "rationale": "The highest-risk identifier must travel with the action.",
+      "failureMode": "The user acts without seeing full package ID.",
+      "detectable": true,
+      "severity": "ERROR"
+    },
+    {
+      "id": "logistics-internal-003",
+      "industry": "logistics-internal",
+      "category": "trust",
+      "rule": "Label data freshness or status whenever the view contains route boards, scan screens, exception queues, dispatch views, and package lists.",
+      "rationale": "Users must know whether operational data is current.",
+      "failureMode": "The interface hides stale context around route boards, scan screens, exception queues, dispatch views, and package lists.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "logistics-internal-004",
+      "industry": "logistics-internal",
+      "category": "error-cost",
+      "rule": "Require a review step before shipment handoff, route reassignment, exception resolution, duplicate scan, and dispatch instruction.",
+      "rationale": "High-cost actions need an interruption for verification.",
+      "failureMode": "The user completes shipment handoff, route reassignment, exception resolution, duplicate scan, and dispatch instruction without review.",
+      "detectable": true,
+      "severity": "ERROR"
+    },
+    {
+      "id": "logistics-internal-005",
+      "industry": "logistics-internal",
+      "category": "error-cost",
+      "rule": "Block silent changes to critical values after review in scan, route, assign, reconcile, or handoff action.",
+      "rationale": "Consent depends on the reviewed values staying stable.",
+      "failureMode": "The UI allows barcode scan succeeds visually but fails server reconciliation.",
+      "detectable": true,
+      "severity": "ERROR"
+    },
+    {
+      "id": "logistics-internal-006",
+      "industry": "logistics-internal",
+      "category": "error-cost",
+      "rule": "Provide a recovery or correction path when barcode scan succeeds visually but fails server reconciliation.",
+      "rationale": "High-cost mistakes need visible next steps.",
+      "failureMode": "The user cannot recover after barcode scan succeeds visually but fails server reconciliation.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "logistics-internal-007",
+      "industry": "logistics-internal",
+      "category": "density",
+      "rule": "Match density to route boards, scan screens, exception queues, dispatch views, and package lists; do not use decorative spacing that separates labels from values.",
+      "rationale": "Domain work depends on scanning related facts together.",
+      "failureMode": "Related labels and values drift apart visually.",
+      "detectable": false,
+      "severity": "INFO"
+    },
+    {
+      "id": "logistics-internal-008",
+      "industry": "logistics-internal",
+      "category": "density",
+      "rule": "Keep required identifiers visible at mobile widths for scan, route, assign, reconcile, or handoff action.",
+      "rationale": "Narrow screens are common at decision time.",
+      "failureMode": "Mobile layout hides full package ID.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "logistics-internal-009",
+      "industry": "logistics-internal",
+      "category": "motion",
+      "rule": "Do not use decorative motion around scan feedback, assignment, failure, retry, route status, or exception queues.",
+      "rationale": "Motion must not hide or trivialize domain state.",
+      "failureMode": "Motion obscures barcode scan succeeds visually but fails server reconciliation.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "logistics-internal-010",
+      "industry": "logistics-internal",
+      "category": "motion",
+      "rule": "Provide a reduced-motion path for status changes involving stale-gps-scan-data, duplicate-scan, partial-route-failure, offline-queue, permission-denied-reassignment, damaged-item, handoff-pending, and battery-camera-unavailable.",
+      "rationale": "State meaning must survive user motion preferences.",
+      "failureMode": "Reduced-motion users miss stale-gps-scan-data.",
+      "detectable": true,
+      "severity": "INFO"
+    },
+    {
+      "id": "logistics-internal-011",
+      "industry": "logistics-internal",
+      "category": "terminology",
+      "rule": "Use exact labels for stale, queued, reconciled, duplicate, exception, damaged, handoff, assignee, route, and scan confidence.",
+      "rationale": "Precise terms map to different user decisions.",
+      "failureMode": "A vague label masks barcode scan succeeds visually but fails server reconciliation.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "logistics-internal-012",
+      "industry": "logistics-internal",
+      "category": "terminology",
+      "rule": "Do not use color alone to distinguish stale-gps-scan-data, duplicate-scan, partial-route-failure, offline-queue, permission-denied-reassignment, damaged-item, handoff-pending, and battery-camera-unavailable.",
+      "rationale": "Status must be perceivable without color vision.",
+      "failureMode": "Users miss a state among stale-gps-scan-data, duplicate-scan, partial-route-failure, offline-queue, permission-denied-reassignment, damaged-item, handoff-pending, and battery-camera-unavailable.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "logistics-internal-013",
+      "industry": "logistics-internal",
+      "category": "state-coverage",
+      "rule": "Provide states for stale-gps-scan-data, duplicate-scan, partial-route-failure, offline-queue, permission-denied-reassignment, damaged-item, handoff-pending, and battery-camera-unavailable.",
+      "rationale": "Domain flows contain more than loading/success/error.",
+      "failureMode": "A missing state causes barcode scan succeeds visually but fails server reconciliation.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "logistics-internal-014",
+      "industry": "logistics-internal",
+      "category": "terminology",
+      "rule": "Use exact labels for stale, queued, reconciled, duplicate, exception, damaged, handoff, assignee, route, and scan confidence.",
+      "rationale": "Terminology communicates lifecycle and consequence.",
+      "failureMode": "A generic label causes barcode scan succeeds visually but fails server reconciliation.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "logistics-internal-015",
+      "industry": "logistics-internal",
+      "category": "terminology",
+      "rule": "Define ambiguous values as stale, queued, reconciled, duplicate, exception, damaged, handoff pending, and permission denied.",
+      "rationale": "Users should not infer whether values are final or provisional.",
+      "failureMode": "A provisional value is treated as final in scan, route, assign, reconcile, or handoff action.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "logistics-internal-016",
+      "industry": "logistics-internal",
+      "category": "state-coverage",
+      "rule": "Provide states for stale-gps-scan-data, duplicate-scan, partial-route-failure, offline-queue, permission-denied-reassignment, damaged-item, handoff-pending, and battery-camera-unavailable.",
+      "rationale": "Domain flows contain more than loading/success/error.",
+      "failureMode": "A missing state causes barcode scan succeeds visually but fails server reconciliation.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "logistics-internal-017",
+      "industry": "logistics-internal",
+      "category": "state-coverage",
+      "rule": "Preserve user input or task context when recovery is needed after scan, route, assign, reconcile, or handoff action.",
+      "rationale": "Recovery without preserved context still fails the task.",
+      "failureMode": "The user must restart after barcode scan succeeds visually but fails server reconciliation.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "logistics-internal-018",
+      "industry": "logistics-internal",
+      "category": "state-coverage",
+      "rule": "Expose an empty or unavailable state that explains whether route boards, scan screens, exception queues, dispatch views, and package lists are absent, filtered, stale, or permission denied.",
+      "rationale": "Empty states need cause and next action.",
+      "failureMode": "Users cannot distinguish absent data from hidden data.",
+      "detectable": true,
+      "severity": "INFO"
+    },
+    {
+      "id": "logistics-internal-019",
+      "industry": "logistics-internal",
+      "category": "trust",
+      "rule": "Keep full package ID visible in confirmation and receipt states.",
+      "rationale": "Receipts are evidence and recovery anchors.",
+      "failureMode": "The confirmation omits full package ID.",
+      "detectable": true,
+      "severity": "WARN"
+    }
+  ]
+}

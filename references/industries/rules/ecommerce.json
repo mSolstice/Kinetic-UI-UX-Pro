@@ -1,0 +1,194 @@
+{
+  "rules": [
+    {
+      "id": "ecommerce-001",
+      "industry": "ecommerce",
+      "category": "trust",
+      "rule": "Display product identity, variant, quantity, price, tax, fees, discount, shipping, delivery estimate, return policy, stock status, security cue, and final total beside every purchase or payment action.",
+      "rationale": "Decision context must be visible at the moment of commitment.",
+      "failureMode": "Missing context causes a total that changes after the payment step.",
+      "detectable": true,
+      "severity": "ERROR"
+    },
+    {
+      "id": "ecommerce-002",
+      "industry": "ecommerce",
+      "category": "trust",
+      "rule": "Show return policy link in the same visual group as the primary action.",
+      "rationale": "The highest-risk identifier must travel with the action.",
+      "failureMode": "The user acts without seeing return policy link.",
+      "detectable": true,
+      "severity": "ERROR"
+    },
+    {
+      "id": "ecommerce-003",
+      "industry": "ecommerce",
+      "category": "trust",
+      "rule": "Label data freshness or status whenever the view contains product discovery, cart, checkout, comparison, and order management.",
+      "rationale": "Users must know whether operational data is current.",
+      "failureMode": "The interface hides stale context around product discovery, cart, checkout, comparison, and order management.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "ecommerce-004",
+      "industry": "ecommerce",
+      "category": "error-cost",
+      "rule": "Require a review step before payment submit, address submit, final-sale purchase, return request, and order cancellation.",
+      "rationale": "High-cost actions need an interruption for verification.",
+      "failureMode": "The user completes payment submit, address submit, final-sale purchase, return request, and order cancellation without review.",
+      "detectable": true,
+      "severity": "ERROR"
+    },
+    {
+      "id": "ecommerce-005",
+      "industry": "ecommerce",
+      "category": "error-cost",
+      "rule": "Block silent changes to critical values after review in purchase or payment action.",
+      "rationale": "Consent depends on the reviewed values staying stable.",
+      "failureMode": "The UI allows a total that changes after the payment step.",
+      "detectable": true,
+      "severity": "ERROR"
+    },
+    {
+      "id": "ecommerce-006",
+      "industry": "ecommerce",
+      "category": "error-cost",
+      "rule": "Provide a recovery or correction path when a total that changes after the payment step.",
+      "rationale": "High-cost mistakes need visible next steps.",
+      "failureMode": "The user cannot recover after a total that changes after the payment step.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "ecommerce-007",
+      "industry": "ecommerce",
+      "category": "density",
+      "rule": "Match density to product discovery, cart, checkout, comparison, and order management; do not use decorative spacing that separates labels from values.",
+      "rationale": "Domain work depends on scanning related facts together.",
+      "failureMode": "Related labels and values drift apart visually.",
+      "detectable": false,
+      "severity": "INFO"
+    },
+    {
+      "id": "ecommerce-008",
+      "industry": "ecommerce",
+      "category": "density",
+      "rule": "Keep required identifiers visible at mobile widths for purchase or payment action.",
+      "rationale": "Narrow screens are common at decision time.",
+      "failureMode": "Mobile layout hides return policy link.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "ecommerce-009",
+      "industry": "ecommerce",
+      "category": "motion",
+      "rule": "Do not use decorative motion around totals, cart constraints, payment errors, stock changes, or return restrictions.",
+      "rationale": "Motion must not hide or trivialize domain state.",
+      "failureMode": "Motion obscures a total that changes after the payment step.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "ecommerce-010",
+      "industry": "ecommerce",
+      "category": "motion",
+      "rule": "Provide a reduced-motion path for status changes involving variant-unavailable, price-changed, out-of-stock-between-steps, discount-ineligible, address-invalid, payment-declined, split-shipment, and return-expired.",
+      "rationale": "State meaning must survive user motion preferences.",
+      "failureMode": "Reduced-motion users miss variant-unavailable.",
+      "detectable": true,
+      "severity": "INFO"
+    },
+    {
+      "id": "ecommerce-011",
+      "industry": "ecommerce",
+      "category": "terminology",
+      "rule": "Use exact labels for estimated total, final total, tax, shipping, discount, return window, stock, pending payment, and captured payment.",
+      "rationale": "Precise terms map to different user decisions.",
+      "failureMode": "A vague label masks a total that changes after the payment step.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "ecommerce-012",
+      "industry": "ecommerce",
+      "category": "terminology",
+      "rule": "Do not use color alone to distinguish variant-unavailable, price-changed, out-of-stock-between-steps, discount-ineligible, address-invalid, payment-declined, split-shipment, and return-expired.",
+      "rationale": "Status must be perceivable without color vision.",
+      "failureMode": "Users miss a state among variant-unavailable, price-changed, out-of-stock-between-steps, discount-ineligible, address-invalid, payment-declined, split-shipment, and return-expired.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "ecommerce-013",
+      "industry": "ecommerce",
+      "category": "state-coverage",
+      "rule": "Provide states for variant-unavailable, price-changed, out-of-stock-between-steps, discount-ineligible, address-invalid, payment-declined, split-shipment, and return-expired.",
+      "rationale": "Domain flows contain more than loading/success/error.",
+      "failureMode": "A missing state causes a total that changes after the payment step.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "ecommerce-014",
+      "industry": "ecommerce",
+      "category": "terminology",
+      "rule": "Use exact labels for estimated total, final total, tax, shipping, discount, return window, stock, pending payment, and captured payment.",
+      "rationale": "Terminology communicates lifecycle and consequence.",
+      "failureMode": "A generic label causes a total that changes after the payment step.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "ecommerce-015",
+      "industry": "ecommerce",
+      "category": "terminology",
+      "rule": "Define ambiguous values as estimated total, final total, unavailable, out of stock, backorder, preorder, final sale, and payment captured.",
+      "rationale": "Users should not infer whether values are final or provisional.",
+      "failureMode": "A provisional value is treated as final in purchase or payment action.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "ecommerce-016",
+      "industry": "ecommerce",
+      "category": "state-coverage",
+      "rule": "Provide states for variant-unavailable, price-changed, out-of-stock-between-steps, discount-ineligible, address-invalid, payment-declined, split-shipment, and return-expired.",
+      "rationale": "Domain flows contain more than loading/success/error.",
+      "failureMode": "A missing state causes a total that changes after the payment step.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "ecommerce-017",
+      "industry": "ecommerce",
+      "category": "state-coverage",
+      "rule": "Preserve user input or task context when recovery is needed after purchase or payment action.",
+      "rationale": "Recovery without preserved context still fails the task.",
+      "failureMode": "The user must restart after a total that changes after the payment step.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "ecommerce-018",
+      "industry": "ecommerce",
+      "category": "state-coverage",
+      "rule": "Expose an empty or unavailable state that explains whether product discovery, cart, checkout, comparison, and order management are absent, filtered, stale, or permission denied.",
+      "rationale": "Empty states need cause and next action.",
+      "failureMode": "Users cannot distinguish absent data from hidden data.",
+      "detectable": true,
+      "severity": "INFO"
+    },
+    {
+      "id": "ecommerce-019",
+      "industry": "ecommerce",
+      "category": "trust",
+      "rule": "Keep return policy link visible in confirmation and receipt states.",
+      "rationale": "Receipts are evidence and recovery anchors.",
+      "failureMode": "The confirmation omits return policy link.",
+      "detectable": true,
+      "severity": "WARN"
+    }
+  ]
+}

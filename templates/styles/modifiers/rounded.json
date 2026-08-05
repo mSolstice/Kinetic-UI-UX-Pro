@@ -1,0 +1,19 @@
+{
+  "id": "rounded",
+  "name": "Rounded",
+  "intent": "Raises radius and softens type weight so controls feel approachable without becoming toy-like.",
+  "order": 40,
+  "touches": ["shape", "type", "prohibitions"],
+  "transform": {
+    "ranges": {
+      "shape.radiusMultiplierRange": { "multiply": 1.55, "minFloor": 0.9, "maxCeiling": 2.25 },
+      "type.weightRange": { "multiplyMax": 0.9, "minFloor": 350, "maxCeiling": 680 }
+    },
+    "addProhibitions": ["no-square-icon-buttons", "no-heavy-display-weight"]
+  },
+  "incompatibleWith": {
+    "baseStyles": ["retro-terminal"],
+    "modifiers": ["sharp"]
+  },
+  "cannotOverride": ["contrast-gates", "touch-target-minimums", "focus-indicator-visibility", "reduced-motion-support", "text-expansion-40-percent"]
+}

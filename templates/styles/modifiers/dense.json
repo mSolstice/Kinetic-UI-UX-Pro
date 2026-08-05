@@ -1,0 +1,19 @@
+{
+  "id": "dense",
+  "name": "Dense",
+  "intent": "Compresses spacing and raises information ratio for scanning-heavy product surfaces.",
+  "order": 10,
+  "touches": ["space", "prohibitions"],
+  "transform": {
+    "ranges": {
+      "space.densityMultiplier": { "multiply": 0.82, "minFloor": 0.55, "maxCeiling": 1.05 },
+      "space.whitespaceToContentRatioTarget": { "multiply": 0.78, "minFloor": 0.14, "maxCeiling": 0.42 }
+    },
+    "addProhibitions": ["no-decorative-whitespace", "no-low-density-card-grids"]
+  },
+  "incompatibleWith": {
+    "baseStyles": ["luxury-minimal"],
+    "modifiers": ["airy"]
+  },
+  "cannotOverride": ["contrast-gates", "touch-target-minimums", "focus-indicator-visibility", "reduced-motion-support", "text-expansion-40-percent"]
+}

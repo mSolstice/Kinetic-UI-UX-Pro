@@ -1,0 +1,49 @@
+{
+  "id": "luxury-minimal",
+  "name": "Luxury Minimal",
+  "intent": "Creates a restrained, premium interface that feels deliberate, quiet, and materially refined.",
+  "worksFor": ["luxury-commerce", "portfolio", "high-end-landing-page", "gallery", "brand-editorial"],
+  "avoidFor": ["admin-tool", "field-workflow", "dense-dashboard", "support-queue", "checkout-with-many-errors", "children-product"],
+  "color": {
+    "chromaRange": { "min": 0.0, "max": 0.1 },
+    "lightnessSpread": { "min": 0.46, "max": 0.96 },
+    "hueRelationshipRules": ["monochrome", "analogous"],
+    "surfaceCountLimit": 3,
+    "saturatedBackgroundsPermitted": false
+  },
+  "type": {
+    "scaleRatio": { "min": 1.2, "max": 1.414 },
+    "weightRange": { "min": 300, "max": 700 },
+    "trackingRules": ["zero-tracking-for-body", "subtle-label-tracking-only", "no-thin-small-text"],
+    "maximumSimultaneousFamilies": 2,
+    "caseTreatment": ["sentence", "title", "uppercase-labels-only"]
+  },
+  "space": {
+    "densityMultiplier": { "min": 1.25, "max": 1.8 },
+    "whitespaceToContentRatioTarget": { "min": 0.52, "max": 0.72 }
+  },
+  "shape": {
+    "radiusMultiplierRange": { "min": 0, "max": 0.75 },
+    "borderWeightRange": { "min": 0, "max": 1 }
+  },
+  "depth": {
+    "allowedElevationTechniques": ["border", "none"]
+  },
+  "motion": {
+    "durationMultiplier": { "min": 0.95, "max": 1.35 },
+    "permittedEasingFamilies": ["standard", "decelerate", "emphasized"]
+  },
+  "accessibilityWarnings": [],
+  "fallbacks": [],
+  "prohibitions": [
+    "no-hardcoded-hex-values",
+    "no-fixed-pixel-layout-sizes",
+    "no-low-contrast-whisper-text",
+    "no-hidden-primary-actions-for-aesthetic-minimalism",
+    "no-overwide-line-lengths",
+    "no-animation-that-delays-task-completion"
+  ],
+  "constraints": {
+    "mayNotRelax": ["contrast-gates", "touch-target-minimums", "focus-indicator-visibility", "reduced-motion-support", "text-expansion-40-percent"]
+  }
+}

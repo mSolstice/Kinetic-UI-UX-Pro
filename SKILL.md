@@ -29,15 +29,25 @@ Work through four phases. Do not skip Phase 1 even when the request sounds like 
 - `references/environments.md` — adapt output shape to CLI, IDE, chat, or CI/headless hosts
 - `references/patterns-by-surface.md` — dashboard/settings/feed/wizard/editor IA, state, density, and motion budgets
 - `references/motion-recipes.md` — load only for FLIP, shared elements, stagger, gesture, scroll, or skeleton motion
+- `references/anti-slop.md` — load for visual polish, redesign, or when output risks generic generated UI defaults
+- `templates/styles/` — visual style constraint sets; load only chosen/candidate styles
+- `templates/palettes/palettes.json` — mood-organized palette seeds generated through `token_gen.py`
 - `references/library-adapters.md` — load only when a third-party UI, animation, token, icon, or chart library is named; each adapter stays to good for / still enforce / token map / license / vendoring
+- `references/industries/` — load the matching industry pack when domain risk, trust signals, compliance orientation, or domain-specific states matter
+- `references/industries/rules/` — structured industry rules for `scripts/industry_check.py`
 
 **Scripts — run them; do not estimate what they compute:**
 
-- `scripts/color_tools.py` — OKLCH→sRGB, gamut check, WCAG 2.x ratio, APCA Lc, ramp generation
-- `scripts/token_gen.py` — deterministic tokens from a JSON schema → CSS vars, Tailwind v4 `@theme`, JSON. Verifies every declared pair against both contrast gates and **exits non-zero on contrast failure**. Start with `--init`.
+- `scripts/color_tools.py` — OKLCH/sRGB, gamut, WCAG ratio, APCA Lc, ramp generation
+- `scripts/token_gen.py` — schema → CSS vars/Tailwind/JSON; verifies both contrast gates and exits non-zero on failure
+- `scripts/style_apply.py` — derives verified token schemas/CSS from style constraints and modifiers
+- `scripts/palette_search.py` — searches, previews, pairs, and verifies palette seeds
+- `scripts/design_select.py` — recommends style, palette, and industry pack from a brief with explicit tradeoffs
+- `scripts/registry_sync.py` / `component_adapt.py` — sync metadata-only catalogs; adapt fetched source in temp only
 - `scripts/ds_index.py` — build `.ds-index/corpus.jsonl` from approved tokens, CSS vars, Tailwind theme values, and components
-- `scripts/ds_search.py` — BM25/token matcher for approved values; `match` exits non-zero on unmatched hardcoded design values
+- `scripts/ds_search.py` — BM25 matcher for approved values and registry components; `match` exits non-zero on unmatched hardcoded values
 - `scripts/font_metrics.py` — real `size-adjust` / `ascent-override` values from a font file
+- `scripts/industry_check.py` — prints industry rules and heuristic pass/fail/needs-review checks
 - `scripts/ast_audit.py` — **preferred auditor.** Tree-sitter parsing of TSX/JS/CSS; use `--ds-index` to warn on token drift
 - `scripts/ui_audit.py` — regex fallback when tree-sitter is unavailable
 
@@ -69,20 +79,20 @@ Use `references/environments.md` when filesystem access, paths, package manifest
 
 ## Phase 2 · Structure before surface
 
-Decide flow, hierarchy, and words before layout. See `references/ux-foundations.md` for the full method; the load-bearing rules:
+Decide flow, hierarchy, words, and visual direction before layout. See `references/ux-foundations.md` for the full method; the load-bearing rules:
 
-- **One primary action per view.** Everything else is visually subordinate. If two actions compete, the hierarchy is undecided.
-- **Progressive disclosure.** Show what is needed now; defer the rest behind an affordance rather than a scroll.
-- **Recognition over recall.** Never require the user to remember something the interface could show.
-- **Write the words first.** Labels, empty states, and error messages are design, not filler. Lorem ipsum hides broken hierarchy.
-- **Design the edges first.** Empty and error states are where trust is won; build them before the populated happy path.
-- **No dark patterns.** No confirmshaming, forced continuity, disguised ads, or asymmetric friction between opting in and out. Decline and offer an honest alternative if asked.
+- Before choosing visual direction, run `scripts/design_select.py recommend "<brief>" --surface <type>` for style/palette/industry guidance, or use the user's stated preference. Carry the accepted tradeoff into the receipt.
+- One primary action per view; progressive disclosure; recognition over recall.
+- Write labels, empty states, and errors first. Design the edges before the populated happy path.
+- No dark patterns: no confirmshaming, forced continuity, disguised ads, or asymmetric friction. Decline and offer an honest alternative if asked.
 
 ## Phase 3 · Build
 
 ### 1. Stack layering
 
 Author with semantic HTML and platform CSS first, then map to the requested framework. Native elements carry behavior that hand-rolled equivalents lose. Model state as a discriminated union (`status: 'idle' | 'loading' | 'success' | 'error'`), never parallel booleans that permit impossible combinations. → `references/frameworks.md`
+
+Before hand-writing a common component, search the registry with `scripts/ds_search.py component`. If a well-licensed match exists, adapt it with `scripts/component_adapt.py` rather than reimplementing. Hand-write only when search returns nothing suitable, the task is genuinely novel, or the user asked for original work.
 
 ### 2. Exhaustive interaction states
 

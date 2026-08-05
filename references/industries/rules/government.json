@@ -1,0 +1,195 @@
+{
+  "disclaimer": "This is orientation, not legal advice. Requirements vary by jurisdiction and must be verified with qualified legal, accessibility, procurement, privacy, records, and security professionals.",
+  "rules": [
+    {
+      "id": "government-001",
+      "industry": "government",
+      "category": "trust",
+      "rule": "Display agency, service, eligibility scope, required documents, deadline, fees, saved progress, receipt, appeal path, language access, and support channel beside every public service submit, renewal, payment, appeal, or correction action.",
+      "rationale": "Decision context must be visible at the moment of commitment.",
+      "failureMode": "Missing context causes a form that cannot be completed on a shared low-spec device.",
+      "detectable": true,
+      "severity": "ERROR"
+    },
+    {
+      "id": "government-002",
+      "industry": "government",
+      "category": "trust",
+      "rule": "Show receipt number in the same visual group as the primary action.",
+      "rationale": "The highest-risk identifier must travel with the action.",
+      "failureMode": "The user acts without seeing receipt number.",
+      "detectable": true,
+      "severity": "ERROR"
+    },
+    {
+      "id": "government-003",
+      "industry": "government",
+      "category": "trust",
+      "rule": "Label data freshness or status whenever the view contains eligibility pages, long forms, document checklists, payments, and appeal paths.",
+      "rationale": "Users must know whether operational data is current.",
+      "failureMode": "The interface hides stale context around eligibility pages, long forms, document checklists, payments, and appeal paths.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "government-004",
+      "industry": "government",
+      "category": "error-cost",
+      "rule": "Require a review step before public form submit, service payment, appeal filing, document upload, identity proofing, and correction request.",
+      "rationale": "High-cost actions need an interruption for verification.",
+      "failureMode": "The user completes public form submit, service payment, appeal filing, document upload, identity proofing, and correction request without review.",
+      "detectable": true,
+      "severity": "ERROR"
+    },
+    {
+      "id": "government-005",
+      "industry": "government",
+      "category": "error-cost",
+      "rule": "Block silent changes to critical values after review in public service submit, renewal, payment, appeal, or correction action.",
+      "rationale": "Consent depends on the reviewed values staying stable.",
+      "failureMode": "The UI allows a form that cannot be completed on a shared low-spec device.",
+      "detectable": true,
+      "severity": "ERROR"
+    },
+    {
+      "id": "government-006",
+      "industry": "government",
+      "category": "error-cost",
+      "rule": "Provide a recovery or correction path when a form that cannot be completed on a shared low-spec device.",
+      "rationale": "High-cost mistakes need visible next steps.",
+      "failureMode": "The user cannot recover after a form that cannot be completed on a shared low-spec device.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "government-007",
+      "industry": "government",
+      "category": "density",
+      "rule": "Match density to eligibility pages, long forms, document checklists, payments, and appeal paths; do not use decorative spacing that separates labels from values.",
+      "rationale": "Domain work depends on scanning related facts together.",
+      "failureMode": "Related labels and values drift apart visually.",
+      "detectable": false,
+      "severity": "INFO"
+    },
+    {
+      "id": "government-008",
+      "industry": "government",
+      "category": "density",
+      "rule": "Keep required identifiers visible at mobile widths for public service submit, renewal, payment, appeal, or correction action.",
+      "rationale": "Narrow screens are common at decision time.",
+      "failureMode": "Mobile layout hides receipt number.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "government-009",
+      "industry": "government",
+      "category": "motion",
+      "rule": "Do not use decorative motion around essential-service forms, progress indicators, confirmation pages, or low-spec device flows.",
+      "rationale": "Motion must not hide or trivialize domain state.",
+      "failureMode": "Motion obscures a form that cannot be completed on a shared low-spec device.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "government-010",
+      "industry": "government",
+      "category": "motion",
+      "rule": "Provide a reduced-motion path for status changes involving save-resume, expired-session-recovery, missing-documents, ineligible-redirectable, language-switch-mid-flow, low-bandwidth, pending-payment, and appeal-correction-path.",
+      "rationale": "State meaning must survive user motion preferences.",
+      "failureMode": "Reduced-motion users miss save-resume.",
+      "detectable": true,
+      "severity": "INFO"
+    },
+    {
+      "id": "government-011",
+      "industry": "government",
+      "category": "compliance-orientation",
+      "rule": "Ask a qualified professional: Which accessibility and language-access obligations govern this service?",
+      "rationale": "This is orientation only; requirements vary by jurisdiction.",
+      "failureMode": "The team assumes compliance without validating: Which accessibility and language-access obligations govern this service?",
+      "detectable": false,
+      "severity": "WARN"
+    },
+    {
+      "id": "government-012",
+      "industry": "government",
+      "category": "compliance-orientation",
+      "rule": "Ask a qualified professional: What identity proofing and data minimization rules apply?",
+      "rationale": "This is orientation only; requirements vary by jurisdiction.",
+      "failureMode": "The team assumes compliance without validating: What identity proofing and data minimization rules apply?",
+      "detectable": false,
+      "severity": "WARN"
+    },
+    {
+      "id": "government-013",
+      "industry": "government",
+      "category": "compliance-orientation",
+      "rule": "Ask a qualified professional: What receipt, appeal, correction, and records-retention requirements exist?",
+      "rationale": "This is orientation only; requirements vary by jurisdiction.",
+      "failureMode": "The team assumes compliance without validating: What receipt, appeal, correction, and records-retention requirements exist?",
+      "detectable": false,
+      "severity": "WARN"
+    },
+    {
+      "id": "government-014",
+      "industry": "government",
+      "category": "terminology",
+      "rule": "Use exact labels for eligibility, appeal, correction, fee, receipt, required document, agency, service, and language access.",
+      "rationale": "Terminology communicates lifecycle and consequence.",
+      "failureMode": "A generic label causes a form that cannot be completed on a shared low-spec device.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "government-015",
+      "industry": "government",
+      "category": "terminology",
+      "rule": "Define ambiguous values as saved, submitted, pending payment, receipt unavailable, ineligible, redirectable, expired session, and appeal available.",
+      "rationale": "Users should not infer whether values are final or provisional.",
+      "failureMode": "A provisional value is treated as final in public service submit, renewal, payment, appeal, or correction action.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "government-016",
+      "industry": "government",
+      "category": "state-coverage",
+      "rule": "Provide states for save-resume, expired-session-recovery, missing-documents, ineligible-redirectable, language-switch-mid-flow, low-bandwidth, pending-payment, and appeal-correction-path.",
+      "rationale": "Domain flows contain more than loading/success/error.",
+      "failureMode": "A missing state causes a form that cannot be completed on a shared low-spec device.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "government-017",
+      "industry": "government",
+      "category": "state-coverage",
+      "rule": "Preserve user input or task context when recovery is needed after public service submit, renewal, payment, appeal, or correction action.",
+      "rationale": "Recovery without preserved context still fails the task.",
+      "failureMode": "The user must restart after a form that cannot be completed on a shared low-spec device.",
+      "detectable": true,
+      "severity": "WARN"
+    },
+    {
+      "id": "government-018",
+      "industry": "government",
+      "category": "state-coverage",
+      "rule": "Expose an empty or unavailable state that explains whether eligibility pages, long forms, document checklists, payments, and appeal paths are absent, filtered, stale, or permission denied.",
+      "rationale": "Empty states need cause and next action.",
+      "failureMode": "Users cannot distinguish absent data from hidden data.",
+      "detectable": true,
+      "severity": "INFO"
+    },
+    {
+      "id": "government-019",
+      "industry": "government",
+      "category": "trust",
+      "rule": "Keep receipt number visible in confirmation and receipt states.",
+      "rationale": "Receipts are evidence and recovery anchors.",
+      "failureMode": "The confirmation omits receipt number.",
+      "detectable": true,
+      "severity": "WARN"
+    }
+  ]
+}

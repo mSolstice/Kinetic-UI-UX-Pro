@@ -1,0 +1,58 @@
+{
+  "id": "glass-layered",
+  "name": "Glass Layered",
+  "intent": "Creates a luminous, layered interface that feels dimensional, light, and close to the underlying content.",
+  "worksFor": ["media-browser", "map-overlay", "hero-interface", "creative-tool", "immersive-onboarding"],
+  "avoidFor": ["data-table", "financial-dashboard", "medical-workflow", "legal-form", "text-heavy-settings", "reduced-transparency-primary-use"],
+  "color": {
+    "chromaRange": { "min": 0.03, "max": 0.18 },
+    "lightnessSpread": { "min": 0.5, "max": 0.96 },
+    "hueRelationshipRules": ["analogous", "complementary"],
+    "surfaceCountLimit": 4,
+    "saturatedBackgroundsPermitted": true
+  },
+  "type": {
+    "scaleRatio": { "min": 1.15, "max": 1.3 },
+    "weightRange": { "min": 450, "max": 750 },
+    "trackingRules": ["zero-tracking-for-body", "increase-label-weight-before-tracking", "no-text-over-variable-background-without-surface"],
+    "maximumSimultaneousFamilies": 2,
+    "caseTreatment": ["sentence", "title", "uppercase-labels-only"]
+  },
+  "space": {
+    "densityMultiplier": { "min": 1.05, "max": 1.45 },
+    "whitespaceToContentRatioTarget": { "min": 0.4, "max": 0.6 }
+  },
+  "shape": {
+    "radiusMultiplierRange": { "min": 1.25, "max": 2.75 },
+    "borderWeightRange": { "min": 1, "max": 1.5 }
+  },
+  "depth": {
+    "allowedElevationTechniques": ["shadow", "border", "overlap"]
+  },
+  "motion": {
+    "durationMultiplier": { "min": 0.9, "max": 1.25 },
+    "permittedEasingFamilies": ["standard", "decelerate", "emphasized"]
+  },
+  "accessibilityWarnings": [
+    {
+      "risk": "Text over variable backgrounds can lose contrast as content behind the layer changes.",
+      "mitigation": "Every text-bearing glass surface must generate an opaque or sufficiently solid surface token that passes both contrast gates against its text tokens."
+    }
+  ],
+  "fallbacks": [
+    {
+      "condition": "prefers-reduced-transparency-or-backdrop-filter-unavailable",
+      "response": "Use a solid-surface fallback token and preserve border, focus, and hierarchy without relying on blur."
+    }
+  ],
+  "prohibitions": [
+    "no-hardcoded-hex-values",
+    "no-fixed-pixel-layout-sizes",
+    "no-glass-style-where-reduced-transparency-strips-the-entire-identity",
+    "no-text-directly-over-media-without-solid-surface-fallback",
+    "no-blur-as-the-only-layer-boundary"
+  ],
+  "constraints": {
+    "mayNotRelax": ["contrast-gates", "touch-target-minimums", "focus-indicator-visibility", "reduced-motion-support", "text-expansion-40-percent"]
+  }
+}

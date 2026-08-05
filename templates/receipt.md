@@ -17,6 +17,9 @@ Use the compact receipt first. Expand only when the task is Full tier or the use
 - **Using:** Kinetic UI UX Pro
 - **References loaded:** [exact paths, or none]
 - **Scripts run:** [exact commands, or not run + why]
+- **Style & palette:** [chosen style, palette, and tradeoff accepted]
+- **Domain considerations:** [industry pack and top forgotten states, or none]
+- **Provenance:** [adapted source library + license + tokens remapped + states patched, or authored]
 - **Design-system conformance:** [`ds_search.py`/`ast_audit.py --ds-index` result; new values marked UNMATCHED and justified]
 
 Full receipt fields, when needed:
@@ -25,6 +28,9 @@ Full receipt fields, when needed:
 - **References loaded:** [exact reference paths used]
 - **Scripts run:** [exact commands, or "not run" with why]
 - **Job & primary action:** [what this solves; the single primary action]
+- **Style & palette:** [chosen style, palette, and tradeoff accepted]
+- **Domain considerations:** [industry pack and top forgotten states, if applicable]
+- **Provenance:** [source library, license, component id/docs URL, tokens remapped, states patched; or authored]
 - **Design-system conformance:** [`ds_search.py`/`ast_audit.py --ds-index` result; new values marked UNMATCHED and justified]
 - **States implemented:** [which of the nine; note deliberate omissions and why]
 - **Programmatic signalling:** [aria-busy timing, live region type + pre-mount, focus return target]

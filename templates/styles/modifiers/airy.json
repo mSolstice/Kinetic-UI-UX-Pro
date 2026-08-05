@@ -1,0 +1,19 @@
+{
+  "id": "airy",
+  "name": "Airy",
+  "intent": "Expands spacing and lowers information pressure for calmer reading and onboarding surfaces.",
+  "order": 10,
+  "touches": ["space", "prohibitions"],
+  "transform": {
+    "ranges": {
+      "space.densityMultiplier": { "multiply": 1.2, "minFloor": 0.85, "maxCeiling": 1.65 },
+      "space.whitespaceToContentRatioTarget": { "multiply": 1.24, "minFloor": 0.28, "maxCeiling": 0.72 }
+    },
+    "addProhibitions": ["no-cramped-control-clusters", "no-dense-data-tables-as-primary-surface"]
+  },
+  "incompatibleWith": {
+    "baseStyles": ["technical-dense"],
+    "modifiers": ["dense"]
+  },
+  "cannotOverride": ["contrast-gates", "touch-target-minimums", "focus-indicator-visibility", "reduced-motion-support", "text-expansion-40-percent"]
+}

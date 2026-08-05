@@ -423,6 +423,76 @@ def audit_static_geometry(root, src, path):
     return out
 
 
+def normalized_css_value(value):
+    return re.sub(r"\s+", " ", value.strip().lower())
+
+
+def is_tokenized_value(value):
+    return "var(" in value or value.strip().lower().startswith(("inherit", "unset"))
+
+
+def audit_slop(root, src, path):
+    out = []
+    rules = list(css_rules(root, src))
+    radius = []
+    shadows = []
+    weights = {}
+
+    for sel, decls, lines, line in rules:
+        for prop, val in decls.items():
+            low_val = normalized_css_value(val)
+            if prop.endswith("border-radius") or prop == "border-radius":
+                if low_val and not is_tokenized_value(low_val):
+                    radius.append((low_val, sel, lines.get(prop, line)))
+            if prop == "box-shadow":
+                if low_val and low_val != "none" and not is_tokenized_value(low_val):
+                    shadows.append((low_val, sel, lines.get(prop, line)))
+            if prop == "font-weight":
+                if low_val and not is_tokenized_value(low_val):
+                    weights.setdefault(low_val, (sel, lines.get(prop, line)))
+            if prop in ("background", "background-image") and "gradient(" in low_val:
+                if re.search(r"(?:^|[-_\s.])hero(?:$|[-_\s.#:[{])", sel, re.I):
+                    out.append(Finding(
+                        "slop/hero-gradient-background", "INFO", path, lines.get(prop, line),
+                        "Hero selector uses a gradient background",
+                        "Default full-bleed hero gradients read generic unless the gradient is an intentional, verified brand/content surface.",
+                        sel))
+
+    if len(radius) >= 4:
+        unique = {v for v, _sel, _line in radius}
+        if len(unique) == 1:
+            val, sel, line = radius[0]
+            out.append(Finding(
+                "slop/uniform-radius", "INFO", path, line,
+                f"Same literal radius value appears across {len(radius)} rules",
+                "Radius should vary by component scale and role; use radius tokens intentionally rather than one repeated default.",
+                f"{val} in {sel}"))
+
+    shadow_counts = {}
+    for val, sel, line in shadows:
+        shadow_counts.setdefault(val, []).append((sel, line))
+    for val, uses in shadow_counts.items():
+        selectors = {sel for sel, _line in uses}
+        if len(selectors) >= 3:
+            first_sel, first_line = uses[0]
+            out.append(Finding(
+                "slop/repeated-shadow", "INFO", path, first_line,
+                f"Identical shadow value appears on {len(selectors)} selectors",
+                "Elevation should map to layer/state; repeated literal shadows flatten hierarchy.",
+                f"{val} in {first_sel}"))
+
+    if len(weights) > 3:
+        first_weight = sorted(weights)[0]
+        sel, line = weights[first_weight]
+        out.append(Finding(
+            "slop/too-many-font-weights", "INFO", path, line,
+            f"{len(weights)} literal font weights declared in one file",
+            "Use a deliberate type scale with role contrast; too many weights often substitute for hierarchy.",
+            ", ".join(sorted(weights))))
+
+    return out
+
+
 def audit_css(src, path):
     parser = get_parser('css')
     root = parser.parse(src).root_node
@@ -528,7 +598,7 @@ def audit_css(src, path):
             "No forced-colors handling",
             "Custom fills are overridden; structure must survive on borders."))
 
-    return out + audit_static_geometry(root, src, path)
+    return out + audit_static_geometry(root, src, path) + audit_slop(root, src, path)
 
 
 # --------------------------------------------------------- breakpoints

@@ -1,0 +1,46 @@
+{
+  "library": "Tremor",
+  "license": "Apache-2.0",
+  "vendorable": true,
+  "frameworks": ["react"],
+  "registry": {
+    "type": "sitemap",
+    "url": "https://www.tremor.so/sitemap.xml"
+  },
+  "theming": {
+    "attach": "props",
+    "tokenMap": {
+      "chart.series.1": "colors={[\"var(--chart-series-1)\"]}",
+      "chart.series.2": "colors={[\"var(--chart-series-2)\"]}",
+      "surface.panel": "className=\"bg-[var(--surface-panel)]\"",
+      "text.primary": "className=\"text-[var(--text-primary)]\"",
+      "text.muted": "className=\"text-[var(--text-muted)]\"",
+      "border.subtle": "className=\"border-[color:var(--border-subtle)]\"",
+      "radius.card": "className=\"rounded-[var(--radius-card)]\""
+    }
+  },
+  "stateGaps": ["loading", "error", "success", "empty"],
+  "conformancePatch": {
+    "loading": {
+      "language": "tsx",
+      "code": "if (status === 'loading') return <Card aria-busy=\"true\"><div className=\"kui-chart-skeleton\" aria-hidden=\"true\" /></Card>;"
+    },
+    "empty": {
+      "language": "tsx",
+      "code": "if (data.length === 0) return <Card><div role=\"status\" className=\"text-[var(--text-muted)]\">No chart data available.</div></Card>;"
+    },
+    "error": {
+      "language": "tsx",
+      "code": "if (status === 'error') return <Card><p role=\"alert\" className=\"text-[var(--status-error-text)]\">{errorMessage}</p></Card>;"
+    },
+    "success": {
+      "language": "tsx",
+      "code": "<p className=\"sr-only\">{`Chart loaded with ${data.length} rows.`}</p>"
+    },
+    "aria": {
+      "language": "tsx",
+      "code": "<BarChart data={data} aria-label={summary} valueFormatter={formatValue} colors={[\"var(--chart-series-1)\", \"var(--chart-series-2)\"]} />"
+    }
+  },
+  "avoidFor": ["marketing-page", "editor", "wizard", "low-data-narrative-page", "non-react-project"]
+}
