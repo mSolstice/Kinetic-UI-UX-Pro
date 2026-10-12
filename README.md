@@ -49,6 +49,17 @@ Restart Claude Code or run `/reload-plugins`, then invoke the plugin skill as `k
 
 The skill entry point is `SKILL.md`.
 
+## Host-Specific Tooling
+
+Kinetic UI UX Pro ships one shared rule system with two native entry points:
+
+| Host | Native entry point | Tool path convention | Validation |
+| --- | --- | --- | --- |
+| Codex / ChatGPT | `plugin.json` → `SKILL.md` | Run bundled scripts repo-relative, for example `python scripts/ast_audit.py ./templates --fail-on ERROR`. | `python -m py_compile scripts/*.py codex/evals/run_evals.py` plus the workflow in `.github/workflows/ui-audit.yml`. |
+| Claude Code | `.claude-plugin/plugin.json` → `skills/kinetic-ui-ux-pro/SKILL.md` | Run bundled scripts from `${CLAUDE_PLUGIN_ROOT}`, for example `python "${CLAUDE_PLUGIN_ROOT}/scripts/ast_audit.py" ./src --fail-on ERROR`. | `claude plugin validate . --strict`. |
+
+The Claude wrapper does not fork the doctrine. It loads the canonical root `SKILL.md` and only changes bundled-path resolution so Claude edits the user's active project while reading scripts, references, and templates from the plugin root.
+
 ## Scripts
 
 ### `scripts/ast_audit.py`
