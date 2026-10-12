@@ -159,16 +159,16 @@ Start a new Codex task and invoke `$kinetic-ui-ux-pro`, or ask for frontend/UI w
 The Claude-native manifest is `.claude-plugin/plugin.json`; its wrapper skill is `skills/kinetic-ui-ux-pro/SKILL.md`.
 
 ```bash
-mkdir -p ~/.claude/skills
-git clone https://github.com/mSolstice/Kinetic-UI-UX-Pro.git ~/.claude/skills/kinetic-ui-ux-pro
-cd ~/.claude/skills/kinetic-ui-ux-pro
+git clone https://github.com/mSolstice/Kinetic-UI-UX-Pro.git
+cd Kinetic-UI-UX-Pro
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 claude plugin validate . --strict
+claude --plugin-dir .
 ```
 
-Restart Claude Code or run `/reload-plugins`, then invoke `kinetic-ui-ux-pro@skills-dir`.
+With the plugin loaded, invoke the skill as `/kinetic-ui-ux-pro:kinetic-ui-ux-pro`. The repository also remains directly usable as a Codex skill; the public ChatGPT/Codex directory is a separate submission and review step.
 
 ### ChatGPT Distribution Status
 

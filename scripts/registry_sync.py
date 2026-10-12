@@ -73,7 +73,7 @@ ADAPTER_FALLBACKS = {
 DEFAULT_SOURCES = {
     "shadcn-ui": {
         "type": "registry",
-        "url": "https://ui.shadcn.com/r/registry.json",
+        "url": "https://ui.shadcn.com/r/styles/default/registry.json",
         "framework": "react",
         "tags": ["tailwind", "radix", "registry"],
     },
@@ -345,6 +345,21 @@ def absolute_url(value, base_url):
     return urllib.parse.urljoin(base_url, value)
 
 
+def component_registry_url(item, source, name):
+    explicit = text_value(
+        item,
+        "registry_url", "registryUrl", "source_url", "sourceUrl",
+        "item_url", "itemUrl", "fetch_url", "fetchUrl",
+    )
+    if explicit:
+        return absolute_url(explicit, source["url"])
+    if source.get("type") in {"registry", "catalog", "static"}:
+        parsed = urllib.parse.urlparse(source["url"])
+        if parsed.path.endswith("/registry.json"):
+            return urllib.parse.urljoin(source["url"], f"{slug(name)}.json")
+    return source["url"]
+
+
 def dependency_list(item):
     deps = []
     for key in ("dependencies", "devDependencies", "peerDependencies", "registryDependencies"):
@@ -402,9 +417,7 @@ def registry_records(library_id, source, body):
         category = text_value(item, "category", "type", "group") or "component"
         description = text_value(item, "description", "summary", "excerpt")
         docs_url = absolute_url(text_value(item, "docs_url", "docsUrl", "docs", "url", "href"), source["url"])
-        registry_url = absolute_url(text_value(item, "registry_url", "registryUrl", "registry", "meta"), source["url"])
-        if not registry_url:
-            registry_url = source["url"]
+        registry_url = component_registry_url(item, source, name)
         tags = [slug(tag) for tag in as_list(item.get("tags") or item.get("keywords"))]
         tags.extend(slug(tag) for tag in source.get("tags", []))
         records.append({
@@ -620,7 +633,7 @@ def print_stale(records):
         return
     print("| Age (days) | Library | Component | Docs |")
     print("| ---: | --- | --- | --- |")
-    for age, record in sorted(stale, reverse=True):
+    for age, record in sorted(stale, key=lambda item: (-item[0], item[1].get("id", ""))):
         print(f"| {age} | {record.get('library', '')} | {record.get('name', '')} | {record.get('docs_url', '')} |")
 
 

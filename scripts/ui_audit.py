@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Static audit of generated UI code against Kinetic UX rules.
+Static audit of generated UI code against Kinetic UI UX Pro rules.
 
 Usage:
   python ui_audit.py Component.tsx
@@ -232,7 +232,7 @@ def main():
         counts = {"ERROR": 0, "WARN": 0, "INFO": 0}
         for f in all_findings:
             counts[f['severity']] += 1
-        print(f"\n  Kinetic UX audit — {len(files)} file(s)\n")
+        print(f"\n  Kinetic UI UX Pro audit — {len(files)} file(s)\n")
         if not all_findings:
             print("  No mechanical findings. Hand-check the items the linter"
                   "\n  cannot see: flow, hierarchy, microcopy, focus return,"

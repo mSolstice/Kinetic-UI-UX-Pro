@@ -2,6 +2,9 @@ name: UI Audit
 
 on:
   pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -39,8 +42,8 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
-          manifest = json.loads(Path("plugin.json").read_text())
-          listed = {entry["path"] for entry in manifest["scripts"]}
+          catalog = json.loads(Path("docs/script-catalog.json").read_text())
+          listed = set(catalog["scripts"])
           actual = {str(path) for path in Path("scripts").glob("*.py")}
           missing = sorted(actual - listed)
           stale = sorted(listed - actual)
@@ -85,7 +88,6 @@ jobs:
           python scripts/industry_check.py --count
 
       - name: Build design-system index
-        continue-on-error: true
         run: |
           python scripts/ds_index.py --build . --stats
 

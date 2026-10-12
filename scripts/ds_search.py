@@ -293,9 +293,15 @@ def rank_components(args, records: list[dict], adapters: dict[str, dict]) -> tup
             blocked.append({"record": record, "blocked": f"license {license_id} outside {args.license}", "score": bm_score})
             continue
         if args.framework:
-            frameworks = set(tokenize(" ".join(adapter.get("frameworks", [])) + " " + record.get("framework", "")))
+            record_frameworks = set(tokenize(str(record.get("framework", ""))))
+            adapter_frameworks = set(tokenize(" ".join(adapter.get("frameworks", []))))
+            frameworks = record_frameworks | adapter_frameworks
             wanted = set(tokenize(args.framework))
-            if wanted and not frameworks.intersection(wanted):
+            # Registries use `multi` when one metadata record covers several
+            # supported frameworks; the adapter remains the authority when it
+            # lists the concrete framework set.
+            multi_framework = "multi" in record_frameworks
+            if wanted and not frameworks.intersection(wanted) and not multi_framework:
                 blocked.append({"record": record, "blocked": f"framework does not include {args.framework}", "score": bm_score})
                 continue
         adapter_penalty = 0.0

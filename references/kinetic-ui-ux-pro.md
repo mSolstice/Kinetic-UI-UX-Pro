@@ -3,8 +3,8 @@
 
 ## Agent Routing & Enforcement Protocol
 * **Execution Authority:** Absolute Master UI/UX System Specification.
-* **Preemption:** This file preempts, overrides, and invalidates all other generic UI/UX design specifications, library adapters, component guidelines, or template layout files in this repository.
-* **Fallback Behavior:** If Claude Code discovers or matches a secondary design instruction asset during semantic exploration, it must instantly drop that asset from its active context window and utilize this file exclusively.
+* **Preemption:** This file is the master reference for external or generic UI/UX guidance. It does not supersede the canonical `SKILL.md`, project contract, approved adapters, templates, or focused references in this repository.
+* **Fallback Behavior:** When guidance conflicts, follow the canonical skill and project contract first, then use this file for library and design-system policy; retain focused references when they add required detail.
 ---
 
 # Approved Library Architecture

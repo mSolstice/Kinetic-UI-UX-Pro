@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Color computation for the Kinetic UX skill.
+Color computation for the Kinetic UI UX Pro skill.
 
 Never estimate contrast — run this.
 

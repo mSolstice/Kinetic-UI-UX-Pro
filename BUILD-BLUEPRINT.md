@@ -1,8 +1,10 @@
 # Kinetic UI UX Pro — Production Build Blueprint
 
-**What this is:** a step-by-step build plan taking the current v1 package to a production-grade UI/UX system. Each step tells you *where to run it* (Terminal or Codex Desktop) and *which folder to be in*.
+> **Archived planning document.** The repository has progressed beyond this historical build plan. Use `README.md`, `SKILL.md`, `docs/tooling.md`, and the current CI workflow as the source of truth for installation, capabilities, and release checks.
 
-**Current state (v1, already built):** SKILL.md, 6 references, 5 scripts (`color_tools`, `token_gen`, `ast_audit`, `ui_audit`, `font_metrics`), 6 templates, 1 checklist. Contrast math and token generation are verified working. Everything below is additive.
+**What this was:** a step-by-step build plan for the early UI/UX system. It is retained for project history; commands and counts below are not release instructions.
+
+**Historical state:** The initial v1 baseline was superseded by the current 2.x package and its executable verification suite.
 
 **Read this first — the ordering rule:** Phase 0 comes before everything. Building more surface onto an unvalidated skill multiplies unverified code. If you only do three phases, do 0, 1, and 2.
 

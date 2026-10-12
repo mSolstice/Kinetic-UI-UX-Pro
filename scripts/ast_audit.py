@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-AST-based audit of UI code against Kinetic UX rules.
+AST-based audit of UI code against Kinetic UI UX Pro rules.
 
 Replaces regex heuristics with real parsing via tree-sitter, so findings
 carry structural context: which JSX element, which CSS rule, which selector
@@ -1429,7 +1429,7 @@ def audit_breakpoints(rows):
 
 
 def print_breakpoint_report(rows):
-    print("\n  Kinetic UX breakpoint table\n")
+    print("\n  Kinetic UI UX Pro breakpoint table\n")
     if not rows:
         print("  No @media or @container width breakpoints found.\n")
         return
@@ -2213,7 +2213,7 @@ def main():
         counts = {"ERROR": 0, "WARN": 0, "INFO": 0}
         for f in findings:
             counts[f['severity']] += 1
-        print(f"\n  Kinetic UX AST audit — {len(files)} file(s)\n")
+        print(f"\n  Kinetic UI UX Pro AST audit — {len(files)} file(s)\n")
         if not findings:
             print("  No structural findings. Hand-check what parsing cannot see:"
                   "\n  flow, hierarchy, microcopy, focus return, empty states,"

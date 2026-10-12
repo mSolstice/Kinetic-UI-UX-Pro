@@ -11,6 +11,9 @@ from collections import Counter
 from pathlib import Path
 
 KINDS = {"color", "space", "radius", "type", "motion", "shadow", "component", "prop"}
+SKIP_DIRS = {
+    ".git", ".venv", "node_modules", ".ds-index", "__pycache__", "out", ".variants"
+}
 TOKEN_KIND_HINTS = {
     "color": ("color", "brand", "neutral", "surface", "text", "border", "bg", "foreground"),
     "space": ("space", "spacing", "gap", "padding", "margin", "inset"),
@@ -40,6 +43,10 @@ def rel(path: Path, root: Path) -> str:
         return str(path.relative_to(root))
     except ValueError:
         return str(path)
+
+
+def should_skip(path: Path) -> bool:
+    return any(part in SKIP_DIRS for part in path.parts)
 
 
 def kind_for(name: str, value: object = "") -> str:
@@ -75,8 +82,9 @@ def record(kind: str, name: str, value: object, source: Path, root: Path, aliase
 
 def flatten_tokens(data: object, prefix=()):
     if isinstance(data, dict):
-        if "value" in data:
-            yield "-".join(prefix), data.get("value")
+        value_key = "$value" if "$value" in data else "value" if "value" in data else None
+        if value_key:
+            yield "-".join(prefix), data.get(value_key)
         elif all(k in data for k in ("oklch", "hex")):
             yield "-".join(prefix), data.get("oklch") or data.get("hex")
         else:
@@ -87,11 +95,44 @@ def flatten_tokens(data: object, prefix=()):
         yield "-".join(prefix), data
 
 
+def has_token_nodes(data: object) -> bool:
+    """Return true only for token-shaped JSON, not arbitrary project JSON."""
+    if isinstance(data, dict):
+        if "value" in data or "$value" in data or {"oklch", "hex"}.issubset(data):
+            return True
+        return any(has_token_nodes(value) for key, value in data.items() if not str(key).startswith("$"))
+    if isinstance(data, list):
+        return any(has_token_nodes(value) for value in data)
+    return False
+
+
+def token_json_candidates(root: Path) -> tuple[list[Path], list[Path]]:
+    """Classify token JSON separately from unrelated schemas and catalogs."""
+    explicit, discovered = [], []
+    for path in sorted(root.rglob("*.json")):
+        if should_skip(path) or path.name.endswith(".schema.json"):
+            continue
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except Exception as e:
+            if path.name == "tokens.json":
+                warn(path, str(e))
+            continue
+        if path.name == "tokens.json":
+            explicit.append(path)
+        elif isinstance(data, dict) and has_token_nodes(data):
+            discovered.append(path)
+    return explicit, discovered
+
+
 def ingest_token_json(path: Path, root: Path) -> list[dict]:
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
     except Exception as e:
         warn(path, str(e))
+        return []
+    if not isinstance(data, dict):
+        warn(path, "token JSON root must be an object")
         return []
     out = []
     if data.get("generatedBy") == "token_gen.py":
@@ -153,11 +194,10 @@ def ingest_components(path: Path, root: Path) -> list[dict]:
 
 def collect(root: Path) -> list[dict]:
     records, seen = [], set()
-    token_json = sorted(p for p in root.rglob("tokens.json") if ".ds-index" not in p.parts)
-    json_tokens = sorted(p for p in root.rglob("*.json") if ".ds-index" not in p.parts and p not in token_json)
-    tailwind = sorted(root.rglob("tailwind.config.js"))
-    css = sorted(p for p in root.rglob("*.css") if ".ds-index" not in p.parts)
-    tsx = sorted(p for p in root.rglob("*.tsx") if ".ds-index" not in p.parts)
+    token_json, json_tokens = token_json_candidates(root)
+    tailwind = sorted(p for p in root.rglob("tailwind.config.js") if not should_skip(p))
+    css = sorted(p for p in root.rglob("*.css") if not should_skip(p))
+    tsx = sorted(p for p in root.rglob("*.tsx") if not should_skip(p))
     steps = [
         (token_json, ingest_token_json),
         (json_tokens, ingest_token_json),

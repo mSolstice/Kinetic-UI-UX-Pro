@@ -1,123 +1,24 @@
 {
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "kinetic-ui-ux-pro",
   "version": "2.1.0",
-  "description": "Kinetic UI UX Pro rapidly generates and audits accessible, state-complete product interfaces with verified visual styles, color and type tokens, and persistent project/page contracts.",
-  "minimum_python": "3.9",
+  "description": "Constraint-driven UI/UX engineering for coherent, accessible, state-complete product interfaces.",
+  "author": {"name": "Manoj Shinde", "url": "https://github.com/mSolstice"},
+  "homepage": "https://github.com/mSolstice/Kinetic-UI-UX-Pro",
+  "repository": "https://github.com/mSolstice/Kinetic-UI-UX-Pro",
   "license": "MIT",
-  "skill": {
-    "name": "kinetic-ui-ux-pro",
-    "entry_point": "SKILL.md"
-  },
-  "scripts": [
-    {
-      "path": "scripts/ast_audit.py",
-      "description": "Tree-sitter structural UI audit with SARIF/JUnit output, design-token drift, project graph checks, breakpoint analysis, and static geometry heuristics.",
-      "optional_dependencies": ["tree-sitter", "tree-sitter-language-pack"]
-    },
-    {
-      "path": "scripts/color_tools.py",
-      "description": "OKLCH/sRGB conversion, gamut mapping, WCAG contrast, APCA Lc, and ramp utilities.",
-      "optional_dependencies": []
-    },
-    {
-      "path": "scripts/component_adapt.py",
-      "description": "Fetches third-party registry component source into a temp directory, remaps hardcoded design values to verified tokens, injects adapter conformance patches, and verifies the adapted output.",
-      "optional_dependencies": []
-    },
-    {
-      "path": "scripts/content_fixtures.py",
-      "description": "Generates realistic hostile content fixtures for text expansion, truncation, empty-state, RTL, and locale-format testing.",
-      "optional_dependencies": []
-    },
-    {
-      "path": "scripts/ds_index.py",
-      "description": "Builds a searchable design-system corpus from tokens, Tailwind/theme CSS, CSS custom properties, and TSX component manifests.",
-      "optional_dependencies": []
-    },
-    {
-      "path": "scripts/ds_search.py",
-      "description": "BM25 design-token and registry component search, hardcoded value matching, OKLab color comparison, and drift reports.",
-      "optional_dependencies": []
-    },
-    {
-      "path": "scripts/ds_contract.py",
-      "description": "Manages per-project design-system/contract.json persistence, including settled decisions, page-specific overrides, token hashes, components, rejections, and open questions.",
-      "optional_dependencies": []
-    },
-    {
-      "path": "scripts/design_select.py",
-      "description": "Recommends a compatible style, palette, and industry pack from a brief, with tradeoffs and optional verified token generation.",
-      "optional_dependencies": []
-    },
-    {
-      "path": "scripts/emit_files.py",
-      "description": "Safely writes or emits shell commands from a JSON file manifest for CLI-agent environments.",
-      "optional_dependencies": []
-    },
-    {
-      "path": "scripts/font_metrics.py",
-      "description": "Computes real font metric override values such as size-adjust and ascent-override.",
-      "optional_dependencies": ["fonttools", "brotli"]
-    },
-    {
-      "path": "scripts/handoff.py",
-      "description": "Produces designer- and stakeholder-facing handoff documents as single-file HTML or Markdown.",
-      "optional_dependencies": []
-    },
-    {
-      "path": "scripts/industry_check.py",
-      "description": "Prints industry-specific rule checklists and runs conservative heuristics for detectable domain rules.",
-      "optional_dependencies": []
-    },
-    {
-      "path": "scripts/iterate.py",
-      "description": "Applies fuzzy design feedback as bounded token-schema deltas, verifies contrast, and reports before/after changes.",
-      "optional_dependencies": []
-    },
-    {
-      "path": "scripts/license_check.py",
-      "description": "Conservative license gate for dependencies, vendored source, and third-party attribution notices.",
-      "optional_dependencies": []
-    },
-    {
-      "path": "scripts/palette_search.py",
-      "description": "Searches 208 verified mood-organized palette seeds, previews ramps, imports Radix reference seeds, pairs compatible styles, and verifies all palettes with token_gen.py.",
-      "optional_dependencies": []
-    },
-    {
-      "path": "scripts/registry_sync.py",
-      "description": "Syncs metadata-only component registry catalogs into .registry/components.jsonl with adapter license gates and sanitized ETag caching.",
-      "optional_dependencies": []
-    },
-    {
-      "path": "scripts/self_critique.py",
-      "description": "Runs structural design-quality critique and, when Playwright is available, rendered visual checks across key viewport widths.",
-      "optional_dependencies": ["playwright"]
-    },
-    {
-      "path": "scripts/style_apply.py",
-      "description": "Applies visual style constraints plus repeatable modifiers to a brand hue, validates compatibility, retries inside constraints, and emits only verified token schemas.",
-      "optional_dependencies": []
-    },
-    {
-      "path": "scripts/taste_memory.py",
-      "description": "Records revealed and stated cross-project taste preferences, applies decayed confidence, and biases token schemas without overriding current requests or non-negotiables.",
-      "optional_dependencies": []
-    },
-    {
-      "path": "scripts/token_gen.py",
-      "description": "Deterministic token generation, Style Dictionary and Radix Colors interop, and dual WCAG/APCA contrast verification.",
-      "optional_dependencies": []
-    },
-    {
-      "path": "scripts/variants.py",
-      "description": "Generates divergent verified design directions, merges chosen traits, and records accepted/rejected variants in the project contract.",
-      "optional_dependencies": []
-    },
-    {
-      "path": "scripts/ui_audit.py",
-      "description": "Regex fallback UI audit when tree-sitter dependencies are unavailable.",
-      "optional_dependencies": []
-    }
-  ]
+  "keywords": ["ui", "ux", "accessibility", "design-systems", "frontend"],
+  "extensions": {"com.openai": {"interface": {
+    "displayName": "Kinetic UI UX Pro",
+    "shortDescription": "Build verified, accessible product UI",
+    "longDescription": "Turn briefs into coherent landing pages, dashboards, and product UI with visual-style constraints, generated typography and color tokens, complete interaction states, project-level design contracts, and executable audits.",
+    "developerName": "Manoj Shinde",
+    "category": "Design",
+    "capabilities": ["Read", "Write"],
+    "websiteURL": "https://github.com/mSolstice/Kinetic-UI-UX-Pro",
+    "brandColor": "#3059C6",
+    "composerIcon": "./assets/icon.svg",
+    "logo": "./assets/logo.svg",
+    "defaultPrompt": ["Use Kinetic UI UX Pro to build an accessible, state-complete product interface.", "Audit this frontend against the Kinetic design-system and interaction-state contract."]
+  }}}
 }

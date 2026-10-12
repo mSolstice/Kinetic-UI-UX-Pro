@@ -1,4 +1,4 @@
-# Kinetic UX Verification Receipt
+# Kinetic UI UX Pro Verification Receipt
 
 - **Job & primary action:** Help a first-time SaaS admin make the workspace useful by completing setup; primary action changes by step and culminates in `Open dashboard`.
 - **States implemented:** Default, hover, focus-visible, active, loading, disabled, error, success, and empty. Invite empty state, duplicate/invalid invite errors, connector loading/success/error, and final dashboard-ready state are included.

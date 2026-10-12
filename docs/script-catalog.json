@@ -1,0 +1,12 @@
+{
+  "minimum_python": "3.9",
+  "scripts": [
+    "scripts/ast_audit.py", "scripts/color_tools.py", "scripts/component_adapt.py",
+    "scripts/content_fixtures.py", "scripts/design_select.py", "scripts/ds_contract.py",
+    "scripts/ds_index.py", "scripts/ds_search.py", "scripts/emit_files.py",
+    "scripts/font_metrics.py", "scripts/handoff.py", "scripts/industry_check.py",
+    "scripts/iterate.py", "scripts/license_check.py", "scripts/palette_search.py",
+    "scripts/registry_sync.py", "scripts/self_critique.py", "scripts/style_apply.py",
+    "scripts/taste_memory.py", "scripts/token_gen.py", "scripts/ui_audit.py", "scripts/variants.py"
+  ]
+}
