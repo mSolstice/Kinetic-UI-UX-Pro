@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Manage a persistent per-project Kinetic design contract."""
+"""Manage persistent project decisions and page overrides for Kinetic."""
 
 from __future__ import annotations
 
@@ -114,6 +114,7 @@ def empty_contract(root: Path) -> dict:
             "industryPack": "",
         },
         "decisions": {},
+        "pages": {},
         "tokens": infer_token_ref(root),
         "components": [],
         "rejected": [],
@@ -125,6 +126,8 @@ def load_contract(root: Path) -> dict:
     data = read_json(root / CONTRACT_PATH)
     if data is None:
         raise SystemExit(f"contract not found: {CONTRACT_PATH}. Run init first.")
+    if isinstance(data, dict):
+        data.setdefault("pages", {})
     return data
 
 
@@ -156,7 +159,26 @@ def cmd_read(args) -> None:
     if tokens.get("path"):
         lines.append(f"Tokens: {tokens.get('path')} ({str(tokens.get('sha256', ''))[:12]})")
     decisions = c.get("decisions", {})
-    if decisions:
+    if args.page:
+        pages = c.get("pages", {})
+        page = pages.get(args.page, {}) if isinstance(pages, dict) else {}
+        page_decisions = page.get("decisions", {}) if isinstance(page, dict) else {}
+        effective = dict(decisions) if isinstance(decisions, dict) else {}
+        if isinstance(page_decisions, dict):
+            effective.update(page_decisions)
+        lines.append(f"Page: {args.page}")
+        if effective:
+            lines.append("Effective decisions:")
+            for key in sorted(effective):
+                d = effective[key]
+                origin = "page override" if key in page_decisions else "project"
+                lines.append(
+                    f"- {key}: {compact(d.get('value', ''))} [{origin}] - "
+                    f"{compact(d.get('rationale', ''), 46)}"
+                )
+        else:
+            lines.append("Effective decisions: none recorded")
+    elif decisions:
         lines.append("Decisions:")
         for key in sorted(decisions):
             d = decisions[key]
@@ -193,7 +215,13 @@ def parse_value(raw: str):
 def cmd_record(args) -> None:
     root = Path.cwd()
     c = load_contract(root)
-    decisions = c.setdefault("decisions", {})
+    page = None
+    if args.page:
+        pages = c.setdefault("pages", {})
+        page = pages.setdefault(args.page, {"decisions": {}, "updatedAt": now_iso()})
+        decisions = page.setdefault("decisions", {})
+    else:
+        decisions = c.setdefault("decisions", {})
     existing = decisions.get(args.key)
     entry = {
         "value": parse_value(args.value),
@@ -201,15 +229,21 @@ def cmd_record(args) -> None:
         "decidedAt": now_iso(),
     }
     if existing and not args.supersede:
-        raise SystemExit(f"decision '{args.key}' already exists; use --supersede to change it")
+        scope = f"page '{args.page}'" if args.page else "project"
+        raise SystemExit(
+            f"decision '{args.key}' already exists for {scope}; use --supersede to change it"
+        )
     if existing:
         history = list(existing.get("history", []))
         previous = {k: v for k, v in existing.items() if k != "history"}
         history.append(previous)
         entry["history"] = history
     decisions[args.key] = entry
+    if page is not None:
+        page["updatedAt"] = now_iso()
     write_json(root / CONTRACT_PATH, c)
-    print(f"recorded decision {args.key}")
+    scope = f"page {args.page}" if args.page else "project"
+    print(f"recorded {scope} decision {args.key}")
 
 
 def cmd_reject(args) -> None:
@@ -261,9 +295,18 @@ def cmd_validate(args) -> None:
     root = Path.cwd()
     c = load_contract(root)
     errors = []
-    for key in ("project", "decisions", "tokens", "components", "rejected", "openQuestions"):
+    for key in ("project", "decisions", "pages", "tokens", "components", "rejected", "openQuestions"):
         if key not in c:
             errors.append(f"missing top-level key: {key}")
+    pages = c.get("pages", {})
+    if not isinstance(pages, dict):
+        errors.append("pages must be an object keyed by stable page id")
+    else:
+        for page_id, page in pages.items():
+            if not isinstance(page_id, str) or not page_id.strip():
+                errors.append("page ids must be non-empty strings")
+            if not isinstance(page, dict) or not isinstance(page.get("decisions", {}), dict):
+                errors.append(f"page '{page_id}' must contain a decisions object")
     tokens = c.get("tokens", {})
     token_path = tokens.get("path")
     if token_path:
@@ -295,12 +338,14 @@ def main() -> None:
     init.set_defaults(func=cmd_init)
 
     read = sub.add_parser("read", help="print a compact contract summary")
+    read.add_argument("--page", help="merge and print effective decisions for one page")
     read.set_defaults(func=cmd_read)
 
     record = sub.add_parser("record", help="record a design decision")
     record.add_argument("key")
     record.add_argument("value")
     record.add_argument("--rationale", required=True)
+    record.add_argument("--page", help="record this decision as a page-specific override")
     record.add_argument("--supersede", action="store_true")
     record.set_defaults(func=cmd_record)
 

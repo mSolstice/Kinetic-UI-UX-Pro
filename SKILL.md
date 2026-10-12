@@ -70,7 +70,7 @@ Never hand-write token files or state a contrast figure — generate and verify.
 
 Before any markup, establish four things. If the request answers them, proceed. Infer silently from the codebase unless a missing answer would change architecture, accessibility, user data handling, or business risk. Ask at most two blocking questions; otherwise implement on stated assumptions.
 
-If `design-system/contract.json` exists, run `scripts/ds_contract.py read`; unless `--no-memory` is requested, run `scripts/taste_memory.py profile` and surface any applied preference in one correctable line. Treat settled project decisions as fixed unless reopened; re-deriving them is a failure mode, not thoroughness.
+If `design-system/contract.json` exists, run `scripts/ds_contract.py read`; for a page-level task, add `--page <stable-page-id>` so project decisions are the base and explicit page overrides take precedence. Unless `--no-memory` is requested, run `scripts/taste_memory.py profile` and surface any applied preference in one correctable line. Treat settled decisions as fixed unless reopened; re-deriving them is a failure mode, not thoroughness.
 
 1. **Job** — what the user is trying to accomplish, in their words, not the feature's name.
 2. **Actors and context** — who, on what device, under what pressure (first-time vs. daily, calm vs. urgent, one-handed vs. desk).

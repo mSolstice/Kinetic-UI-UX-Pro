@@ -8,6 +8,8 @@ Kinetic UI UX Pro is a constraint-driven UI/UX engineering skill for Codex and C
 
 It is not a theme pack or a runtime component library. It is an agent instruction system plus deterministic Python tools that make design decisions inspectable, repeatable, and testable.
 
+It is designed for fast generation of landing pages, dashboards, and product UI without sacrificing a coherent visual system. Project decisions persist across sessions and pages instead of being re-derived every time the agent starts.
+
 ## Why Kinetic Exists
 
 Prompt-only UI generation can make a convincing first screen while quietly inventing tokens, omitting failure states, flattening hierarchy, or treating accessibility as a final checklist. Kinetic handles those concerns as one system: intent, information architecture, content, visual direction, interaction state, motion, tokens, accessibility, and verification.
@@ -25,6 +27,7 @@ Prompt-only UI generation can make a convincing first screen while quietly inven
 ## What It Can Do
 
 - Frame the user job, actors, pressure, real-world states, and success signal before markup.
+- Rapidly establish coherent visual direction for landing pages, dashboards, settings, onboarding, checkout, and other product surfaces.
 - Recommend a visual style, palette, density, motion budget, and industry reasoning pack from a brief.
 - Generate semantic design tokens for CSS, Tailwind, JSON, Style Dictionary, and React Native.
 - Verify light and dark semantic color pairs with WCAG 2.x AA and APCA before tokens ship.
@@ -53,6 +56,24 @@ The repository currently includes:
 
 Palette seeds store hue, chroma, relationship, and mood rather than fixed hex palettes. Style files define ranges, ratios, and prohibitions rather than shipping a frozen visual preset.
 
+## Visual Style, Typography, and Color Assets
+
+Kinetic includes a searchable visual-direction library rather than a collection of screenshots or frozen themes:
+
+- **12 visual styles:** editorial, brutalist, swiss-grid, soft-neumorphic, glass-layered, technical-dense, warm-organic, high-contrast-utility, retro-terminal, luxury-minimal, playful-rounded, and data-forward.
+- **8 composable modifiers:** dense, airy, mono, duotone, bordered, elevated, sharp, and rounded. Compatibility rules reject combinations that would break a style's identity.
+- **Typography constraints:** each style controls type-scale ratio, weight range, tracking, case treatment, and maximum font families. Font metric tooling computes real fallback overrides instead of inventing them.
+- **208 verified color seeds:** palettes span 12 moods and store perceptual hue/chroma relationships rather than hardcoded ramps. Semantic light and dark tokens are generated in OKLCH, gamut-mapped, and checked with WCAG AA plus APCA.
+- **Interoperability:** token output supports CSS custom properties, Tailwind, JSON, Style Dictionary, and typed React Native modules; Radix Colors can be imported or used as a comparison benchmark.
+
+The repository intentionally does not bundle font binaries or redistribution-restricted visual assets. It provides the constraints, generation logic, and verification needed to use approved assets coherently.
+
+## Persistent Design-System Source of Truth
+
+Each project can keep `design-system/contract.json` as its durable source of truth. It records the chosen style and modifiers, palette, typography scale, density, motion budget, token-file hash, components, rejected directions, rationales, and open questions.
+
+Project decisions apply everywhere by default. Named pages can record explicit overrides with their own rationale and supersession history; `ds_contract.py read --page <id>` returns the effective merged decisions in under 40 lines for reliable loading at the start of a later session. Global taste memory is separate and optional: it can bias a new project from prior evidence, but it never overrides the current brief or accessibility constraints.
+
 ## What It Cannot Do
 
 - It does not bundle a browser. Visual critique runs only when Playwright and a working browser binary are available.
@@ -67,7 +88,7 @@ Palette seeds store hue, chroma, relationship, and mood rather than fixed hex pa
 
 1. **Install once.** Add the repository as a Codex skill or Claude Code plugin and install the optional Python dependencies.
 2. **Ask naturally.** Prompts can be specific ("build an async customer combobox") or subjective ("make this dashboard feel less corporate").
-3. **Load project memory.** If `design-system/contract.json` exists, Kinetic reads settled decisions instead of re-inventing them.
+3. **Load project memory.** If `design-system/contract.json` exists, Kinetic reads settled project decisions plus any page-specific overrides instead of re-inventing them.
 4. **Frame the task.** It infers the job, audience, operating pressure, state space, and success signal from the brief and codebase. It asks only when a missing answer would materially change the architecture or risk.
 5. **Choose a direction.** It respects an explicit preference, recommends a compatible style and palette, or generates divergent options for an open brief.
 6. **Generate the system.** Constraint ranges become semantic tokens. The generator verifies contrast and retries within the selected style rather than emitting a failing schema.
@@ -93,7 +114,7 @@ Audit this React Native checkout flow for accessibility, token drift, state cove
 ```mermaid
 flowchart TD
     A[Brief and surface] --> D[Compatibility-ranked direction]
-    B[Existing contract and tokens] --> D
+    B[Project contract, page overrides, and tokens] --> D
     C[Optional taste memory and industry pack] --> D
     D --> E[Style constraints plus compatible modifiers]
     D --> F[Palette seed and semantic roles]

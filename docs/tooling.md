@@ -13,7 +13,7 @@ Run commands from the repository root with an activated Python environment unles
 | `scripts/palette_search.py` | Search 208 palette seeds by mood, preview semantic contrast, pair with styles, and verify all seeds. |
 | `scripts/variants.py` | Generate mechanically divergent directions, merge coherent traits, and record accepted/rejected variants. |
 | `scripts/iterate.py` | Translate fuzzy feedback into bounded token deltas and reject changes that break verification. |
-| `scripts/ds_contract.py` | Persist project decisions, token hashes, component inventory, rejections, and open questions. |
+| `scripts/ds_contract.py` | Persist project decisions, page overrides, token hashes, component inventory, rejections, and open questions. |
 | `scripts/taste_memory.py` | Record stated and revealed preferences with confidence decay; never override the current request. |
 
 ```bash
@@ -22,6 +22,8 @@ python scripts/style_apply.py apply data-forward --hue 250 --modifier dense --ou
 python scripts/palette_search.py find "restrained trustworthy financial product"
 python scripts/variants.py explore --count 3 --brief "member onboarding" --surface wizard
 python scripts/iterate.py apply "more breathing room" --contract design-system/contract.json
+python scripts/ds_contract.py record density compact --page analytics --rationale "Analysts need faster scanning"
+python scripts/ds_contract.py read --page analytics
 python scripts/ds_contract.py validate
 python scripts/taste_memory.py profile
 ```

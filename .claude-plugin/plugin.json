@@ -1,8 +1,8 @@
 {
   "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
   "name": "kinetic-ui-ux-pro",
-  "version": "2.0.0",
-  "description": "Kinetic UI UX Pro is a Claude Code plugin for framing, building, auditing, and verifying accessible, state-complete, token-conformant product interfaces.",
+  "version": "2.1.0",
+  "description": "Generate and audit coherent landing pages, dashboards, and product UI with verified visual styles, color and type tokens, accessible states, and persistent project/page contracts.",
   "author": {
     "name": "Manoj Shinde"
   },

@@ -142,8 +142,12 @@ def shadow_tokens(schema: dict | None):
 
 
 def decisions(contract: dict):
+    return decision_rows(contract.get("decisions", {}))
+
+
+def decision_rows(entries: dict):
     out = []
-    for key, entry in sorted(contract.get("decisions", {}).items()):
+    for key, entry in sorted((entries or {}).items()):
         value = entry.get("value")
         rationale = entry.get("rationale") or "This choice keeps the system consistent."
         out.append({
@@ -151,6 +155,15 @@ def decisions(contract: dict):
             "sentence": f"We chose {text(value)} for {human(key).lower()} because {rationale.rstrip('.')}.",
             "date": entry.get("decidedAt", ""),
         })
+    return out
+
+
+def page_overrides(contract: dict):
+    out = []
+    for page_id, page in sorted((contract.get("pages", {}) or {}).items()):
+        rows = decision_rows(page.get("decisions", {}) if isinstance(page, dict) else {})
+        if rows:
+            out.append({"page": page_id, "decisions": rows})
     return out
 
 
@@ -257,6 +270,7 @@ def html_document(model):
 {html_header(title, project, model)}
 {html_glance(model)}
 {html_decisions(contract)}
+{html_page_overrides(contract)}
 {html_components(contract)}
 {html_rejected(contract)}
 {html_verification(model)}
@@ -352,6 +366,20 @@ def html_decisions(contract):
     return f"<section><h2>Decisions And Rationale</h2><div class=\"grid\">{items}</div></section>"
 
 
+def html_page_overrides(contract):
+    pages = page_overrides(contract)
+    if not pages:
+        return ""
+    sections = []
+    for page in pages:
+        items = "".join(
+            f"<li><strong>{esc(row['title'])}</strong>: {esc(row['sentence'])}</li>"
+            for row in page["decisions"]
+        )
+        sections.append(f"<h3>{esc(human(page['page']))}</h3><ul>{items}</ul>")
+    return "<section><h2>Page-Specific Overrides</h2>" + "".join(sections) + "</section>"
+
+
 def html_components(contract):
     comps = components(contract)
     if not comps:
@@ -426,6 +454,12 @@ def markdown_document(model):
             lines.append(f"- {row['sentence']}")
     else:
         lines.append("No decisions have been recorded yet.")
+    if page_overrides(contract):
+        lines.extend(["", "## Page-Specific Overrides"])
+        for page in page_overrides(contract):
+            lines.extend(["", f"### {human(page['page'])}"])
+            for row in page["decisions"]:
+                lines.append(f"- {row['sentence']}")
     lines.extend(["", "## Component Inventory"])
     if components(contract):
         for comp in components(contract):
