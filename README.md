@@ -1,310 +1,194 @@
 # Kinetic UI UX Pro
 
-Kinetic UI UX Pro is an installable UI/UX engineering skill for designing, building, auditing, and verifying accessible, state-complete, token-conformant product interfaces.
+[![UI Audit](https://github.com/mSolstice/Kinetic-UI-UX-Pro/actions/workflows/ui-audit.yml/badge.svg)](https://github.com/mSolstice/Kinetic-UI-UX-Pro/actions/workflows/ui-audit.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-111827.svg)](LICENSE)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-3776AB.svg)](requirements.txt)
 
-It treats user intent, information architecture, content, motion, programmatic state, accessibility, and runtime performance as one system.
+Kinetic UI UX Pro is a constraint-driven UI/UX engineering skill for Codex and Claude Code. It turns a product brief into an implemented interface, a verified design system, an accessibility-aware state model, and a measured delivery receipt.
+
+It is not a theme pack or a runtime component library. It is an agent instruction system plus deterministic Python tools that make design decisions inspectable, repeatable, and testable.
+
+## Why Kinetic Exists
+
+Prompt-only UI generation can make a convincing first screen while quietly inventing tokens, omitting failure states, flattening hierarchy, or treating accessibility as a final checklist. Kinetic handles those concerns as one system: intent, information architecture, content, visual direction, interaction state, motion, tokens, accessibility, and verification.
+
+| Prompt-only UI guidance | Kinetic UI UX Pro |
+| --- | --- |
+| Chooses a look from adjectives | Ranks compatible styles and palettes, then states the tradeoff |
+| Emits literal colors and spacing | Derives semantic tokens from constraints and verifies them before emission |
+| Optimizes the populated happy path | Requires applicable loading, disabled, error, success, empty, and focus states |
+| Re-derives taste every session | Reads a project contract and can apply explicit, inspectable taste memory |
+| Treats accessibility as prose | Runs structural audits, contrast math, token-drift checks, and CI gates |
+| Produces one unexplained direction | Can generate mechanically divergent variants and record accepted or rejected traits |
+| Ends with "looks good" | Reports what was measured, what remains manual, and what could not be verified |
+
+## What It Can Do
+
+- Frame the user job, actors, pressure, real-world states, and success signal before markup.
+- Recommend a visual style, palette, density, motion budget, and industry reasoning pack from a brief.
+- Generate semantic design tokens for CSS, Tailwind, JSON, Style Dictionary, and React Native.
+- Verify light and dark semantic color pairs with WCAG 2.x AA and APCA before tokens ship.
+- Build or adapt components around a nine-state interaction matrix and native accessibility semantics.
+- Search approved design-system values and flag hardcoded color, spacing, radius, type, and motion drift.
+- Audit HTML, CSS, JavaScript, TypeScript, JSX/TSX, Svelte, Vue, Astro, React Native, and Expo-oriented code.
+- Preserve settled decisions, superseded choices, rejected directions, component provenance, and open questions.
+- Translate feedback such as "less corporate" or "more breathing room" into bounded, verified token deltas.
+- Generate hostile content fixtures for long text, RTL, localization, missing values, and realistic empty states.
+- Produce CI output in SARIF or JUnit and a plain-language HTML or Markdown stakeholder handoff.
+
+## Evidence, Not Just Advice
+
+The repository currently includes:
+
+| System | Verified inventory |
+| --- | ---: |
+| Visual style constraint sets | 12 |
+| Composable style modifiers | 8 |
+| Valid base-style and modifier combinations | 90 |
+| Mood-organized, dual-gate verified palette seeds | 208 |
+| Industry reasoning rules across 10 domains | 190 |
+| Licensed component-library adapters | 8 |
+| State-complete component scaffolds | 7 |
+| Pre-mapped UX flow specifications | 5 |
+
+Palette seeds store hue, chroma, relationship, and mood rather than fixed hex palettes. Style files define ranges, ratios, and prohibitions rather than shipping a frozen visual preset.
+
+## What It Cannot Do
+
+- It does not bundle a browser. Visual critique runs only when Playwright and a working browser binary are available.
+- Static analysis cannot prove rendered geometry, runtime focus order, assistive-technology behavior, or visual-regression safety.
+- Automated checks do not replace manual keyboard, screen-reader, touch, zoom, and device testing.
+- Contrast checks verify declared and detected color pairs; they cannot know every runtime compositing or image-background condition.
+- Industry and compliance packs are orientation, not legal advice or certification. Jurisdiction-specific requirements need qualified review.
+- It does not generate product research, business rules, backend behavior, production copy, or brand assets that were not supplied.
+- It never treats paid or redistribution-restricted component source as vendorable.
+
+## How It Works for a User
+
+1. **Install once.** Add the repository as a Codex skill or Claude Code plugin and install the optional Python dependencies.
+2. **Ask naturally.** Prompts can be specific ("build an async customer combobox") or subjective ("make this dashboard feel less corporate").
+3. **Load project memory.** If `design-system/contract.json` exists, Kinetic reads settled decisions instead of re-inventing them.
+4. **Frame the task.** It infers the job, audience, operating pressure, state space, and success signal from the brief and codebase. It asks only when a missing answer would materially change the architecture or risk.
+5. **Choose a direction.** It respects an explicit preference, recommends a compatible style and palette, or generates divergent options for an open brief.
+6. **Generate the system.** Constraint ranges become semantic tokens. The generator verifies contrast and retries within the selected style rather than emitting a failing schema.
+7. **Build in the existing stack.** Kinetic follows project conventions, searches approved registries before reimplementing common components, and records adapted-source provenance.
+8. **Exercise the edges.** Empty, loading, error, disabled, success, localization, reduced-motion, responsive, and hostile-content cases are handled alongside the happy path.
+9. **Verify before delivery.** Structural audit, token conformance, design self-critique, and relevant domain checks run before the final response.
+10. **Leave durable decisions.** The compact engineering receipt reports measured results; larger systems can also produce a stakeholder handoff.
+
+Example prompts:
+
+```text
+Use Kinetic UI UX Pro to build a filterable operations table for warehouse staff on shared tablets.
+
+Give me three genuinely different directions for a healthcare onboarding flow, then explain the tradeoff in each.
+
+Make this settings page feel warmer and less corporate without changing its information architecture.
+
+Audit this React Native checkout flow for accessibility, token drift, state coverage, and touch targets.
+```
+
+## How Design-System Generation Works
+
+```mermaid
+flowchart TD
+    A[Brief and surface] --> D[Compatibility-ranked direction]
+    B[Existing contract and tokens] --> D
+    C[Optional taste memory and industry pack] --> D
+    D --> E[Style constraints plus compatible modifiers]
+    D --> F[Palette seed and semantic roles]
+    E --> G[Concrete token schema]
+    F --> G
+    G --> H[OKLCH gamut mapping and semantic pair generation]
+    H --> I{WCAG AA and APCA pass?}
+    I -- No --> J[Adjust inside the selected constraints]
+    J --> H
+    I -- Yes --> K[CSS, Tailwind, JSON, Style Dictionary, or React Native]
+    K --> L[Implementation, audit, critique, and receipt]
+```
+
+The important distinction is the verification loop:
+
+- `design_select.py` ranks style, palette, and industry candidates and names what the top choice sacrifices.
+- `style_apply.py` composes a base style with compatible modifiers and derives concrete values inside their allowed ranges.
+- `token_gen.py` computes ramps in OKLCH, gamut-maps them to sRGB, and verifies semantic pairs with both contrast gates.
+- A failing attempt is adjusted within the same constraint set, up to five attempts. A schema that still fails is not emitted.
+- The resulting tokens can be indexed so later code reuses approved values instead of inventing new ones.
 
 ## Installation
 
-### Codex / ChatGPT
+Minimum Python version: 3.9. Most scripts use the standard library; parsing, font metrics, and rendered critique have optional dependencies in `requirements.txt`.
+
+### Codex
+
+Clone the skill into the local Codex skills directory:
 
 ```bash
-git clone https://github.com/mSolstice/Kinetic-UI-UX-Pro.git kinetic-ui-ux-pro
-cd kinetic-ui-ux-pro
+git clone https://github.com/mSolstice/Kinetic-UI-UX-Pro.git ~/.codex/skills/kinetic-ui-ux-pro
+cd ~/.codex/skills/kinetic-ui-ux-pro
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Minimum Python version: 3.9.
-
-Optional dependencies are listed in `requirements.txt`. Without tree-sitter packages, use `scripts/ui_audit.py` as the fallback auditor.
+Start a new Codex task and invoke `$kinetic-ui-ux-pro`, or ask for frontend/UI work that matches the skill trigger. The canonical entry point is `SKILL.md`.
 
 ### Claude Code
 
-This repository is also packaged as a Claude Code plugin. The Claude-native manifest lives at `.claude-plugin/plugin.json`, and the Claude skill wrapper lives at `skills/kinetic-ui-ux-pro/SKILL.md`.
-
-For local validation:
-
-```bash
-claude plugin validate . --strict
-```
-
-For local development install, clone this repository into Claude's skills directory:
+The Claude-native manifest is `.claude-plugin/plugin.json`; its wrapper skill is `skills/kinetic-ui-ux-pro/SKILL.md`.
 
 ```bash
 mkdir -p ~/.claude/skills
 git clone https://github.com/mSolstice/Kinetic-UI-UX-Pro.git ~/.claude/skills/kinetic-ui-ux-pro
-claude plugin validate ~/.claude/skills/kinetic-ui-ux-pro --strict
+cd ~/.claude/skills/kinetic-ui-ux-pro
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+claude plugin validate . --strict
 ```
 
-Restart Claude Code or run `/reload-plugins`, then invoke the plugin skill as `kinetic-ui-ux-pro@skills-dir`.
+Restart Claude Code or run `/reload-plugins`, then invoke `kinetic-ui-ux-pro@skills-dir`.
 
-## Four-Phase Workflow
+### ChatGPT Distribution Status
 
-1. **Frame**: define the job, actors, real states, and success signal before writing markup.
-2. **Structure**: map the flow, hierarchy, content, empty/error states, and reverse paths.
-3. **Build**: author semantic, state-complete, token-backed UI with reduced-motion and accessibility behavior.
-4. **Verify**: run scripts, report measured results, and close with the receipt template when required.
+The repository contains the skill and plugin assets needed for Codex and Claude Code use. Public listing in ChatGPT's Plugins Directory is a separate submission and review step; cloning this repository does not itself create a public ChatGPT installation.
 
-The skill entry point is `SKILL.md`.
+## Repository Map
 
-## Host-Specific Tooling
-
-Kinetic UI UX Pro ships one shared rule system with two native entry points:
-
-| Host | Native entry point | Tool path convention | Validation |
-| --- | --- | --- | --- |
-| Codex / ChatGPT | `plugin.json` → `SKILL.md` | Run bundled scripts repo-relative, for example `python scripts/ast_audit.py ./templates --fail-on ERROR`. | `python -m py_compile scripts/*.py codex/evals/run_evals.py` plus the workflow in `.github/workflows/ui-audit.yml`. |
-| Claude Code | `.claude-plugin/plugin.json` → `skills/kinetic-ui-ux-pro/SKILL.md` | Run bundled scripts from `${CLAUDE_PLUGIN_ROOT}`, for example `python "${CLAUDE_PLUGIN_ROOT}/scripts/ast_audit.py" ./src --fail-on ERROR`. | `claude plugin validate . --strict`. |
-
-The Claude wrapper does not fork the doctrine. It loads the canonical root `SKILL.md` and only changes bundled-path resolution so Claude edits the user's active project while reading scripts, references, and templates from the plugin root.
-
-## Scripts
-
-### `scripts/ast_audit.py`
-
-Tree-sitter structural UI audit with JSON, SARIF, JUnit, breakpoint, design-token, project-graph, and static geometry checks.
-
-```bash
-python scripts/ast_audit.py templates/patterns --json --fail-on ERROR
-python scripts/ast_audit.py src --format sarif --fail-on NONE > ui-audit.sarif
-python scripts/ast_audit.py src --breakpoints
-python scripts/ast_audit.py src --ds-index .ds-index/corpus.jsonl
-python scripts/ast_audit.py src --intent templates/responsive-intent.md
+```text
+SKILL.md                         Canonical workflow and enforcement contract
+skills/kinetic-ui-ux-pro/       Claude Code path-resolution wrapper
+.claude-plugin/                 Claude Code plugin manifest
+scripts/                        Deterministic generators, search, audit, and handoff tools
+references/                     Progressive-disclosure design and engineering guidance
+templates/                      Tokens, styles, palettes, adapters, patterns, flows, and receipts
+codex/evals/                    Manual-paste behavior evaluation harness
+.github/workflows/              Pull-request verification and SARIF upload
 ```
 
-### `scripts/color_tools.py`
+The Python files remain in `scripts/` because they are executable implementation, not README content. The root page intentionally shows capability groups; the complete command catalog lives in [docs/tooling.md](docs/tooling.md).
 
-Color conversion and contrast utilities for OKLCH, sRGB, WCAG 2.x ratio, APCA Lc, and ramp generation.
+## Verification Layers
 
-```bash
-python scripts/color_tools.py ramp "oklch(0.55 0.18 265)"
-```
+| Layer | What is checked |
+| --- | --- |
+| Design tokens | Deterministic output, gamut mapping, WCAG AA, APCA, light/dark semantic pairs |
+| Design-system conformance | Hardcoded value extraction, nearest approved token, recurring drift |
+| Structure and accessibility | Element semantics, labels, focus patterns, state heuristics, framework-specific risks |
+| Responsive behavior | Breakpoint quality, declared responsive intent, unsupported ranges, hidden-content disagreement |
+| Content resilience | Long strings, RTL, locale formats, missing optional values, empty-state coverage |
+| Design quality | Spacing and type rhythm, hierarchy, alignment, density, radius/shadow consistency, accent overuse |
+| Provenance and licensing | Allowlisted SPDX licenses, attribution notices, vendoring policy, source-library record |
+| CI | Python compilation, dependency integrity, vulnerability audit, token verification, palettes, rules, SARIF |
 
-### `scripts/component_adapt.py`
+See [docs/tooling.md](docs/tooling.md) for commands and [templates/receipt.md](templates/receipt.md) for the measured delivery contract.
 
-Fetches a registry component at generation time, remaps hardcoded design values to verified tokens, injects adapter conformance patches, and audits the result.
+## Licensing and Component Policy
 
-```bash
-python scripts/component_adapt.py shadcn-ui:button --ds-index .ds-index/corpus.jsonl --out ./out/adapted/button
-python scripts/component_adapt.py magic-ui:animated-beam --adapter magic-ui --redistribute
-```
+Kinetic UI UX Pro is MIT licensed. External library guidance is limited to MIT, Apache-2.0, or ISC sources in the master adapter contract. Registry synchronization stores metadata and URLs only; component source is fetched into a temporary directory when adaptation is requested, and redistribution is refused when the adapter does not permit it.
 
-### `scripts/ds_index.py`
-
-Builds `.ds-index/corpus.jsonl` from tokens, Style Dictionary JSON, Tailwind config/theme blocks, CSS custom properties, and component manifests.
-
-```bash
-python scripts/ds_index.py --build . --stats
-```
-
-### `scripts/ds_search.py`
-
-Searches approved design-system tokens and reports hardcoded design-value drift.
-
-```bash
-python scripts/ds_search.py search "brand 600" --kind color --top 5
-python scripts/ds_search.py match templates/component-scaffold.css
-python scripts/ds_search.py drift ./src
-python scripts/ds_search.py component "async combobox" --style swiss-grid --surface dashboard --license mit-only --framework react --top 5
-python scripts/ds_search.py component "async combobox" --why shadcn-ui:combobox
-```
-
-### `scripts/ds_contract.py`
-
-Persists settled design decisions in a per-project `design-system/contract.json`.
-
-```bash
-python scripts/ds_contract.py init
-python scripts/ds_contract.py read
-python scripts/ds_contract.py record style data-forward --rationale "Dense dashboard scanning"
-python scripts/ds_contract.py validate
-```
-
-### `scripts/design_select.py`
-
-Recommends a style, palette, and industry pack from a brief, then states the tradeoff.
-
-```bash
-python scripts/design_select.py recommend "banking dashboard with reconciled balances" --surface dashboard
-python scripts/design_select.py recommend "public benefits form for shared phones" --surface form --apply --out ./out/benefits
-```
-
-### `scripts/iterate.py`
-
-Turns fuzzy design feedback into bounded token-schema deltas and verifies the result.
-
-```bash
-python scripts/iterate.py apply "less corporate" --contract design-system/contract.json
-python scripts/iterate.py apply "more breathing room" --out design-system/tokens.next.schema.json
-```
-
-### `scripts/variants.py`
-
-Generates divergent verified design directions, merges chosen traits, and records accepted/rejected options in a project contract.
-
-```bash
-python scripts/variants.py explore --count 3 --brief "finance analytics dashboard" --surface dashboard
-python scripts/variants.py merge --take v1:density --take v2:hierarchy --take v3:depth
-python scripts/variants.py record v1 --contract design-system/contract.json
-```
-
-### `scripts/taste_memory.py`
-
-Records revealed and stated taste preferences across projects at `~/.kinetic-ux/taste.json`; use `--no-memory` on profile/apply commands to disable it for a run.
-
-Stored data: preference text, project evidence, accepted/rejected thing, reason, observation count, confidence, kind (`revealed` or `stated`), and `lastSeen`. You can inspect, edit, or delete `~/.kinetic-ux/taste.json` directly.
-
-```bash
-python scripts/taste_memory.py observe --rejected glassmorphism --reason "Too decorative for dashboards"
-python scripts/taste_memory.py observe --accepted "dense layouts" --project "Ops console"
-python scripts/taste_memory.py profile
-python scripts/taste_memory.py apply --to design-system/tokens.schema.json --out design-system/tokens.memory.schema.json
-python scripts/taste_memory.py apply --to design-system/tokens.schema.json --explicit-request "make it purple"
-python scripts/taste_memory.py apply --to design-system/tokens.schema.json --no-memory
-python scripts/taste_memory.py explain glass
-python scripts/taste_memory.py forget glass
-```
-
-### `scripts/content_fixtures.py`
-
-Generates realistic hostile content fixtures for text expansion, truncation, empty states, RTL strings, missing optional values, and locale-specific formatting.
-
-```bash
-python scripts/content_fixtures.py generate --shape prices --count 12 --locale de-DE
-python scripts/content_fixtures.py generate --shape person-names --edge-cases-only --locale ar-SA
-python scripts/content_fixtures.py generate --shape product-titles --empty-states --locale en-US
-python scripts/ast_audit.py Component.tsx --fixtures --fail-on NONE
-```
-
-### `scripts/emit_files.py`
-
-Safely writes `{ "path", "content" }` manifests or prints shell commands for CLI-agent environments.
-
-```bash
-python scripts/emit_files.py manifest.json --dry-run
-python scripts/emit_files.py manifest.json --check
-python scripts/emit_files.py manifest.json --shell bash
-python scripts/emit_files.py manifest.json --shell powershell
-```
-
-### `scripts/font_metrics.py`
-
-Computes font metric overrides from real font files.
-
-```bash
-python scripts/font_metrics.py path/to/font.woff2
-```
-
-### `scripts/industry_check.py`
-
-Prints structured industry rules grouped by category and runs conservative heuristics for detectable rules.
-
-```bash
-python scripts/industry_check.py --count
-python scripts/industry_check.py fintech templates/patterns/data-table.tsx
-```
-
-### `scripts/self_critique.py`
-
-Runs structural design-quality critique and, when Playwright is available, rendered visual checks at 320, 768, and 1280px.
-
-```bash
-python scripts/self_critique.py templates/patterns --tier structural
-python scripts/self_critique.py preview.html --against brutalist
-```
-
-### `scripts/handoff.py`
-
-Creates a designer- and stakeholder-facing handoff as a single printable HTML file, or Markdown for a wiki.
-
-```bash
-python scripts/handoff.py generate --contract design-system/contract.json --out handoff/
-python scripts/handoff.py generate --contract design-system/contract.json --out handoff/ --format markdown
-```
-
-### `scripts/license_check.py`
-
-Gates non-vendorable licenses and unverified third-party code.
-
-```bash
-python scripts/license_check.py --root .
-python scripts/license_check.py --root . --explain @radix-ui/colors
-```
-
-### `scripts/style_apply.py`
-
-Applies a visual style constraint set to a brand hue and emits only verified token schemas.
-
-```bash
-python scripts/style_apply.py list
-python scripts/style_apply.py explain data-forward --surface dashboard
-python scripts/style_apply.py apply data-forward --hue 260
-python scripts/style_apply.py apply swiss-grid --hue 260 --modifier dense --modifier bordered
-python scripts/style_apply.py matrix
-python scripts/style_apply.py apply data-forward --hue 260 --out ./out/data-forward
-```
-
-### `scripts/palette_search.py`
-
-Searches 208 verified mood-organized palette seeds, previews generated ramps, pairs palettes with styles, imports Radix reference seeds, and verifies every seed.
-
-```bash
-python scripts/palette_search.py find "trustworthy dashboard"
-python scripts/palette_search.py preview civic-ledger
-python scripts/palette_search.py pair data-forward
-python scripts/palette_search.py --import-radix-colors blue gray --out /tmp/palettes-with-radix.json
-python scripts/palette_search.py verify-all
-```
-
-### `scripts/registry_sync.py`
-
-Syncs open component registry metadata into `.registry/components.jsonl` with adapter license gates, ETags, and sanitized cache records only.
-
-```bash
-python scripts/registry_sync.py --sync shadcn-ui
-python scripts/registry_sync.py --sync-all
-python scripts/registry_sync.py --stats
-python scripts/registry_sync.py --stale
-```
-
-### `scripts/token_gen.py`
-
-Generates deterministic tokens, verifies WCAG/APCA contrast, imports/exports Style Dictionary, and benchmarks against Radix Colors.
-
-```bash
-python scripts/token_gen.py --init > tokens.schema.json
-python scripts/token_gen.py templates/tokens.schema.json --format css
-python scripts/token_gen.py templates/tokens.schema.json --format style-dictionary
-python scripts/token_gen.py --import-style-dictionary tokens.sd.json --verify
-python scripts/token_gen.py --import-radix-colors blue --verify
-python scripts/token_gen.py templates/tokens.schema.json --compare-radix brand blue
-```
-
-### `scripts/ui_audit.py`
-
-Regex fallback auditor when tree-sitter is unavailable.
-
-```bash
-python scripts/ui_audit.py templates/component-scaffold.tsx
-```
-
-## Templates And References
-
-- `templates/patterns/`: state-complete TSX/CSS component scaffolds
-- `templates/flows/`: pre-mapped UX flow specs
-- `templates/receipt.md`: verification receipt template
-- `references/`: UX, motion, i18n, framework, environment, licensing, and library adapter guidance
-
-## Limitations
-
-- No bundled headless browser; visual regression or runtime DOM verification runs only when the host provides Playwright and a browser binary.
-- Static geometry heuristics cannot confirm rendered layout.
-- Automated checks do not replace manual keyboard and screen-reader testing.
-- Contrast scripts verify declared token pairs, not every computed runtime color combination.
-- License checks only trust licenses read from files; missing metadata is reported as `UNVERIFIED`.
+See [references/kinetic-ui-ux-pro.md](references/kinetic-ui-ux-pro.md) for the approved library contract.
 
 ## License
 
-MIT. See `LICENSE`.
+MIT. See [LICENSE](LICENSE).
