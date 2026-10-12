@@ -6,6 +6,8 @@ It treats user intent, information architecture, content, motion, programmatic s
 
 ## Installation
 
+### Codex / ChatGPT
+
 ```bash
 git clone https://github.com/mSolstice/Kinetic-UI-UX-Pro.git kinetic-ui-ux-pro
 cd kinetic-ui-ux-pro
@@ -17,6 +19,26 @@ pip install -r requirements.txt
 Minimum Python version: 3.9.
 
 Optional dependencies are listed in `requirements.txt`. Without tree-sitter packages, use `scripts/ui_audit.py` as the fallback auditor.
+
+### Claude Code
+
+This repository is also packaged as a Claude Code plugin. The Claude-native manifest lives at `.claude-plugin/plugin.json`, and the Claude skill wrapper lives at `skills/kinetic-ui-ux-pro/SKILL.md`.
+
+For local validation:
+
+```bash
+claude plugin validate . --strict
+```
+
+For local development install, clone this repository into Claude's skills directory:
+
+```bash
+mkdir -p ~/.claude/skills
+git clone https://github.com/mSolstice/Kinetic-UI-UX-Pro.git ~/.claude/skills/kinetic-ui-ux-pro
+claude plugin validate ~/.claude/skills/kinetic-ui-ux-pro --strict
+```
+
+Restart Claude Code or run `/reload-plugins`, then invoke the plugin skill as `kinetic-ui-ux-pro@skills-dir`.
 
 ## Four-Phase Workflow
 
